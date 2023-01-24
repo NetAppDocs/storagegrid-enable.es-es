@@ -1,0 +1,17 @@
+---
+section: third-party
+title: Soluciones de terceros validadas
+entries:
+- title: Descripción general
+  pdf-filename: 'Soluciones de terceros validadas: Información general'
+  url: "/third-party/index.html"
+- title: StorageGRID 11.6
+  url: "/third-party/116-3rd-party-list.html"
+- title: StorageGRID 11.5
+  url: "/third-party/115-3rd-party-list.html"
+- title: StorageGRID 11.4
+  url: "/third-party/114-3rd-party-list.html"
+- title: StorageGRID 11.3
+  url: "/third-party/113-3rd-party-list.html"
+- title: StorageGRID 11.2
+  url: "/third-party/112-3rd-party-list.html"

@@ -1,0 +1,89 @@
+---
+permalink: tools-apps-guides/use-S3cmd-test-demonstrate-S3-access.html 
+sidebar: sidebar 
+keywords: cli, aws, S3, s3cmd, api 
+summary: S3cmd es una herramienta de línea de comandos gratuita y un cliente para las operaciones S3. Puede usar S3cmd para probar y demostrar el acceso s3 en StorageGRID. 
+---
+= Use S3cmd para probar y demostrar el acceso S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+S3cmd es una herramienta de línea de comandos gratuita y un cliente para las operaciones S3. Puede usar s3cmd para probar y demostrar el acceso s3 en StorageGRID.
+
+
+
+== Instale y configure S3cmd
+
+Para instalar S3cmd en una estación de trabajo o servidor, descárguelo desde https://s3tools.org/s3cmd["Línea de comandos del cliente S3"^]. S3cmd está preinstalado en cada nodo StorageGRID como herramienta que ayuda a resolver problemas.
+
+
+
+== Pasos de configuración inicial
+
+. s3cmd --configure
+. Proporcione solo access_key y Secret_Key, para que el resto conserve los valores predeterminados.
+. ¿Probar el acceso con las credenciales proporcionadas? [Y/n]: n (omitir la prueba ya que fallará)
+. ¿Desea guardar la configuración? [S/N] y.
++
+.. Configuración guardada en '/root/.s3cfg'
+
+
+. En .s3cfg, haga que los campos host_base y host_bucket estén vacíos después del signo "=" :
++
+.. host_base =
+.. host_bucket =
+
+
+
+
+[]
+====
+
+NOTE: Si especifica host_base y host_bucket en el paso 4, no es necesario especificar un extremo con --host en la CLI. Ejemplo:
+
+....
+            host_base = 192.168.1.91:8082
+            host_bucket = bucketX.192.168.1.91:8082
+            s3cmd ls s3://bucketX --no-check-certificate
+....
+====
+
+
+== Ejemplos de comandos básicos
+
+* * Crear un cubo:*
++
+`s3cmd mb s3://s3cmdbucket --host=<endpoint>:<port> --no-check-certificate`
+
+* *Lista todos los cucharones:*
++
+`s3cmd ls  --host=<endpoint>:<port> --no-check-certificate`
+
+* *Lista todos los cucharones y su contenido:*
++
+`s3cmd la --host=<endpoint>:<port> --no-check-certificate`
+
+* *Lista objetos en un cubo específico:*
++
+`s3cmd ls s3://<bucket> --host=<endpoint>:<port> --no-check-certificate`
+
+* *Eliminar un cucharón:*
++
+`s3cmd rb s3://s3cmdbucket --host=<endpoint>:<port> --no-check-certificate`
+
+* * Poner un objeto:*
++
+`s3cmd put <file> s3://<bucket>  --host=<endpoint>:<port> --no-check-certificate`
+
+* *Obtener un objeto:*
++
+`s3cmd get s3://<bucket>/<object> <file> --host=<endpoint>:<port> --no-check-certificate`
+
+* *Eliminar un objeto:*
++
+`s3cmd del s3://<bucket>/<object> --host=<endpoint>:<port> --no-check-certificate`
+
+

@@ -1,0 +1,82 @@
+---
+permalink: third-party/116-3rd-party-list.html 
+sidebar: sidebar 
+keywords: 11.6, third-party applications, storagegrid, ISV 
+summary: Soluciones de terceros validadas para StorageGRID 11.6 
+---
+= Soluciones de terceros validadas de StorageGRID 11.6
+:allow-uri-read: 
+
+
+[role="lead"]
+Las siguientes soluciones de terceros han sido validadas para su uso con StorageGRID 11.6. + Si la solución que busca no está en esta lista, póngase en contacto con su representante de cuenta de NetApp.
+
+
+
+== Soluciones de terceros validadas en StorageGRID
+
+Estas soluciones se han probado en colaboración con los partners correspondientes.
+
+* Con razón
+* Apache Kafka
+* Cantemo
+* Colaboración de contenidos Citrix
+* CommVault 11
+* CTERA Portal 6
+* Dalet
+* Dinámicas de datos StorageX
+* DefendX
+* Datos de Diskover
+* Dremio
+* Imán
+* Archivo de objetos de Fujifilm
+* Servidor empresarial de GitHub
+* IBM Filenet
+* IBM Spectrum Protect Plus
+* Interica
+* Komprise
+* Clústeres de Big Data de Microsoft SQL Server
+* Modelo 9
+* Modzy
+* Moonwalk Universal
+* MUY BIEN
+* Nasuní
+* OpenText Documentum 16.4
+* OpenText Documentum 21.4
+* Archivo informativo de OpenText 16 EP7
+* OpenText Media Management 16.5 con CyanGate Cloud
+* Panzura
+* PixitMedia ngenera
+* Puerta de enlace de archivado de punto 2.0
+* Point Storage Manager 6.4
+* Primestream
+* StorNext cuántico 5.4.0.1
+* Reveille v10, versión 220706 o superior
+* Rubrik CDM 5.0.1 p1-1342
+* Signiant
+* Copo de nieve
+* Smartstore de Splunk
+* Almacenamiento simplificado
+* Empresa de barniz 6.0.4
+* Veeam 11
+* Veritas Enterprise Vault 14
+* Veritas NetBackup 8.0
+* Vertica 10.x
+* Vidispine
+* Tejido de almacenamiento de Virtalica
+* Weka v3.10 o posterior
+
+
+
+
+== Soluciones de terceros validadas en StorageGRID con bloqueo de objetos
+
+Estas soluciones se han probado en colaboración con los partners correspondientes.
+
+* CommVault 11 Feature Release 26
+* IBM Filenet
+* OpenText Documentum 21.4
+* Veeam 11
+* Veritas Enterprise Vault 14.2.2
+* Veritas NetBackup 10.1.1 y posterior
+

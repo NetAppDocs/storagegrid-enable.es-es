@@ -1,0 +1,48 @@
+---
+permalink: third-party/113-3rd-party-list.html 
+sidebar: sidebar 
+keywords: 11.3, third-party applications, storagegrid,ISV 
+summary: Soluciones de terceros validadas para StorageGRID 11.3 
+---
+= Soluciones de terceros validadas de StorageGRID 11.3
+:allow-uri-read: 
+
+
+[role="lead"]
+Las siguientes soluciones de terceros han sido validadas para su uso con StorageGRID 11.3. + Si la solución que busca no está en esta lista, póngase en contacto con su representante de cuenta de NetApp.
+
+
+
+== Soluciones de terceros validadas en StorageGRID
+
+Estas soluciones se han probado en colaboración con los partners correspondientes.
+
+* Con razón
+* Cantemo
+* Colaboración de contenidos Citrix
+* CommVault 11
+* CTERA Portal 6
+* Dalet
+* Dinámicas de datos StorageX
+* DefendX
+* Interica
+* Komprise
+* MUY BIEN
+* Nasuní
+* OpenText Documentum 16.4
+* OpenText Media Management 16.5 con CyanGate Cloud
+* Panzura
+* Puerta de enlace de archivado de punto 2.0
+* Point Storage Manager 6.4
+* Primestream
+* StorNext cuántico 5.4.0.1
+* Rubrik CDM 5.0.1 p1-1342
+* Signiant
+* Smartstore de Splunk
+* Empresa de barniz 6.0.4
+* Veeam 9.5.4
+* Veritas Enterprise Vault 11
+* Veritas Enterprise Vault 12
+* Veritas NetBackup 8.0
+* Vidispine
+

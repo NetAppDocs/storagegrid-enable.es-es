@@ -1,0 +1,8 @@
+---
+section: examples
+title: Procedimientos y ejemplos de API
+entries:
+- title: Pruebe y muestre el cifrado S3
+  url: "/examples/test-demonstrate-S3-encryption.html"
+- title: Pruebe y muestre el bloqueo de objetos de S3
+  url: "/examples/test-demonstrate-S3-object-lock.html"

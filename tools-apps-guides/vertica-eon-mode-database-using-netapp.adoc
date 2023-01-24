@@ -1,0 +1,716 @@
+---
+permalink: tools-apps-guides/vertica-eon-mode-database-using-netapp-storageGRID.html 
+sidebar: sidebar 
+keywords: Vertica Eon Mode database 
+summary: En esta guía se describe el procedimiento para crear una base de datos de Vertica Eon Mode con almacenamiento compartido en StorageGRID de NetApp. 
+---
+= Vertica Eon mode Database utilizando NetApp StorageGRID como almacenamiento comunitario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En esta guía se describe el procedimiento para crear una base de datos de Vertica Eon Mode con almacenamiento compartido en StorageGRID de NetApp.
+
+
+
+== Introducción
+
+Vertica es un software de gestión de bases de datos analíticas. Se trata de una plataforma de almacenamiento en columnas diseñada para gestionar grandes volúmenes de datos, lo que permite un rendimiento de consultas muy rápido en una situación tradicionalmente intensiva. Una base de datos Vertica se ejecuta en uno de los dos modos: Eon o Enterprise. Puede poner en marcha ambos modos en las instalaciones o en el cloud.
+
+Los modos Eon y Enterprise difieren principalmente en el lugar en el que almacenan datos:
+
+* Las bases de datos de modo Eon utilizan almacenamiento común para sus datos. Esto es recomendado por Vertica.
+* Las bases de datos de Enterprise Mode almacenan los datos localmente en el sistema de archivos de nodos que componen la base de datos.
+
+
+
+
+=== Arquitectura de modo Eon
+
+Eon Mode separa los recursos computacionales de la capa de almacenamiento comunal de la base de datos, que permite que la computación y el almacenamiento se escalen por separado. Vertica en modo Eon está optimizada para trabajar con cargas de trabajo variables y aislarlas entre sí mediante el uso de recursos informáticos y de almacenamiento independientes.
+
+Eon Mode almacena datos en un almacén de objetos compartidos denominado almacenamiento comunitario, un bucket de S3, que está alojado en las instalaciones o en Amazon S3.
+
+image::../media/vertica-eon/sg-vertica-eon-mode-cluster-with-communal-storage.png[Cluster Vertica Eon Mode con almacenamiento comunitario]
+
+
+
+=== Almacenamiento comunitario
+
+En lugar de almacenar datos localmente, Eon Mode utiliza una única ubicación de almacenamiento comunal para todos los datos y el catálogo (metadatos). El almacenamiento comunitario es la ubicación de almacenamiento centralizada de la base de datos, compartida entre los nodos de la base de datos.
+
+El almacenamiento comunitario tiene las siguientes propiedades:
+
+* El almacenamiento común en el cloud o el almacenamiento de objetos en las instalaciones es más resiliente y menos susceptible a la pérdida de datos debido a fallos del almacenamiento que el almacenamiento en disco en máquinas individuales.
+* Cualquier dato puede ser leído por cualquier nodo con la misma ruta.
+* La capacidad no está limitada por el espacio en disco de los nodos.
+* Debido a que los datos se almacenan de una manera comunitaria, puede ampliar el clúster con flexibilidad para satisfacer las demandas cambiantes. Si los datos estuvieran almacenados localmente en los nodos, añadir o quitar nodos requeriría mover cantidades considerables de datos entre nodos o bien fuera de los nodos que se van a quitar o a los nodos recién creados.
+
+
+
+
+=== El almacén
+
+Un inconveniente del almacenamiento común es su velocidad. Tener acceso a los datos desde una ubicación en cloud compartida es más lento que leerlos desde el disco local. Asimismo, la conexión al almacenamiento comunitario puede convertirse en un cuello de botella si muchos nodos leen datos de él a la vez. Para aumentar la velocidad del acceso a los datos, los nodos de una base de datos de Eon Mode mantienen una caché de datos de disco local denominada almacén. Al ejecutar una consulta, los nodos comprueban en primer lugar si los datos que necesitan están en el almacén. Si es así, termina la consulta utilizando la copia local de los datos. Si los datos no están en el almacén, el nodo recupera los datos del almacenamiento comunitario y guarda una copia en el almacén.
+
+
+
+== Recomendaciones de StorageGRID de NetApp
+
+Vertica almacena datos de bases de datos en el almacenamiento de objetos como miles (o millones) de objetos comprimidos (el tamaño observado es de 200 a 500 MB por objeto. Cuando un usuario ejecuta consultas de base de datos, Vertica recupera el intervalo de datos seleccionado de estos objetos comprimidos en paralelo mediante la llamada GET del intervalo de bytes. Cada BYTE-range GET es aproximadamente de 8 KB.
+
+Durante la prueba de 10 TB del almacén de bases de datos fuera de las consultas de los usuarios, se enviaron a la cuadrícula entre 4,000 y 10,000 solicitudes GET (byte-range GET) por segundo. Cuando se ejecuta esta prueba con dispositivos SG6060, aunque el porcentaje de uso de CPU por nodo del dispositivo es bajo (entre el 20 % y el 30 %), 2/3 veces el tiempo de la CPU espera para I/O. Se observa un porcentaje muy pequeño (0% a 0.5%) de espera de E/S en el SGF6024.
+
+Debido a la alta demanda de IOPS pequeñas con requisitos de latencia muy bajos (la media debe ser inferior a 0.01 segundos), NetApp recomienda utilizar SFG6024 para los servicios de almacenamiento de objetos. Si el SG6060 se necesita para tamaños de base de datos muy grandes, el cliente debe trabajar con el equipo de cuentas de Vertica en el ajuste de tamaño del almacén para admitir el conjunto de datos que se consulta activamente.
+
+Para el nodo Admin y el nodo API Gateway, el cliente puede utilizar el SG100 o SG1000. La elección depende del número de solicitudes de consulta de los usuarios en paralelo y del tamaño de la base de datos. Si el cliente prefiere utilizar un equilibrador de carga de terceros, NetApp recomienda un equilibrador de carga dedicado para la carga de trabajo con demanda de alto rendimiento. Para obtener información sobre cómo ajustar el tamaño de StorageGRID, consulte al equipo de cuentas de NetApp.
+
+Otras recomendaciones de configuración de StorageGRID incluyen:
+
+* *Topología de cuadrícula*. No mezcle el SGF6024 con otros modelos de dispositivos de almacenamiento en el mismo sitio de la red. Si prefiere utilizar el SG6060 para la protección de archivado a largo plazo, mantenga el SGF6024 con un equilibrador de carga de grid dedicado en su propio sitio de grid (sitio físico o lógico) para una base de datos activa con el fin de mejorar el rendimiento. La mezcla de diferentes modelos de dispositivo en el mismo sitio reduce el rendimiento general in situ.
+* *Protección de datos*. Use copias replicadas para proteger. No utilice código de borrado para una base de datos activa. El cliente puede utilizar códigos de borrado para proteger bases de datos inactivas a largo plazo.
+* *No active la compresión de red*. Vertica comprime objetos antes de almacenarlos en almacenamiento de objetos. Habilitar la compresión de grid no ahorra aún más el uso del almacenamiento y reduce de forma significativa el rendimiento A nivel de byte.
+* *HTTP frente a HTTPS S3 Endpoint connection*. Durante las pruebas de prueba de rendimiento, observamos una mejora del rendimiento del 5% al utilizar una conexión HTTP S3 del clúster Vertica al extremo del equilibrador de carga de StorageGRID. Esta opción debe basarse en los requisitos de seguridad del cliente.
+
+
+Las recomendaciones para una configuración de Vertica incluyen:
+
+* *La configuración predeterminada del almacén de la base de datos Vertica está activada (valor = 1) para las operaciones de lectura y escritura*. NetApp recomienda mantener la configuración de estos almacenes habilitada para mejorar el rendimiento.
+* *Desactive las limitaciones de streaming*. Para obtener información detallada sobre la configuración, consulte la sección <<Streamlimitations,Desactivación de las limitaciones de la transmisión>>.
+
+
+
+
+== Instalación del modo Eon en las instalaciones con almacenamiento común en StorageGRID
+
+En las siguientes secciones se describe el procedimiento para instalar el modo Eon en las instalaciones con almacenamiento común en StorageGRID. El procedimiento para configurar un almacenamiento de objetos compatible con simple Storage Service (S3) en las instalaciones es similar al procedimiento descrito en la guía de Vertica, link:https://www.vertica.com/docs/10.1.x/HTML/Content/Authoring/InstallationGuide/EonOnPrem/InstallingEonOnPremiseWithMinio.htm?tocpath=Installing%20Vertica%7CInstalling%20Vertica%20For%20Eon%20Mode%20on-Premises%7C_____2["Instale una base de datos Eon Mode en las instalaciones"^].
+
+Para la prueba funcional se utilizó la siguiente configuración:
+
+* StorageGRID 11.4.0.4
+* Vertica 10.1.0
+* Tres máquinas virtuales (VM) con CentOS 7.x OS para nodos Vertica y formar un clúster. Esta configuración es sólo para la prueba funcional, no para el clúster de base de datos de producción Vertica.
+
+
+Estos tres nodos se configuran con una clave Secure Shell (SSH) para permitir a SSH sin una contraseña entre los nodos del clúster.
+
+
+
+=== Información necesaria de StorageGRID de NetApp
+
+Para instalar Eon Mode en las instalaciones con almacenamiento comunitario en StorageGRID, debe tener la siguiente información de requisitos previos.
+
+* La dirección IP o el nombre de dominio completo (FQDN) y el número de puerto del extremo de StorageGRID S3. Si utiliza HTTPS, utilice una entidad de certificación (CA) personalizada o un certificado SSL autofirmado implementado en el extremo de StorageGRID S3.
+* Nombre del bloque. Debe existir previamente y estar vacío.
+* El ID de clave de acceso y la clave de acceso secreta con acceso de lectura y escritura al bloque.
+
+
+
+
+=== Creación de un archivo de autorización para acceder al extremo de S3
+
+Los siguientes requisitos previos se aplican al crear un archivo de autorización para acceder al extremo de S3:
+
+* Vertica está instalada.
+* Un clúster está configurado, configurado y listo para la creación de bases de datos.
+
+
+Para crear un archivo de autorización para acceder al extremo de S3, siga estos pasos:
+
+. Inicie sesión en el nodo Vertica donde se ejecutará `admintools` Para crear la base de datos Eon Mode.
++
+El usuario predeterminado es `dbadmin`, Creado durante la instalación del clúster Vertica.
+
+. Utilice un editor de texto para crear un archivo en la `/home/dbadmin` directorio. El nombre del archivo puede ser cualquier cosa que desee, por ejemplo, `sg_auth.conf`.
+. Si el extremo de S3 utiliza un puerto HTTP 80 o un puerto HTTPS 443 estándar, omita el número del puerto. Para utilizar HTTPS, configure los siguientes valores:
++
+** `awsenablehttps = 1`, de lo contrario, establezca el valor en `0`.
+** `awsauth = <s3 access key ID>:<secret access key>`
+** `awsendpoint = <StorageGRID s3 endpoint>:<port>`
++
+Para usar una CA personalizada o un certificado SSL autofirmado para la conexión HTTPS de extremo StorageGRID S3, especifique la ruta de archivo completa y el nombre de archivo del certificado. Este archivo debe estar en la misma ubicación de cada nodo Vertica y tener permiso de lectura para todos los usuarios. Omita este paso si la CA conocida públicamente firma del certificado SSL de extremo de StorageGRID S3.
+
++
+`− awscafile = <filepath/filename>`
+
++
+Por ejemplo, consulte el siguiente archivo de ejemplo:
+
++
+[listing]
+----
+awsauth = MNVU4OYFAY2xyz123:03vuO4M4KmdfwffT8nqnBmnMVTr78Gu9wANabcxyz
+awsendpoint = s3.england.connectlab.io:10443
+awsenablehttps = 1
+awscafile = /etc/custom-cert/grid.pem
+----
++
+
+NOTE: En un entorno de producción, el cliente debe implementar un certificado de servidor firmado por una CA conocida públicamente en un extremo de equilibrador de carga de StorageGRID S3.
+
+
+
+
+
+
+
+=== Elegir una ruta de almacén en todos los nodos de Vertica
+
+Seleccione o cree un directorio en cada nodo para la ruta de almacenamiento del almacén. El directorio que suministre para el parámetro de ruta de almacenamiento del almacén debe tener lo siguiente:
+
+* La misma ruta en todos los nodos del clúster (por ejemplo, `/home/dbadmin/depot`)
+* El usuario dbadmin puede leer y escribir
+* Almacenamiento suficiente
++
+De forma predeterminada, Vertica utiliza el 60% del espacio del sistema de archivos que contiene el directorio para el almacenamiento del almacén. Puede limitar el tamaño del almacén mediante el `--depot-size` en el `create_db` comando. Consulte link:https://www.vertica.com/blog/sizing-vertica-cluster-eon-mode-database/["Ajuste de tamaño del clúster Vertica para una base de datos en modo Eon"^] artículo para las pautas generales de ajuste de tamaño de Vertica o consulte con su gestor de cuentas de Vertica.
+
++
+La `admintools create_db` la herramienta intenta crear la ruta del almacén para usted si no existe.
+
+
+
+
+
+=== Creación de la base de datos Eon en las instalaciones
+
+Para crear la base de datos Eon en las instalaciones, siga estos pasos:
+
+. Para crear la base de datos, utilice `admintools create_db` herramienta.
++
+La siguiente lista proporciona una breve explicación de los argumentos utilizados en este ejemplo. Consulte el documento Vertica para obtener una explicación detallada de todos los argumentos necesarios y opcionales.
+
++
+** -x <path/filename of authorization file created in <<createauthorization,“Creación de un archivo de autorización para acceder al extremo de S3”>> >.
++
+Los detalles de autorización se almacenan dentro de la base de datos después de haber creado correctamente. Puede eliminar este archivo para evitar exponer la clave secreta de S3.
+
+** --comunal-almacenamiento-ubicación <s3://storagegrid bucketname>
+** -S <comma-separated list of Vertica nodes to be used for this database>
+** -d <name of database to be created>
+** -p <password to be set for this new database>. Por ejemplo, consulte el siguiente comando de ejemplo:
++
+[listing]
+----
+admintools -t create_db -x sg_auth.conf --communal-storage-location=s3://vertica --depot-path=/home/dbadmin/depot --shard-count=6 -s vertica-vm1,vertica-vm2,vertica-vm3 -d vmart -p '<password>'
+----
++
+La creación de una nueva base de datos tarda varios minutos en función del número de nodos de la base de datos. Al crear la base de datos por primera vez, se le solicitará que acepte el Contrato de licencia.
+
+
+
+
+
+Por ejemplo, consulte el siguiente archivo de autorización de ejemplo y. `create db` comando:
+
+[listing]
+----
+[dbadmin@vertica-vm1 ~]$ cat sg_auth.conf
+awsauth = MNVU4OYFAY2CPKVXVxxxx:03vuO4M4KmdfwffT8nqnBmnMVTr78Gu9wAN+xxxx
+awsendpoint = s3.england.connectlab.io:10445
+awsenablehttps = 1
+
+[dbadmin@vertica-vm1 ~]$ admintools -t create_db -x sg_auth.conf --communal-storage-location=s3://vertica --depot-path=/home/dbadmin/depot --shard-count=6 -s vertica-vm1,vertica-vm2,vertica-vm3 -d vmart -p 'xxxxxxxx'
+Default depot size in use
+Distributing changes to cluster.
+    Creating database vmart
+    Starting bootstrap node v_vmart_node0007 (10.45.74.19)
+    Starting nodes:
+        v_vmart_node0007 (10.45.74.19)
+    Starting Vertica on all nodes. Please wait, databases with a large catalog may take a while to initialize.
+    Node Status: v_vmart_node0007: (DOWN)
+    Node Status: v_vmart_node0007: (DOWN)
+    Node Status: v_vmart_node0007: (DOWN)
+    Node Status: v_vmart_node0007: (UP)
+    Creating database nodes
+    Creating node v_vmart_node0008 (host 10.45.74.29)
+    Creating node v_vmart_node0009 (host 10.45.74.39)
+    Generating new configuration information
+    Stopping single node db before adding additional nodes.
+    Database shutdown complete
+    Starting all nodes
+Start hosts = ['10.45.74.19', '10.45.74.29', '10.45.74.39']
+    Starting nodes:
+        v_vmart_node0007 (10.45.74.19)
+        v_vmart_node0008 (10.45.74.29)
+        v_vmart_node0009 (10.45.74.39)
+    Starting Vertica on all nodes. Please wait, databases with a large catalog may take a while to initialize.
+    Node Status: v_vmart_node0007: (DOWN) v_vmart_node0008: (DOWN) v_vmart_node0009: (DOWN)
+    Node Status: v_vmart_node0007: (DOWN) v_vmart_node0008: (DOWN) v_vmart_node0009: (DOWN)
+    Node Status: v_vmart_node0007: (DOWN) v_vmart_node0008: (DOWN) v_vmart_node0009: (DOWN)
+    Node Status: v_vmart_node0007: (DOWN) v_vmart_node0008: (DOWN) v_vmart_node0009: (DOWN)
+    Node Status: v_vmart_node0007: (UP) v_vmart_node0008: (UP) v_vmart_node0009: (UP)
+Creating depot locations for 3 nodes
+Communal storage detected: rebalancing shards
+
+Waiting for rebalance shards. We will wait for at most 36000 seconds.
+Installing AWS package
+    Success: package AWS installed
+Installing ComplexTypes package
+    Success: package ComplexTypes installed
+Installing MachineLearning package
+    Success: package MachineLearning installed
+Installing ParquetExport package
+    Success: package ParquetExport installed
+Installing VFunctions package
+    Success: package VFunctions installed
+Installing approximate package
+    Success: package approximate installed
+Installing flextable package
+    Success: package flextable installed
+Installing kafka package
+    Success: package kafka installed
+Installing logsearch package
+    Success: package logsearch installed
+Installing place package
+    Success: package place installed
+Installing txtindex package
+    Success: package txtindex installed
+Installing voltagesecure package
+    Success: package voltagesecure installed
+Syncing catalog on vmart with 2000 attempts.
+Database creation SQL tasks completed successfully. Database vmart created successfully.
+----
+[cols="1a,1a"]
+|===
+| Tamaño del objeto (byte) | Ruta completa de clave de bloque/objeto 
+
+
+ a| 
+`61`
+ a| 
+`s3://vertica/051/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a07/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a07_0_0.dfs`
+
+
+
+ a| 
+`145`
+ a| 
+`s3://vertica/2c4/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a3d/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a3d_0_0.dfs`
+
+
+
+ a| 
+`146`
+ a| 
+`s3://vertica/33c/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a1d/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a1d_0_0.dfs`
+
+
+
+ a| 
+`40`
+ a| 
+`s3://vertica/382/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a31/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a31_0_0.dfs`
+
+
+
+ a| 
+`145`
+ a| 
+`s3://vertica/42f/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a21/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a21_0_0.dfs`
+
+
+
+ a| 
+`34`
+ a| 
+`s3://vertica/472/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a25/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a25_0_0.dfs`
+
+
+
+ a| 
+`41`
+ a| 
+`s3://vertica/476/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a2d/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a2d_0_0.dfs`
+
+
+
+ a| 
+`61`
+ a| 
+`s3://vertica/52a/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a5d/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a5d_0_0.dfs`
+
+
+
+ a| 
+`131`
+ a| 
+`s3://vertica/5d2/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a19/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a19_0_0.dfs`
+
+
+
+ a| 
+`91`
+ a| 
+`s3://vertica/5f7/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a11/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a11_0_0.dfs`
+
+
+
+ a| 
+`118`
+ a| 
+`s3://vertica/82d/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a15/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a15_0_0.dfs`
+
+
+
+ a| 
+`115`
+ a| 
+`s3://vertica/9a2/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a61/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a61_0_0.dfs`
+
+
+
+ a| 
+`33`
+ a| 
+`s3://vertica/acd/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a29/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a29_0_0.dfs`
+
+
+
+ a| 
+`133`
+ a| 
+`s3://vertica/b98/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a4d/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a4d_0_0.dfs`
+
+
+
+ a| 
+`38`
+ a| 
+`s3://vertica/db3/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a49/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a49_0_0.dfs`
+
+
+
+ a| 
+`38`
+ a| 
+`s3://vertica/eba/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a59/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a59_0_0.dfs`
+
+
+
+ a| 
+`21521920`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000215e2/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000215e2.tar`
+
+
+
+ a| 
+`6865408`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021602/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021602.tar`
+
+
+
+ a| 
+`204217344`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021610/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021610.tar`
+
+
+
+ a| 
+`16109056`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000217e0/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000217e0.tar`
+
+
+
+ a| 
+`12853248`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021800/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021800.tar`
+
+
+
+ a| 
+`8937984`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a000000002187a/026d63ae9d4a33237bf0e2c2cf2a794a00a000000002187a.tar`
+
+
+
+ a| 
+`56260608`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000218b2/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000218b2.tar`
+
+
+
+ a| 
+`53947904`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000219ba/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000219ba.tar`
+
+
+
+ a| 
+`44932608`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000219de/026d63ae9d4a33237bf0e2c2cf2a794a00a00000000219de.tar`
+
+
+
+ a| 
+`256306688`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a6e/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021a6e.tar`
+
+
+
+ a| 
+`8062464`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021e34/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021e34.tar`
+
+
+
+ a| 
+`20024832`
+ a| 
+`s3://vertica/metadata/VMart/Libraries/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021e70/026d63ae9d4a33237bf0e2c2cf2a794a00a0000000021e70.tar`
+
+
+
+ a| 
+`10444`
+ a| 
+`s3://vertica/metadata/VMart/cluster_config.json`
+
+
+
+ a| 
+`823266`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c13_13/chkpt_1.cat.gz`
+
+
+
+ a| 
+`254`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c13_13/completed`
+
+
+
+ a| 
+`2958`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c2_2/chkpt_1.cat.gz`
+
+
+
+ a| 
+`231`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c2_2/completed`
+
+
+
+ a| 
+`822521`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c4_4/chkpt_1.cat.gz`
+
+
+
+ a| 
+`231`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c4_4/completed`
+
+
+
+ a| 
+`746513`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_14_g14.cat`
+
+
+
+ a| 
+`2596`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_3_g3.cat.gz`
+
+
+
+ a| 
+`821065`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_4_g4.cat.gz`
+
+
+
+ a| 
+`6440`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_5_g5.cat`
+
+
+
+ a| 
+`8518`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_8_g8.cat`
+
+
+
+ a| 
+`0`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0016/Catalog/859703b06a3456d95d0be28575a673/tiered_catalog.cat`
+
+
+
+ a| 
+`822922`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0017/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c14_7/chkpt_1.cat.gz`
+
+
+
+ a| 
+`232`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0017/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c14_7/completed`
+
+
+
+ a| 
+`822930`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0017/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_14_g7.cat.gz`
+
+
+
+ a| 
+`755033`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0017/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_15_g8.cat`
+
+
+
+ a| 
+`0`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0017/Catalog/859703b06a3456d95d0be28575a673/tiered_catalog.cat`
+
+
+
+ a| 
+`822922`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0018/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c14_7/chkpt_1.cat.gz`
+
+
+
+ a| 
+`232`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0018/Catalog/859703b06a3456d95d0be28575a673/Checkpoints/c14_7/completed`
+
+
+
+ a| 
+`822930`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0018/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_14_g7.cat.gz`
+
+
+
+ a| 
+`755033`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0018/Catalog/859703b06a3456d95d0be28575a673/Txnlogs/txn_15_g8.cat`
+
+
+
+ a| 
+`0`
+ a| 
+`s3://vertica/metadata/VMart/nodes/v_vmart_node0018/Catalog/859703b06a3456d95d0be28575a673/tiered_catalog.cat`
+
+|===
+
+
+=== Desactivación de las limitaciones de la transmisión
+
+Este procedimiento se basa en la guía de Vertica para otro almacenamiento de objetos en las instalaciones y debe ser aplicable a StorageGRID.
+
+. Después de crear la base de datos, desactive la `AWSStreamingConnectionPercentage` configuración del parámetro configurándolo como `0`. Esta configuración es innecesaria para una instalación local en modo Eon con almacenamiento común. Este parámetro de configuración controla el número de conexiones al almacén de objetos que Vertica utiliza para las lecturas en streaming. En un entorno cloud, esta configuración ayuda a evitar que la transmisión de datos del almacén de objetos utilice todos los identificadores de archivos disponibles. Deja algunos identificadores de archivos disponibles para otras operaciones de almacén de objetos. Debido a la baja latencia de los almacenes de objetos en las instalaciones, esta opción es innecesaria.
+. Utilice un `vsql` instrucción para actualizar el valor del parámetro. La contraseña es la contraseña de la base de datos que se establece en “creación de la base de datos Eon en las instalaciones”. Por ejemplo, consulte el siguiente resultado de muestra:
+
+
+[listing]
+----
+[dbadmin@vertica-vm1 ~]$ vsql
+Password:
+Welcome to vsql, the Vertica Analytic Database interactive terminal.
+Type:   \h or \? for help with vsql commands
+        \g or terminate with semicolon to execute query
+        \q to quit
+dbadmin=> ALTER DATABASE DEFAULT SET PARAMETER AWSStreamingConnectionPercentage = 0; ALTER DATABASE
+dbadmin=> \q
+----
+
+
+=== Verificación de la configuración del almacén
+
+La configuración predeterminada del almacén de la base de datos Vertica está habilitada (valor = 1) para las operaciones de lectura y escritura. NetApp recomienda mantener la configuración de estos almacenes habilitada para mejorar el rendimiento.
+
+[listing]
+----
+vsql -c 'show current all;' | grep -i UseDepot
+DATABASE | UseDepotForReads | 1
+DATABASE | UseDepotForWrites | 1
+----
+
+
+=== Carga de datos de muestra (opcional)
+
+Si esta base de datos se utiliza para realizar pruebas y se eliminará, puede cargar datos de ejemplo en esta base de datos para realizar pruebas. Vertica incluye un conjunto de datos de muestra, VMart, que se encuentra en `/opt/vertica/examples/VMart_Schema/` En cada nodo Vertica. Puede encontrar más información acerca de este conjunto de datos de ejemplo link:https://www.vertica.com/docs/10.1.x/HTML/Content/Authoring/GettingStartedGuide/IntroducingVMart/IntroducingVMart.htm?zoom_highlight=VMart["aquí"^].
+
+Siga estos pasos para cargar los datos de ejemplo:
+
+. Inicie sesión como dbadmin en uno de los nodos Vertica: cd /opt/vertica/examples/VMart_Schema/
+. Cargue los datos de ejemplo en la base de datos e introduzca la contraseña de la base de datos cuando se le solicite en los subpasos c y d:
++
+.. `cd /opt/vertica/examples/VMart_Schema`
+.. `./vmart_gen`
+.. `vsql < vmart_define_schema.sql`
+.. `vsql < vmart_load_data.sql`
+
+
+. Hay varias consultas SQL predefinidas, puede ejecutar algunas de ellas para confirmar que los datos de prueba se han cargado correctamente en la base de datos. Por ejemplo: `vsql < vmart_queries1.sql`
+
+
+
+
+== Dónde encontrar información adicional
+
+Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
+
+* link:https://docs.netapp.com/sgws-114/index.jsp["Documentación de producto de StorageGRID 11.4 de NetApp"^]
+* link:https://www.netapp.com/pdf.html?item=/media/7931-ds-3613.pdf["Especificaciones técnicas de StorageGRID"^]
+* link:https://www.vertica.com/documentation/vertica/10-1-x-documentation/["Documentación de producto de Vertica 10.1"^]
+
+
+
+
+== Historial de versiones
+
+[cols="1a,1a,2a"]
+|===
+| Versión | Fecha | Historial de versiones del documento 
+
+
+ a| 
+Versión 1.0
+ a| 
+Septiembre de 2021
+ a| 
+Versión inicial.
+
+|===

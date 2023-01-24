@@ -1,0 +1,187 @@
+---
+permalink: examples/test-demonstrate-S3-encryption.html 
+sidebar: sidebar 
+keywords: cli, aws, S3, encryption, SSE, SSE-C, SSE-S3, api 
+summary: StorageGRID y la API de S3 ofrecen varias formas diferentes de cifrar sus datos en reposo. 
+---
+= Pruebe y muestre opciones de cifrado de S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID y la API de S3 ofrecen varias formas diferentes de cifrar sus datos en reposo. Para obtener más información, consulte https://docs.netapp.com/us-en/storagegrid-116/admin/reviewing-storagegrid-encryption-methods.html["Consulte los métodos de cifrado de StorageGRID"^].
+
+En esta guía se mostrarán los métodos de cifrado de la API de S3.
+
+
+
+== Cifrado del servidor (SSE)
+
+SSE permite al cliente almacenar un objeto y cifrarlo con una clave única gestionada por StorageGRID. Cuando se solicita el objeto, la clave almacenada en StorageGRID descifra el objeto.
+
+
+
+=== Ejemplo de SSE
+
+* PONGA un objeto con SSE
++
+[source, console]
+----
+aws s3api put-object --bucket <bucket>  --key <file> --body "<file>" --server-side-encryption AES256 --endpoint-url https://s3.example.com
+----
+* DIRÍJASE al objeto para verificar el cifrado
++
+[source, console]
+----
+aws s3api head-object --bucket <bucket>  --key <file>   --endpoint-url https://s3.example.com
+----
++
+[listing]
+----
+{
+    "AcceptRanges": "bytes",
+    "LastModified": "2022-05-02T19:03:03+00:00",
+    "ContentLength": 47,
+    "ETag": "\"82e8bfb872e778a4687a26e6c0b36bc1\"",
+    "ContentType": "text/plain",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {}
+}
+----
+* OBTENGA el objeto
++
+[source, console]
+----
+aws s3api get-object --bucket <bucket>  --key <file> <file> --endpoint-url https://s3.example.com
+----
+
+
+
+
+== Cifrado del servidor con claves proporcionadas por el cliente (SSE-C)
+
+SSE permite al cliente almacenar un objeto y cifrarlo con una clave única proporcionada por el cliente con el objeto. Cuando se solicita el objeto, se debe proporcionar la misma clave para descifrar y devolver el objeto.
+
+
+
+=== Ejemplo de SSE-C.
+
+* Con fines de prueba o demostración, puede crear una clave de cifrado
++
+** Cree una clave de cifrado
++
+[source, console]
+----
+openssl enc -aes-128-cbc -pass pass:secret -P`
+----
++
+[listing]
+----
+salt=E9DBB6603C7B3D2A
+key=23832BAC16516152E560F933F261BF03
+iv =71E87C0F6EC3C45921C2754BA131A315
+----
+
+
+* Coloque un objeto con la clave generada
++
+[source, console]
+----
+aws s3api put-object --bucket <bucket> --key <file> --body "file" --sse-customer-algorithm AES256 --sse-customer-key 23832BAC16516152E560F933F261BF03 --endpoint-url https://s3.example.com
+----
+* Dirigir el objeto
++
+[source, console]
+----
+aws s3api head-object --bucket <bucket> --key <file> --sse-customer-algorithm AES256 --sse-customer-key 23832BAC16516152E560F933F261BF03 --endpoint-url https://s3.example.com
+----
++
+[listing]
+----
+            {
+                "AcceptRanges": "bytes",
+                "LastModified": "2022-05-02T19:20:02+00:00",
+                "ContentLength": 47,
+                "ETag": "\"f92ef20ab87e0e13951d9bee862e9f9a\"",
+                "ContentType": "binary/octet-stream",
+                "Metadata": {},
+                "SSECustomerAlgorithm": "AES256",
+                "SSECustomerKeyMD5": "rjGuMdjLpPV1eRuotNaPMQ=="
+            }
+----
+
+
+
+NOTE: Si no proporciona la clave de cifrado, recibirá un error "se ha producido un error (404) al llamar a la operación HeadObject: Not found"
+
+* Obtenga el objeto
++
+[source, console]
+----
+aws s3api get-object --bucket <bucket> --key <file> <file> --sse-customer-algorithm AES256 --sse-customer-key 23832BAC16516152E560F933F261BF03 --endpoint-url https://s3.example.com
+----
+
+
+
+NOTE: Si no proporciona la clave de cifrado, recibirá un error que indica que se ha producido un error (InvalidRequest) al llamar a la operación GetObject: El objeto se ha almacenado utilizando un formulario de cifrado del lado del servidor. Se deben proporcionar los parámetros correctos para recuperar el objeto."
+
+
+
+== Cifrado del servidor de bloques (SSE-S3)
+
+SSE-S3 permite al cliente definir un comportamiento de cifrado predeterminado para todos los objetos almacenados en un bloque. Los objetos se cifran con una clave única gestionada por StorageGRID. Cuando se solicita el objeto, éste se descifra mediante una clave almacenada en StorageGRID.
+
+
+
+=== Ejemplo de bloque SSE-S3
+
+* Crear un bloque nuevo y establecer una política de cifrado predeterminada
++
+** Crear nuevo bloque
++
+[source, console]
+----
+aws s3api create-bucket --bucket <bucket> --region us-east-1 --endpoint-url https://s3.example.com
+----
+** Put bucket Encryption
++
+[source, console]
+----
+aws s3api put-bucket-encryption --bucket <bucket> --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}' --endpoint-url https://s3.example.com
+----
+
+
+* Coloque un objeto en el bloque
++
+[source, console]
+----
+aws s3api put-object --bucket <bucket> --key <file> --body "file" --endpoint-url https://s3.example.com
+----
+* Dirigir el objeto
++
+[source, console]
+----
+aws s3api head-object --bucket <bucket> --key <file> --endpoint-url https://s3.example.com
+----
++
+[listing]
+----
+{
+"AcceptRanges": "bytes",
+"LastModified": "2022-05-02T20:16:23+00:00",
+"ContentLength": 47,
+"ETag": "\"82e8bfb872e778a4687a26e6c0b36bc1\"",
+"ContentType": "binary/octet-stream",
+"ServerSideEncryption": "AES256",
+"Metadata": {}
+}
+----
+* OBTENGA el objeto
++
+[source, console]
+----
+aws s3api get-object --bucket <bucket>  --key <file> <file> --endpoint-url https://s3.example.com
+----
+

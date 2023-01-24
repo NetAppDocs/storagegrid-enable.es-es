@@ -1,0 +1,222 @@
+---
+permalink: examples/test-demonstrate-S3-object-lock.html 
+sidebar: sidebar 
+keywords: cli, aws, S3, object lock, compliance, worm, api 
+summary: El bloqueo de objetos proporciona un modelo WORM para evitar que los objetos se eliminen o se sobrescriban. La implementación de StorageGRID de un bloqueo de objetos es un activo de valor empresarial que se evalúa para ayudar a cumplir los requisitos normativos, respalda la conservación legal y el modo de cumplimiento de normativas para la retención de objetos y las políticas de retención de bloques predeterminadas. 
+---
+= Pruebe y muestre el bloqueo de objetos de S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El bloqueo de objetos proporciona un modelo WORM para evitar que los objetos se eliminen o se sobrescriban. La implementación de StorageGRID de un bloqueo de objetos es un activo de valor empresarial que se evalúa para ayudar a cumplir los requisitos normativos, respalda la conservación legal y el modo de cumplimiento de normativas para la retención de objetos y las políticas de retención de bloques predeterminadas.
+
+En esta guía se demostrará la API de bloqueo de objetos S3.
+
+
+
+== Conservación legal
+
+* La retención legal de bloqueo de objetos es un estado de activación/desactivación simple aplicado a un objeto.
++
+[source, console]
+----
+aws s3api put-object-legal-hold --bucket <bucket> --key <file> --legal-hold Status=ON --endpoint-url https://s3.company.com
+----
+* Verifíquelo mediante una OPERACIÓN DE OBTENER.
++
+[source, console]
+----
+aws s3api get-object-legal-hold --bucket <bucket> --key <file> --endpoint-url https://s3.company.com
+----
++
+[listing]
+----
+{
+    "LegalHold": {
+        "Status": "ON"
+    }
+}
+----
+* Desactivar la conservación legal
++
+[source, console]
+----
+aws s3api put-object-legal-hold --bucket <bucket> --key <file> --legal-hold Status=OFF --endpoint-url https://s3.company.com
+----
+* Verifíquelo mediante una OPERACIÓN DE OBTENER.
++
+[source, console]
+----
+aws s3api get-object-legal-hold --bucket <bucket> --key <file> --endpoint-url https://s3.company.com
+----
++
+[listing]
+----
+{
+    "LegalHold": {
+        "Status": "OFF"
+    }
+}
+----
+
+
+
+
+== Modo de cumplimiento de normativas
+
+* La retención de objetos se realiza con una Marca de tiempo de retención hasta.
++
+[source, console]
+----
+aws s3api put-object-retention --bucket <bucket> --key <file> --retention '{"Mode":"COMPLIANCE", "RetainUntilDate": "2025-06-10T16:00:00"}' --endpoint-url https://s3.company.com
+----
+* Compruebe el estado de retención
++
+[source, console]
+----
+aws s3api get-object-retention --bucket <bucket> --key <file> --endpoint-url https://s3.company.com
++
+----
++
+[listing]
+----
+{
+    "Retention": {
+        "Mode": "COMPLIANCE",
+        "RetainUntilDate": "2025-06-10T16:00:00+00:00"
+    }
+}
+----
+
+
+
+
+== Retención predeterminada
+
+* Establezca el período de retención en días y años en lugar de una fecha de retención hasta definida con la api por objeto.
++
+[source, console]
+----
+aws s3api put-object-lock-configuration --bucket <bucket> --object-lock-configuration '{"ObjectLockEnabled": "Enabled", "Rule": { "DefaultRetention": { "Mode": "COMPLIANCE", "Days": 10 }}}' --endpoint-url https://s3.company.com
+----
+* Compruebe el estado de retención
++
+[source, console]
+----
+aws s3api get-object-lock-configuration --bucket <bucket> --endpoint-url https://s3.company.com
+----
++
+[listing]
+----
+{
+    "ObjectLockConfiguration": {
+        "ObjectLockEnabled": "Enabled",
+        "Rule": {
+            "DefaultRetention": {
+                "Mode": "COMPLIANCE",
+                "Days": 10
+            }
+        }
+    }
+}
+----
+* Coloque un objeto en el bloque
++
+[source, console]
+----
+aws s3api put-object --bucket <bucket> --key <file> --body "file" --endpoint-url https://s3.example.com
+----
+* La duración de retención establecida en el bloque se convierte en una Marca de tiempo de retención en el objeto.
++
+[source, console]
+----
+aws s3api get-object-retention --bucket <bucket> --key <file> --endpoint-url https://s3.company.com
+----
++
+[listing]
+----
+{
+    "Retention": {
+        "Mode": "COMPLIANCE",
+        "RetainUntilDate": "2022-03-02T15:22:47.202000+00:00"
+    }
+}
+----
+
+
+
+
+== Pruebe a eliminar un objeto con una retención definida
+
+El bloqueo de objetos se crea sobre el control de versiones. La retención se define en una versión del objeto. Si se intenta eliminar un objeto con una retención definida y no se especifica ninguna versión, se crea un marcador de borrado como la versión actual del objeto.
+
+* Elimine el objeto con la retención definida
++
+[source, console]
+----
+aws s3api delete-object --bucket <bucket> --key <file> --endpoint-url https://s3.example.com
+----
+* Enumere los objetos del bloque
++
+[source, console]
+----
+aws s3api list-objects --bucket <bucket> --endpoint-url https://s3.example.com
+----
++
+** Observe que el objeto no aparece en la lista.
+
+
+* Enumere las versiones para ver el marcador de borrado y la versión original bloqueada
++
+[source, console]
+----
+aws s3api list-object-versions --bucket <bucket> --prefix <file> --endpoint-url https://s3.example.com
+----
++
+[listing]
+----
+{
+    "Versions": [
+        {
+            "ETag": "\"82e8bfb872e778a4687a26e6c0b36bc1\"",
+            "Size": 47,
+            "StorageClass": "STANDARD",
+            "Key": "file.txt",
+            "VersionId": "RDVDMjYwMTQtQkNDQS0xMUVDLThGOEUtNjQ3NTAwQzAxQTk1",
+            "IsLatest": false,
+            "LastModified": "2022-04-15T14:46:29.734000+00:00",
+            "Owner": {
+                "DisplayName": "Tenant01",
+                "ID": "56622399308951294926"
+            }
+        }
+    ],
+    "DeleteMarkers": [
+        {
+            "Owner": {
+                "DisplayName": "Tenant01",
+                "ID": "56622399308951294926"
+            },
+            "Key": "file01.txt",
+            "VersionId": "QjVDQzgzOTAtQ0FGNi0xMUVDLThFMzgtQ0RGMjAwQjk0MjM1",
+            "IsLatest": true,
+            "LastModified": "2022-05-03T15:35:50.248000+00:00"
+        }
+    ]
+}
+----
+* Elimine la versión bloqueada del objeto
++
+[source, console]
+----
+aws s3api delete-object  --bucket <bucket> --key <file> --version-id "<VersionId>" --endpoint-url https://s3.example.com
+----
++
+[listing]
+----
+An error occurred (AccessDenied) when calling the DeleteObject operation: Access Denied
+----
+
