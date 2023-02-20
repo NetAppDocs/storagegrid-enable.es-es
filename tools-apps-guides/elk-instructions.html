@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head class="at-element-marker">
+  <title>Análisis de registros de StorageGRID mediante pila ELK</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Análisis de registros de StorageGRID mediante pila ELK" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/es-es/storagegrid-enable/tools-apps-guides/elk-instructions.html" />
+	<meta property="og:description" content="Con la función syslog Forward de StorageGRID 11.6, es posible configurar un servidor de syslog externo para recoger y analizar mensajes de registro de Storag..." />
+  <meta property="og:image" content="https://docs.netapp.com/es-es/storagegrid-enable/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Con la función syslog Forward de StorageGRID 11.6, es posible configurar un servidor de syslog externo para recoger y analizar mensajes de registro de Storag...">
+  <meta name="keywords" content=" ELK, log analytics, log analysis, StorageGRID troubleshooting"><!-- Icons -->
+  <link rel="icon" href="/es-es/storagegrid-enable/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/es-es/storagegrid-enable/css/netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/es-es/storagegrid-enable/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/es-es/storagegrid-enable/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <!-- Top level site integrations --><script>
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = consentId;
+      head.appendChild(onetrustScript);
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/es-es/storagegrid-enable/js/na-search.js'></script><script src='/es-es/storagegrid-enable/js/na-pagenav.js'></script><script src='/es-es/storagegrid-enable/js/na-utility.js'></script>
+  <script src='/es-es/storagegrid-enable/js/clouddocs.js'></script>
+  <script src='/es-es/storagegrid-enable/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/es-es/storagegrid-enable/js/toc.js'></script>
+  <script src='/es-es/storagegrid-enable/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+          $(".sidebar-nav-container").on("scroll", function() {
+            $.cookie("sidebarScroll", $(".sidebar-nav-container").scrollTop(), {
+              path    : "/es-es/storagegrid-enable"  
+            });
+          });
+          $(function() {
+            if ($.cookie("sidebarScroll")) {
+              $(".sidebar-nav-container").scrollTop($.cookie("sidebarScroll"));
+            }
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/es-es/storagegrid-enable/js/custom-dropdown.js'></script>
+  <script src='/es-es/storagegrid-enable/js/FileSaver.min.js'></script>
+  <script src='/es-es/storagegrid-enable/js/jszip-utils.min.js'></script>
+  <script src='/es-es/storagegrid-enable/js/jszip.min.js'></script>
+  <script src='/es-es/storagegrid-enable/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/storagegrid-enable/issues/new?body=Page%3A%20[Análisis de registros de StorageGRID mediante pila ELK](https://docs.netapp.com/es-es/storagegrid-enable/tools-apps-guides/elk-instructions.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/es-es/storagegrid-enable/images/discuss-sm.svg" alt="" class="github-icon" />Solicitar cambios en el documento</a><a target="_blank" href="https://github.com/NetAppDocs/storagegrid-enable/blob/main/tools-apps-guides/elk-instructions.adoc" class="page-nav-contribute-link" role="button"><img src="/es-es/storagegrid-enable/images/edit-sm.svg" alt="" class="github-icon" />Editar en GitHub</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/es-es/storagegrid-enable/images/article-sm.svg" alt="" class="github-icon" />Guía del colaborador</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">EN ESTA PÁGINA</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Producto y soluciones</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Asistencia y capacitación</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Comunidad</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Historias de clientes</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/company/contact-us/" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/es-es/storagegrid-enable/search.html"
+          data-type="widget" 
+          data-placeholder="Buscar documentación"
+          data-no-results-found="No se encontraron resultados para {query}"
+          data-did-you-mean="Buscar {suggestion}."
+          data-no-results-found-did-you-mean="No se encontraron resultados para {query}. ¿Quiso decir {suggestion}?"
+          data-results-found="{hitCount} resultados encontrados"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">Español</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/es-es/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">Español</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/de-de/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/fr-fr/storagegrid-enable/tools-apps-guides/elk-instructions.html" target="_self"><span translate="no" class="notranslate">Français</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/es-es/storagegrid-enable/images/collapse.png" alt="Contraer panel de navegación"></button>
+      <div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cómo habilitar StorageGRID"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/index.html">
+        Cómo habilitar StorageGRID
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Novedades"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/whats-new.html">
+        Novedades
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Soluciones de terceros validadas"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Soluciones de terceros validadas</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Soluciones de terceros validadas: Información general"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/third-party/index.html">
+        Descripción general
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID 11.6"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/third-party/116-3rd-party-list.html">
+        StorageGRID 11.6
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID 11.5"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/third-party/115-3rd-party-list.html">
+        StorageGRID 11.5
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID 11.4"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/third-party/114-3rd-party-list.html">
+        StorageGRID 11.4
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID 11.3"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/third-party/113-3rd-party-list.html">
+        StorageGRID 11.3
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID 11.2"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/third-party/112-3rd-party-list.html">
+        StorageGRID 11.2
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Guías de características de productos"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Guías de características de productos</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cree Cloud Storage Pool para AWS o Google Cloud"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/product-feature-guides/create-cloud-storage-pool-aws-google-cloud.html">
+        Cree Cloud Storage Pool para AWS o Google Cloud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cree Cloud Storage Pool para el almacenamiento de Azure Blob"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/product-feature-guides/create-cloud-storage-pool-azure-blob-storage.html">
+        Cree Cloud Storage Pool para el almacenamiento de Azure Blob
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilice un pool de almacenamiento en el cloud para el backup"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/product-feature-guides/use-a-cloud-storage-pool-for-backup.html">
+        Utilice un pool de almacenamiento en el cloud para el backup
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configure el servicio de integración de búsqueda"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/product-feature-guides/storagegrid-search-integration-service.html">
+        Configure el servicio de integración de búsqueda
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Guías de herramientas y aplicaciones"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Guías de herramientas y aplicaciones</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilice el conector Cloudera Hadoop S3A"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/tools-apps-guides/use-cloudera-hadoop-s3a-connector.html">
+        Utilice el conector Cloudera Hadoop S3A
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Use S3cmd para probar y demostrar el acceso a S3"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/tools-apps-guides/use-S3cmd-test-demonstrate-S3-access.html">
+        Use S3cmd para probar y demostrar el acceso a S3
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cree una base de datos Vertica Eon Mode con almacenamiento comunitario"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/tools-apps-guides/vertica-eon-mode-database-using-netapp-storageGRID.html">
+        Cree una base de datos Vertica Eon Mode con almacenamiento comunitario
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilice Elasticsearch, Logstash y Kibana para análisis de registros"
+      data-li-level="2#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/tools-apps-guides/elk-instructions.html">
+        Utilice Elasticsearch, Logstash y Kibana para análisis de registros
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilice Prometheus y Grafana para ampliar la retención de métricas"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/tools-apps-guides/federate-prometheus.html">
+        Utilice Prometheus y Grafana para ampliar la retención de métricas
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Procedimientos y ejemplos de API"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Procedimientos y ejemplos de API</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pruebe y muestre el cifrado S3"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/examples/test-demonstrate-S3-encryption.html">
+        Pruebe y muestre el cifrado S3
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pruebe y muestre el bloqueo de objetos de S3"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/examples/test-demonstrate-S3-object-lock.html">
+        Pruebe y muestre el bloqueo de objetos de S3
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentación de StorageGRID"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/es-es/storagegrid-enable/storagegrid-documentation.html">
+        Documentación de StorageGRID
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar li.active").parents('ul').css("display","block");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/es-es/storagegrid-enable/images/expand.png" alt="Expandir panel de navegación"></button>
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/es-es/storagegrid-enable/">How&nbsp;to&nbsp;enable&nbsp;StorageGRID&nbsp;in&nbsp;your&nbsp;environment</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> Se proporciona el idioma español mediante traducción automática para su comodidad. En caso de alguna inconsistencia, el inglés precede al español. </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Análisis de registros de StorageGRID mediante pila ELK</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2023-02-20 22:23:28 +0000">02/20/2023</time>
+    
+  
+
+<span>Colaboradores
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Con la función syslog Forward de StorageGRID 11.6, es posible configurar un servidor de syslog externo para recopilar y analizar mensajes de registro de StorageGRID. ELK (Elasticsearch, Logstash, Kibana) se ha convertido en una de las soluciones de análisis de registros más populares. Vea el <a href="https://www.netapp.tv/details/29396">"Análisis de registros de StorageGRID mediante vídeo ELK"</a> Para ver una configuración DE EJEMPLO DE ELK y cómo se puede utilizar para identificar y solucionar las solicitudes fallidas de S3. Este artículo proporciona archivos de ejemplo de configuración de Logstash, consultas de Kibana, gráficos y panel para ofrecerle un inicio rápido para la gestión de registros y análisis de StorageGRID.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="requisitos">Requisitos</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>StorageGRID 11.6.0.2 o superior</p>
+</li>
+<li>
+<p>ELK (Elasticsearch, Logstash y Kibana) 7.1x o superior instalado y en funcionamiento</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="archivos-de-ejemplo">Archivos de ejemplo</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../media/elk-config/elk7-sample.zip">"Descargue el paquete de archivos de ejemplo Logstash 7.x."</a> + <strong>md5 checksum</strong> 148c23d0021d9a4bb4a6c0287464deab + <strong>sha256 checksum</strong> f51ec9e2e3f842d5a7861566b167a561b4373b4e7bb3c8b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b5</p>
+</li>
+<li>
+<p><a href="../media/elk-config/elk8-sample.zip">"Descargue el paquete de archivos de ejemplo Logstash 8.x."</a> + <strong>md5 checksum</strong> e11bae3a662f87c310ef363d0fe06835 + <strong>sha256 checksum</strong> 5c670755742cfdfd5aa7a596ba087e0153a65bcaef3934afdb682f6cd1278d</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="suposición">Suposición</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Los lectores están familiarizados con la terminología y las operaciones de StorageGRID y ELK.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instrucción">Instrucción</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se proporcionan dos versiones de ejemplo debido a diferencias en los nombres definidos por patrones de gruñido. + por ejemplo, el patrón de grok SYSLOGBASE en el archivo de configuración Logstash define los nombres de campo de forma diferente dependiendo de la versión de Logstash instalada.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>match =&gt; {"message" =&gt; '&lt;%{POSINT:syslog_pri}&gt;%{SYSLOGBASE} %{GREEDYDATA:msg-details}'}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Muestra de Logstash 7.17</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../media/elk-config/logstash-7.17.fields-sample.png" alt="Muestra Logstash 7.17">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Muestra de Logstash 8.23</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../media/elk-config/logstash-8.x.fields-sample.png" alt="Muestra Logstash 8.23">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pasos*</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Descomprima el ejemplo proporcionado en función de la versión DE ELK instalada. + la carpeta de ejemplo incluye dos muestras de configuración de Logstash: + <strong>sglog-2-file.conf:</strong> este archivo de configuración envía mensajes de registro StorageGRID a un archivo en Logstash sin transformación de datos. Puede utilizar esta opción para confirmar que Logstash recibe mensajes de StorageGRID o para comprender los patrones de registro de StorageGRID. + <strong>sglog-2-es.conf:</strong> este archivo de configuración transforma los mensajes de registro StorageGRID utilizando varios patrones y filtros. Incluye ejemplos de sentencias DROP, que devuelven mensajes basados en patrones o filtros. La salida se envía a Elasticsearch para indizar. + Personalice el archivo de configuración seleccionado de acuerdo con la instrucción dentro del archivo.</p>
+</li>
+<li>
+<p>Pruebe el archivo de configuración personalizado:</p>
+<div class="listingblock">
+<div class="content">
+<pre>/usr/share/logstash/bin/logstash --config.test_and_exit -f &lt;config-file-path/file&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si la última línea devuelta es similar a la siguiente, el archivo de configuración no tiene errores de sintaxis:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[LogStash::Runner] runner - Using config.test_and_exit mode. Config Validation Result: OK. Exiting Logstash</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copie el archivo conf personalizado en la configuración del servidor Logstash: /Etc/logstash/conf.d + Si no ha habilitado config.reload.automatic en /etc/logstash/logstash.yml, reinicie el servicio Logstash. De lo contrario, espere a que transcurra el intervalo de recarga de la configuración.</p>
+<div class="listingblock">
+<div class="content">
+<pre> grep reload /etc/logstash/logstash.yml
+# Periodically check if the configuration has changed and reload the pipeline
+config.reload.automatic: true
+config.reload.interval: 5s</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Compruebe /var/log/logstash/logstash-plain.log y confirme que no hay errores al iniciar Logstash con el nuevo archivo de configuración.</p>
+</li>
+<li>
+<p>Confirme que el puerto TCP se ha iniciado y que está escuchando. + en este ejemplo, se utiliza el puerto TCP 5000.</p>
+<div class="listingblock">
+<div class="content">
+<pre>netstat -ntpa | grep 5000
+tcp6       0      0 :::5000                 :::*                    LISTEN      25744/java</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Desde la interfaz gráfica de usuario del administrador StorageGRID, configure el servidor de syslog externo para que envíe mensajes de registro a Logstash. Consulte la <a href="https://www.netapp.tv/details/29396">"vídeo de demostración"</a> para obtener más detalles.</p>
+</li>
+<li>
+<p>Debe configurar o deshabilitar el firewall en el servidor Logstash para permitir la conexión de nodos StorageGRID al puerto TCP definido.</p>
+</li>
+<li>
+<p>En la interfaz gráfica de usuario de Kibana, seleccione Management &#8594; Dev Tools. En la página Console, ejecute este comando GET para confirmar que se han creado nuevos índices en Elasticsearch.</p>
+<div class="listingblock">
+<div class="content">
+<pre>GET /_cat/indices/*?v=true&amp;s=index</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Desde la GUI de Kibana, cree un patrón de índice (ELK 7.x) o una vista de datos (ELK 8.x).</p>
+</li>
+<li>
+<p>En la GUI de Kibana, escriba "objetos afeitados" en el cuadro de búsqueda que se encuentra en el centro superior. + en la página objetos guardados, seleccione Importar. En Opciones de importación, seleccione "solicitar acción en conflicto"</p>
+<div class="imageblock">
+<div class="content">
+<img src="../media/elk-config/kibana-import-options.png" alt="Opciones de importación de Kibana">
+</div>
+</div>
+<div class="paragraph">
+<p>Importe eleLIMPORT &lt;version&gt;-QUERY-chart-sample.ndjson. + cuando se le solicite que resuelva el conflicto, seleccione el patrón de índice o la vista de datos que creó en el paso 8.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../media/elk-config/kibana-import-conflict.png" alt="Conflicto Kibana">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Se importan los siguientes objetos de Kibana: + <strong>Consulta</strong> + * audit-msg-s3rq-orlm + * mensajes relacionados con bycast log s3 + * advertencia de nivel de registro o superior + * evento de seguridad fallido + <strong>Gráfico</strong> + * las solicitudes s3 cuentan en función de bycast.log + * código de estado HTTP + * desglose de msg de auditoría por tipo + * respuesta media de s3 Tiempo + <strong>Panel</strong> + * panel de solicitudes S3 utilizando los gráficos anteriores.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ahora está listo para realizar el análisis de registros de StorageGRID con Kibana.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="recursos-adicionales">Recursos adicionales</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://coralogix.com/blog/syslog-101-everything-you-need-to-know-to-get-started/">"syslog101"</a></p>
+</li>
+<li>
+<p><a href="https://www.elastic.co/what-is/elk-stack">"¿Qué es LA pila ELK"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/hpcugent/logstash-patterns/blob/master/files/grok-patterns">"Lista de patrones GROK"</a></p>
+</li>
+<li>
+<p><a href="https://logz.io/blog/logstash-grok/">"Guía para principiantes de Logstash: GROK"</a></p>
+</li>
+<li>
+<p><a href="https://coralogix.com/blog/a-practical-guide-to-logstash-syslog-deep-dive/">"Una guía práctica para Logstash: Syslog profundizar"</a></p>
+</li>
+<li>
+<p><a href="https://www.elastic.co/guide/en/kibana/master/document-explorer.html">"Guía de Kibana: Explorar el documento"</a></p>
+</li>
+<li>
+<p><a href="https://docs.netapp.com/us-en/storagegrid-116/audit/index.html">"Referencia de mensajes de registro de auditoría de StorageGRID"</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/copyright/">© 2023 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Términos y condiciones</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Política de privacidad</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Política de Cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Configuración de cookies</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a target="_self" href="javascript:netapp_mailto()">Enviar comentarios sobre esta página</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/es-es/storagegrid-enable/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/es-es/storagegrid-enable/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/es-es/storagegrid-enable/js/prism.js'></script>
+      <script type="text/javascript" src='/es-es/storagegrid-enable/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/es-es/storagegrid-enable/js/www-ntap.js'></script>
+    <script src='/es-es/storagegrid-enable/js/tabbed-blocks.js'></script>
+    <script src='/es-es/storagegrid-enable/js/sidebar.js'></script>
+  </body></html>
