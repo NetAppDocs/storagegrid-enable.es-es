@@ -1,0 +1,121 @@
+---
+permalink: tools-apps-guides/use-datadog-snmp.html 
+sidebar: sidebar 
+keywords: datadog, snmp 
+summary: Configurar Datadog HQ para recopilar métricas y capturas snmp de StorageGRID. 
+---
+= Configuración de SNMP de Datadog
+:allow-uri-read: 
+
+
+[role="lead"]
+Configurar Datadog para recopilar métricas y capturas snmp de StorageGRID.
+
+
+
+== Configurar Datadog
+
+Datadog es una solución de supervisión que ofrece métricas, visualizaciones y alertas. La siguiente configuración se implementó con el agente de linux versión 7.43.1 en un host de Ubuntu 22.04.1 implementado localmente en el sistema StorageGRID.
+
+
+
+=== Perfil de datos y archivos de captura generados a partir del archivo MIB de StorageGRID
+
+Datadog proporciona un método para convertir archivos MIB de producto en archivos de referencia de datadog necesarios para asignar los mensajes SNMP.
+
+Este archivo yaml de StorageGRID para la asignación de resolución de solapamiento de Datadog se generó siguiendo la instrucción encontrada https://docs.datadoghq.com/network_monitoring/devices/snmp_traps/?tab=yaml["aquí"^]. + Coloque este archivo en /etc/datadog-agent/conf.d/snmp.d/traps_dB/ +
+
+* link:../media/datadog/NETAPP-STORAGEGRID-MIB.yml["Descargue el archivo yaml de captura"] +
++
+** *md5 checksum* 42e274210719945a46172b98c379517 +
+** * sha256 checksum* d0fe5c8e6ca3c902d054f854b70a85f928cba8b7c76391d356f05d2cf73b6887 +
+
+
+
+
+Este archivo yaml de perfil de StorageGRID para la asignación de métricas de Datadog generada siguiendo la instrucción encontrada https://datadoghq.dev/integrations-core/tutorials/snmp/introduction/["aquí"^]. + Coloque este archivo en /etc/datatog-agent/conf.d/snmp.d/profiles/ +
+
+* link:../media/datadog/netapp-storagegrid.yaml["Descargue el archivo yaml de perfil"] +
++
+** * md5 checksum* 72bb7784f4801adda4e0c3ea77df19aa +
+** * sha256 checksum* b6b7fadd33063422a8bb8e39b3ead8ab38349ee0229926eadc85f0087b8cee +
+
+
+
+
+
+
+=== Configuración de Datadog de SNMP para Metrics
+
+La configuración de SNMP para métricas se puede administrar de dos maneras. Puede configurar para la detección automática proporcionando un rango de direcciones de red que contenga los sistemas StorageGRID o definiendo las IP de los dispositivos individuales. La ubicación de la configuración es diferente en función de la decisión tomada. La detección automática se define en el archivo yaml del agente datatog. Las definiciones de dispositivos explícitas se configuran en el archivo yaml de configuración de snmp. A continuación, se muestran ejemplos de cada uno para el mismo sistema StorageGRID.
+
+
+
+==== Detección automática
+
+configuración ubicada en /etc/datadir-agent/datadir.yaml
+
+[source, yaml]
+----
+listeners:
+  - name: snmp
+snmp_listener:
+  workers: 100  # number of workers used to discover devices concurrently
+  discovery_interval: 3600  # interval between each autodiscovery in seconds
+  loader: core  # use core check implementation of SNMP integration. recommended
+  use_device_id_as_hostname: true  # recommended
+  configs:
+    - network_address: 10.0.0.0/24  # CIDR subnet
+      snmp_version: 2
+      port: 161
+      community_string: 'st0r@gegrid'  # enclose with single quote
+      profile: netapp-storagegrid
+----
+
+
+==== Dispositivos individuales
+
+/etc/datatog-agent/conf.d/snmp.d/conf.yaml
+
+[source, yaml]
+----
+init_config:
+  loader: core  # use core check implementation of SNMP integration. recommended
+  use_device_id_as_hostname: true  # recommended
+instances:
+- ip_address: '10.0.0.1'
+  profile: netapp-storagegrid
+  community_string: 'st0r@gegrid'  # enclose with single quote
+- ip_address: '10.0.0.2'
+  profile: netapp-storagegrid
+  community_string: 'st0r@gegrid'
+- ip_address: '10.0.0.3'
+  profile: netapp-storagegrid
+ community_string: 'st0r@gegrid'
+- ip_address: '10.0.0.4'
+  profile: netapp-storagegrid
+  community_string: 'st0r@gegrid'
+----
+
+
+=== Configuración de SNMP para las capturas
+
+La configuración de los solapamientos SNMP se define en el archivo de configuración de datadir ylma /etc/datadir-agent/datadog.ylma
+
+[source, yaml]
+----
+network_devices:
+  namespace:  # optional, defaults to “default”.
+  snmp_traps:
+    enabled: true
+    port: 9162 # on which ports to listen for traps
+    community_strings: # which community strings to allow for v2 traps
+      - st0r@gegrid
+----
+
+
+=== Ejemplo de configuración de SNMP de StorageGRID
+
+El agente SNMP del sistema StorageGRID se encuentra en la pestaña Configuración, columna Supervisión. Habilite SNMP e introduzca la información que desee. Si desea configurar capturas, seleccione "Destinos de capturas" y cree un destino para el host del agente de datos que contenga la configuración de capturas.
+
+image::../media/datadog/sg_snmp_conf.png[Configuración de SNMP de StorageGRID]

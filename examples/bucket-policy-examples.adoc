@@ -1,0 +1,120 @@
+---
+permalink: examples/bucket-policy-examples.html 
+sidebar: sidebar 
+keywords: iam, bucket policy, group policy, policy 
+summary: 'A continuación se muestran ejemplos de políticas de bloques y políticas de grupo (políticas IAM).' 
+---
+= Ejemplo de políticas de bloque y grupo(IAM)
+:allow-uri-read: 
+
+
+[role="lead"]
+A continuación se muestran ejemplos de políticas de bloques y políticas de grupo (políticas IAM).
+
+
+
+== Políticas de grupo (IAM)
+
+
+
+=== Acceso a bloque de estilo de directorio de casa
+
+Esta política sólo permitirá a los usuarios acceder a los objetos del bloque denominado nombre de usuario del usuario.
+
+[source, json]
+----
+"Statement": [
+    {
+      "Sid": "AllowListBucketOfASpecificUserPrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::home",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": "${aws:username}/*"
+        }
+      }
+    },
+    {
+      "Sid": "AllowUserSpecificActionsOnlyInTheSpecificUserPrefix",
+      "Effect": "Allow",
+      "Action": "s3:*Object",
+      "Resource": "arn:aws:s3:::home/?/?/${aws:username}/*"
+    }
+
+  ]
+}
+----
+
+
+=== Denegar creación de bloque de bloqueo de objetos
+
+Esta política restringirá a los usuarios a crear un bloque con el bloqueo de objetos activado en el bloque.
+
+[NOTE]
+====
+Esta política no se aplica en la interfaz de usuario de StorageGRID, sino que solo se aplica mediante la API de S3.
+
+====
+[source, json]
+----
+{
+    "Statement": [
+        {
+            "Action": "s3:*",
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Action": [
+                "s3:PutBucketObjectLockConfiguration",
+                "s3:PutBucketVersioning"
+            ],
+            "Effect": "Deny",
+            "Resource": "arn:aws:s3:::*"
+        }
+    ]
+}
+----
+
+
+=== Restringir bloque a un solo usuario con acceso de sólo lectura
+
+Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloque y denys explícitamente acceso a todos los demás usuarios. La agrupación de las declaraciones denegadas en la parte superior de la directiva es una buena práctica para una evaluación más rápida.
+
+[source, json]
+----
+{
+    "Statement": [
+        {
+            "Sid": "Deny non user1",
+            "Effect": "Deny",
+            "NotPrincipal": {
+                "AWS": "urn:sgws:identity::34921514133002833665:user/user1"
+            },
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": [
+                "urn:sgws:s3:::bucket1",
+                "urn:sgws:s3:::bucket1/*"
+            ]
+        },
+        {
+            "Sid": "Allow user1 read access to bucket bucket1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "urn:sgws:identity::34921514133002833665:user/user1"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "urn:sgws:s3:::bucket1",
+                "urn:sgws:s3:::bucket1/*"
+            ]
+        }
+    ]
+}
+----
