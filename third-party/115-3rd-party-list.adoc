@@ -39,7 +39,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * Point Storage Manager 6.4
 * Primestream
 * StorNext cuántico 5.4.0.1
-* Rubrik CDM 5.0.1 p1-1342
+* Rubrik CDM
 * Signiant
 * Smartstore de Splunk
 * Empresa de barniz 6.0.4
