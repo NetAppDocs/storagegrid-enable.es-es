@@ -6,9 +6,9 @@ summary: StorageGRID y la API de S3 ofrecen varias formas diferentes de cifrar s
 ---
 = Pruebe y muestre opciones de cifrado de S3 en StorageGRID
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+_Aron Klein_
 
 [role="lead"]
 StorageGRID y la API de S3 ofrecen varias formas diferentes de cifrar sus datos en reposo. Para obtener más información, consulte https://docs.netapp.com/us-en/storagegrid-116/admin/reviewing-storagegrid-encryption-methods.html["Consulte los métodos de cifrado de StorageGRID"^].

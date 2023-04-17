@@ -6,9 +6,9 @@ summary: S3cmd es una herramienta de línea de comandos gratuita y un cliente pa
 ---
 = Use S3cmd para probar y demostrar el acceso S3 en StorageGRID
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+_Aron Klein_
 
 [role="lead"]
 S3cmd es una herramienta de línea de comandos gratuita y un cliente para las operaciones S3. Puede usar s3cmd para probar y demostrar el acceso s3 en StorageGRID.

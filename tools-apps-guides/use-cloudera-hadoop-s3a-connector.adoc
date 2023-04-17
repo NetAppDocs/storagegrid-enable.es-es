@@ -8,6 +8,8 @@ summary: Hadoop permite el procesamiento distribuido de grandes conjuntos de dat
 :allow-uri-read: 
 
 
+_Angela Cheng_
+
 [role="lead"]
 Hadoop lleva ya un tiempo siendo favorito del científico de datos. Hadoop permite el procesamiento distribuido de grandes conjuntos de datos a través de clusters de ordenadores utilizando marcos de programación simples. Hadoop se diseñó para escalar verticalmente de un solo servidor a miles de máquinas, mientras que cada máquina poseía almacenamiento e informática local.
 

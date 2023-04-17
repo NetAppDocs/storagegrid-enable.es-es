@@ -6,9 +6,9 @@ summary: En esta guía se describe el procedimiento para crear una base de datos
 ---
 = Vertica Eon mode Database utilizando NetApp StorageGRID como almacenamiento comunitario
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+_Angela Cheng_
 
 [role="lead"]
 En esta guía se describe el procedimiento para crear una base de datos de Vertica Eon Mode con almacenamiento compartido en StorageGRID de NetApp.

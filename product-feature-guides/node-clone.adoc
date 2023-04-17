@@ -6,9 +6,9 @@ summary: Prácticas recomendadas y rendimiento del clonado de nodos.
 ---
 = Clon de nodo
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+_Aron Klein_
 
 [role="lead"]
 Consideraciones y rendimiento del clon de nodos.

@@ -6,9 +6,9 @@ summary: Puede crear una regla de ILM para mover objetos a un pool de almacenami
 ---
 = Utilice un pool de almacenamiento en el cloud para el backup
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+_Jonathan Wong_
 
 [role="lead"]
 Puede crear una regla de ILM para mover objetos a un pool de almacenamiento en el cloud para backup.

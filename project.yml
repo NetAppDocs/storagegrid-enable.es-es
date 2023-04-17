@@ -68,6 +68,8 @@ homepage:
       url: "/tools-apps-guides/federate-prometheus.html"
     - title: Configurar Datadog para recopilar métricas y capturas snmp de StorageGRID
       url: "/tools-apps-guides/use-datadog-snmp.html"
+    - title: Utilice rclone para migrar, PONER y ELIMINAR objetos en StorageGRID
+      url: "/tools-apps-guides/use-rclone-migrate-delete.html"
   - title: Procedimientos y ejemplos de API
     links:
     - title: Pruebe y muestre el cifrado S3

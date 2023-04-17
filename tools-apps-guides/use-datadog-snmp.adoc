@@ -8,6 +8,8 @@ summary: Configurar Datadog HQ para recopilar métricas y capturas snmp de Stora
 :allow-uri-read: 
 
 
+_Aron Klein_
+
 [role="lead"]
 Configurar Datadog para recopilar métricas y capturas snmp de StorageGRID.
 

@@ -6,9 +6,9 @@ summary: 'Puede usar un pool de almacenamiento en cloud si desea mover objetos d
 ---
 = Cree Cloud Storage Pool para AWS o Google Cloud
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+_Jonathan Wong_
 
 [role="lead"]
 Puede usar un pool de almacenamiento en cloud si desea mover objetos de StorageGRID a un bloque de S3 externo. El bloque externo puede pertenecer a Amazon S3 (AWS) o Google Cloud.

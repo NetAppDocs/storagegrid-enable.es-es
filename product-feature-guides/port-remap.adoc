@@ -6,9 +6,9 @@ summary: Cómo utilizar el remap de puertos.
 ---
 = Cómo utilizar el remap de puertos
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
+
+_Aron Klein_
 
 [role="lead"]
 Es posible que tenga que reasignar un puerto entrante o saliente por varias razones. Puede que esté pasando del servicio de equilibrador de carga CLB heredado al extremo de equilibrador de carga de servicio nginx actual y mantener el mismo puerto para reducir el impacto en los clientes, que desee utilizar el puerto 443 para el cliente S3 en una red de cliente de nodo de administración o para restricciones de firewall.
