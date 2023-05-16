@@ -25,7 +25,7 @@ Datadog es una solución de supervisión que ofrece métricas, visualizaciones y
 
 Datadog proporciona un método para convertir archivos MIB de producto en archivos de referencia de datadog necesarios para asignar los mensajes SNMP.
 
-Este archivo yaml de StorageGRID para la asignación de resolución de solapamiento de Datadog se generó siguiendo la instrucción encontrada https://docs.datadoghq.com/network_monitoring/devices/snmp_traps/?tab=yaml["aquí"^]. + Coloque este archivo en /etc/datadog-agent/conf.d/snmp.d/traps_dB/ +
+Este archivo yaml de StorageGRID para la asignación de resolución de solapamiento de Datadog se generó siguiendo la instrucción encontrada https://["aquí"^]. + Coloque este archivo en /etc/datadog-agent/conf.d/snmp.d/traps_dB/ +
 
 * link:../media/datadog/NETAPP-STORAGEGRID-MIB.yml["Descargue el archivo yaml de captura"] +
 +
@@ -35,7 +35,7 @@ Este archivo yaml de StorageGRID para la asignación de resolución de solapamie
 
 
 
-Este archivo yaml de perfil de StorageGRID para la asignación de métricas de Datadog generada siguiendo la instrucción encontrada https://datadoghq.dev/integrations-core/tutorials/snmp/introduction/["aquí"^]. + Coloque este archivo en /etc/datatog-agent/conf.d/snmp.d/profiles/ +
+Este archivo yaml de perfil de StorageGRID para la asignación de métricas de Datadog generada siguiendo la instrucción encontrada https://["aquí"^]. + Coloque este archivo en /etc/datatog-agent/conf.d/snmp.d/profiles/ +
 
 * link:../media/datadog/netapp-storagegrid.yaml["Descargue el archivo yaml de perfil"] +
 +

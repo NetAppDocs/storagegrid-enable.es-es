@@ -11,7 +11,7 @@ summary: 'Con la función syslog Forward de StorageGRID 11.6, es posible configu
 _Angela Cheng_
 
 [role="lead"]
-Con la función syslog Forward de StorageGRID 11.6, es posible configurar un servidor de syslog externo para recopilar y analizar mensajes de registro de StorageGRID. ELK (Elasticsearch, Logstash, Kibana) se ha convertido en una de las soluciones de análisis de registros más populares. Vea el https://www.netapp.tv/details/29396["Análisis de registros de StorageGRID mediante vídeo ELK"] Para ver una configuración DE EJEMPLO DE ELK y cómo se puede utilizar para identificar y solucionar las solicitudes fallidas de S3. Este artículo proporciona archivos de ejemplo de configuración de Logstash, consultas de Kibana, gráficos y panel para ofrecerle un inicio rápido para la gestión de registros y análisis de StorageGRID.
+Con la función syslog Forward de StorageGRID 11.6, es posible configurar un servidor de syslog externo para recopilar y analizar mensajes de registro de StorageGRID. ELK (Elasticsearch, Logstash, Kibana) se ha convertido en una de las soluciones de análisis de registros más populares. Vea el https://["Análisis de registros de StorageGRID mediante vídeo ELK"] Para ver una configuración DE EJEMPLO DE ELK y cómo se puede utilizar para identificar y solucionar las solicitudes fallidas de S3. Este artículo proporciona archivos de ejemplo de configuración de Logstash, consultas de Kibana, gráficos y panel para ofrecerle un inicio rápido para la gestión de registros y análisis de StorageGRID.
 
 
 
@@ -87,7 +87,7 @@ config.reload.interval: 5s
 netstat -ntpa | grep 5000
 tcp6       0      0 :::5000                 :::*                    LISTEN      25744/java
 ----
-. Desde la interfaz gráfica de usuario del administrador StorageGRID, configure el servidor de syslog externo para que envíe mensajes de registro a Logstash. Consulte la https://www.netapp.tv/details/29396["vídeo de demostración"] para obtener más detalles.
+. Desde la interfaz gráfica de usuario del administrador StorageGRID, configure el servidor de syslog externo para que envíe mensajes de registro a Logstash. Consulte la https://["vídeo de demostración"] para obtener más detalles.
 . Debe configurar o deshabilitar el firewall en el servidor Logstash para permitir la conexión de nodos StorageGRID al puerto TCP definido.
 . En la interfaz gráfica de usuario de Kibana, seleccione Management -> Dev Tools. En la página Console, ejecute este comando GET para confirmar que se han creado nuevos índices en Elasticsearch.
 +
@@ -117,11 +117,11 @@ Ahora está listo para realizar el análisis de registros de StorageGRID con Kib
 
 == Recursos adicionales
 
-* https://coralogix.com/blog/syslog-101-everything-you-need-to-know-to-get-started/["syslog101"]
-* https://www.elastic.co/what-is/elk-stack["¿Qué es LA pila ELK"]
-* https://github.com/hpcugent/logstash-patterns/blob/master/files/grok-patterns["Lista de patrones GROK"]
-* https://logz.io/blog/logstash-grok/["Guía para principiantes de Logstash: GROK"]
-* https://coralogix.com/blog/a-practical-guide-to-logstash-syslog-deep-dive/["Una guía práctica para Logstash: Syslog profundizar"]
-* https://www.elastic.co/guide/en/kibana/master/document-explorer.html["Guía de Kibana: Explorar el documento"]
-* https://docs.netapp.com/us-en/storagegrid-116/audit/index.html["Referencia de mensajes de registro de auditoría de StorageGRID"]
+* https://["syslog101"]
+* https://["¿Qué es LA pila ELK"]
+* https://["Lista de patrones GROK"]
+* https://["Guía para principiantes de Logstash: GROK"]
+* https://["Una guía práctica para Logstash: Syslog profundizar"]
+* https://["Guía de Kibana: Explorar el documento"]
+* https://["Referencia de mensajes de registro de auditoría de StorageGRID"]
 
