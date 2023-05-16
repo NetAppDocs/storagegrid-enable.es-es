@@ -9,7 +9,7 @@ summary: Soluciones de terceros validadas para StorageGRID 11,7
 
 
 [role="lead"]
-Las siguientes soluciones de terceros han sido validadas para su uso con StorageGRID 11.6. + Si la solución que busca no está en esta lista, póngase en contacto con su representante de cuenta de NetApp.
+Las siguientes soluciones de terceros se han validado para el uso con StorageGRID 11,7. + Si la solución que busca no está en esta lista, póngase en contacto con su representante de cuenta de NetApp.
 
 
 
