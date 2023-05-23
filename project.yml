@@ -7,7 +7,7 @@ settings:
     pdf_enabled: false
     harmony_enabled: false
   search: storagegrid-116
-  langs: es-es,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,fr-fr
+  langs: es-es,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,fr-fr,it-it
 sidebar:
   entries:
   - title: Cómo habilitar StorageGRID

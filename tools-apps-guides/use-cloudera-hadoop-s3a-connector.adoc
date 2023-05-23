@@ -39,8 +39,8 @@ A partir de abril de 2022, se había probado Java 11.0.14 con Cloudera 7.1.7 fre
 
 === Instale el paquete Java
 
-. Compruebe la https://["Matriz de compatibilidad de Cloudera"^] Para la versión de JDK compatible.
-. Descargue el https://["Paquete Java 11.x."^] Que coincidan con el sistema operativo del clúster Cloudera. Copie este paquete en cada host del clúster. En este ejemplo, el paquete rpm se utiliza para CentOS.
+. Compruebe la https://docs.cloudera.com/cdp-private-cloud-upgrade/latest/release-guide/topics/cdpdc-java-requirements.html["Matriz de compatibilidad de Cloudera"^] Para la versión de JDK compatible.
+. Descargue el https://www.oracle.com/java/technologies/downloads/["Paquete Java 11.x."^] Que coincidan con el sistema operativo del clúster Cloudera. Copie este paquete en cada host del clúster. En este ejemplo, el paquete rpm se utiliza para CentOS.
 . Inicie sesión en cada host como raíz o utilice una cuenta con permiso sudo. Realice los siguientes pasos en cada host:
 +
 .. Instale el paquete:
