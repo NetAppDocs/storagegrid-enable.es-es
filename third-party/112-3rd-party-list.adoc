@@ -18,6 +18,7 @@ Las siguientes soluciones de terceros han sido validadas para su uso con Storage
 Estas soluciones se han probado en colaboración con los partners correspondientes.
 
 * Con razón
+* Bridgestor
 * Cantemo
 * Colaboración de contenidos Citrix
 * CommVault 11
@@ -45,4 +46,29 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * Veritas Enterprise Vault 12
 * Veritas NetBackup 8.0
 * Vidispine
+
+
+
+
+== Soluciones de terceros compatibles con StorageGRID
+
+Estas soluciones han sido probadas.
+
+* Software de archivado
+* Comunicaciones de Axis
+* Congruity360
+* Marcos de datos
+* Plataforma EcoDigital DIVA
+* Encoding.com
+* Archivo de objetos de Fujifilm
+* GE Centricity Enterprise Archive
+* Hyland Acuo
+* IBM Aspera
+* Sistemas Milestone
+* ONSSI
+* Motor REACH
+* SilverTrak
+* SoftNAS
+* QStar
+* Velasea
 
