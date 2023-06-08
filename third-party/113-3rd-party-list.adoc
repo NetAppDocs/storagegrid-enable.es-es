@@ -24,6 +24,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * CommVault 11
 * CTERA Portal 6
 * Dalet
+* Datadobi
 * Dinámicas de datos StorageX
 * DefendX
 * Interica
