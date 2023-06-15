@@ -995,9 +995,7 @@
   <block id="3f2327c90ede247dca9387ef500bf746" category="doc">Ejemplo de políticas de bloque y grupo(IAM)</block>
   <block id="640ca9533a2fd150e7d3ed390e2aae66" category="section-title">Políticas de grupo (IAM)</block>
   <block id="06c73db3763c74cabb8ece8e96fe7c5d" category="section-title">Acceso a bloque de estilo de directorio de casa</block>
-  <block id="0a86daa722ca043525363e55dce2f201" category="paragraph">Esta política sólo permitirá a los usuarios acceder a los objetos del bloque denominado nombre de usuario del usuario.</block>
   <block id="8569c05df75ec9b148a67ed5998ad8b0" category="section-title">Denegar creación de bloque de bloqueo de objetos</block>
-  <block id="9cea9229d238df9d490e17e9c09f43d4" category="paragraph">Esta política restringirá a los usuarios a crear un bloque con el bloqueo de objetos activado en el bloque.</block>
   <block id="01a232853896677ed5b2f61bbd35128f" category="paragraph">Esta política no se aplica en la interfaz de usuario de StorageGRID, sino que solo se aplica mediante la API de S3.</block>
   <block id="6d16e4029056ceaf0b44cac8903e3f2e" category="section-title">Restringir bloque a un solo usuario con acceso de sólo lectura</block>
   <block id="c49b1c74a2176733b070d19773700eb6" category="paragraph">Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloque y denys explícitamente acceso a todos los demás usuarios. La agrupación de las declaraciones denegadas en la parte superior de la directiva es una buena práctica para una evaluación más rápida.</block>
@@ -1134,4 +1132,11 @@
   <block id="29007b92e2b6688072358d8f25529d24" category="paragraph"><block ref="29007b92e2b6688072358d8f25529d24" category="inline-link-rx"></block></block>
   <block id="d31ba7e4c6f469a6c88f05aac3e0e91c" category="list-text">Datadobi</block>
   <block id="8727881150b0ace8b598a648cdfcd4e1" category="sidebar">StorageGRID de NetApp es una suite de almacenamiento de objetos definido por software que admite diferentes casos de uso en entornos de multinube pública, privada e híbrida. StorageGRID ofrece compatibilidad nativa con la API de Amazon S3 y proporciona innovaciones líderes en el sector, como la gestión automatizada del ciclo de vida, para almacenar, proteger y conservar datos no estructurados de forma rentable durante largos periodos.</block>
+  <block id="a88f9b6efeacfebaca582083cb9bd819" category="paragraph">Esta política de grupo sólo permitirá a los usuarios acceder a los objetos del depósito denominado nombre de usuario de los usuarios.</block>
+  <block id="a16b735f7d349dcc23b45a7a101460f3" category="paragraph">Esta política de grupo restringirá a los usuarios a crear un bloque con el bloqueo de objeto habilitado en el bloque.</block>
+  <block id="5ccd1d9b602b536952729ea6084688f1" category="section-title">Límite de retención de bloqueo de objetos</block>
+  <block id="e2fc2c3ef79779a5164b3961924241c1" category="paragraph">Esta política de depósito restringirá la duración de la retención de bloqueo de objetos a 10 días o menos</block>
+  <block id="578c6a63b7f6efe56f08f3f9c3c5a690" category="section-title">Restringir a los usuarios la supresión de objetos por versionID</block>
+  <block id="151d6c6a5174c6a3f739cdb8ec8d1ce5" category="paragraph">Esta política de grupo restringirá a los usuarios la supresión de objetos versionados por versionID</block>
+  <block id="d5c59b735ec0b06ade2e2d7c842dfe9e" category="paragraph">Esta política de depósito restringirá a un usuario (identificado por el ID de usuario «56622399308951294926») de eliminar objetos versionados por versionID</block>
 </blocks>

@@ -19,7 +19,7 @@ A continuación se muestran ejemplos de políticas de bloques y políticas de gr
 
 === Acceso a bloque de estilo de directorio de casa
 
-Esta política sólo permitirá a los usuarios acceder a los objetos del bloque denominado nombre de usuario del usuario.
+Esta política de grupo sólo permitirá a los usuarios acceder a los objetos del depósito denominado nombre de usuario de los usuarios.
 
 [source, json]
 ----
@@ -49,7 +49,7 @@ Esta política sólo permitirá a los usuarios acceder a los objetos del bloque 
 
 === Denegar creación de bloque de bloqueo de objetos
 
-Esta política restringirá a los usuarios a crear un bloque con el bloqueo de objetos activado en el bloque.
+Esta política de grupo restringirá a los usuarios a crear un bloque con el bloqueo de objeto habilitado en el bloque.
 
 [NOTE]
 ====
@@ -74,6 +74,91 @@ Esta política no se aplica en la interfaz de usuario de StorageGRID, sino que s
             "Resource": "arn:aws:s3:::*"
         }
     ]
+}
+----
+
+
+=== Límite de retención de bloqueo de objetos
+
+Esta política de depósito restringirá la duración de la retención de bloqueo de objetos a 10 días o menos
+
+[source, json]
+----
+{
+ "Version":"2012-10-17",
+ "Id":"CustSetRetentionLimits",
+ "Statement": [
+   {
+    "Sid":"CustSetRetentionPeriod",
+    "Effect":"Deny",
+    "Principal":"*",
+    "Action": [
+      "s3:PutObjectRetention"
+    ],
+    "Resource":"arn:aws:s3:::testlock-01/*",
+    "Condition": {
+      "NumericGreaterThan": {
+        "s3:object-lock-remaining-retention-days":"10"
+      }
+    }
+   }
+  ]
+}
+----
+
+
+=== Restringir a los usuarios la supresión de objetos por versionID
+
+Esta política de grupo restringirá a los usuarios la supresión de objetos versionados por versionID
+
+[source, json]
+----
+{
+    "Statement": [
+        {
+            "Action": [
+                "s3:DeleteObjectVersion"
+            ],
+            "Effect": "Deny",
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Action": "s3:*",
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::*"
+        }
+    ]
+}
+----
+Esta política de depósito restringirá a un usuario (identificado por el ID de usuario «56622399308951294926») de eliminar objetos versionados por versionID
+
+[source, json]
+----
+{
+  "Statement": [
+    {
+      "Action": [
+        "s3:DeleteObjectVersion"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::verdeny/*",
+      "Principal": {
+        "AWS": [
+          "56622399308951294926"
+        ]
+      }
+    },
+    {
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::verdeny/*",
+      "Principal": {
+        "AWS": [
+          "56622399308951294926"
+        ]
+      }
+    }
+  ]
 }
 ----
 
