@@ -18,6 +18,7 @@ Las siguientes soluciones de terceros han sido validadas para su uso con Storage
 Estas soluciones se han probado en colaboración con los partners correspondientes.
 
 * Con razón
+* Alluxio
 * Apache Kafka
 * Bridgestor
 * Cantemo
@@ -55,10 +56,12 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * StorNext cuántico 5.4.0.1
 * Reveille v10, versión 220706 o superior
 * Rubrik CDM
+* s3a
 * Signiant
 * Copo de nieve
 * Smartstore de Splunk
 * Almacenamiento simplificado
+* Trino
 * Empresa de barniz 6.0.4
 * Veeam 12
 * Veritas Enterprise Vault 14
