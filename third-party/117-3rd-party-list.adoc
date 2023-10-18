@@ -59,6 +59,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * s3a
 * Signiant
 * Copo de nieve
+* Spectra Logic en el glaciar local
 * Smartstore de Splunk
 * Almacenamiento simplificado
 * Trino
