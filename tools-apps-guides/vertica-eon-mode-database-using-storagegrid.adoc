@@ -692,7 +692,7 @@ Siga estos pasos para cargar los datos de ejemplo:
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
 
-* link:https://docs.netapp.com/sgws-114/index.jsp["Documentación de producto de StorageGRID 11.4 de NetApp"^]
+* link:https://docs.netapp.com/us-en/storagegrid-117/["Documentación de producto de NetApp StorageGRID 11,7"^]
 * link:https://www.netapp.com/pdf.html?item=/media/7931-ds-3613.pdf["Especificaciones técnicas de StorageGRID"^]
 * link:https://www.vertica.com/documentation/vertica/10-1-x-documentation/["Documentación de producto de Vertica 10.1"^]
 
