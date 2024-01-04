@@ -101,6 +101,7 @@ Estas soluciones han sido probadas.
 * Encoding.com
 * Archivo de objetos de Fujifilm
 * GE Centricity Enterprise Archive
+* Gitlab
 * Hyland Acuo
 * IBM Aspera
 * Sistemas Milestone
