@@ -203,3 +203,74 @@ Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloq
     ]
 }
 ----
+
+
+=== Restrinja un grupo a un único subdirectorio (prefijo) con acceso de solo lectura
+
+Esta política permite a los miembros del grupo tener acceso de solo lectura a un subdirectorio (prefijo) dentro de un bloque. El nombre del depósito es «study» y el subdirectorio es «study01».
+
+[source, json]
+----
+{
+    "Statement": [
+        {
+            "Sid": "AllowUserToSeeBucketListInTheConsole",
+            "Action": [
+                "s3:ListAllMyBuckets"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::*"
+            ]
+        },
+        {
+            "Sid": "AllowRootAndstudyListingOfBucket",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3::: study"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "s3:prefix": [
+                        "",
+                        "study01/"
+                    ],
+                    "s3:delimiter": [
+                        "/"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "AllowListingOfstudy01",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::study"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": [
+                        "study01/*"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "AllowAllS3ActionsInstudy01Folder",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Getobject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::study/study01/*"
+            ]
+        }
+    ]
+}
+----
