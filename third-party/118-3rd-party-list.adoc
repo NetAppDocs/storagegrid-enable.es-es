@@ -1,15 +1,16 @@
 ---
-permalink: third-party/117-3rd-party-list.html 
+permalink: third-party/118-3rd-party-list.html 
 sidebar: sidebar 
 keywords: 11.7, third-party applications, storagegrid, ISV 
-summary: Soluciones de terceros validadas para StorageGRID 11,7 
+summary: Soluciones de terceros validadas para StorageGRID 11,8 
 ---
-= Soluciones de terceros validadas con StorageGRID 11,7
+= Soluciones de terceros validadas con StorageGRID 11,8
 :allow-uri-read: 
 
 
 [role="lead"]
-Las siguientes soluciones de terceros se han validado para el uso con StorageGRID 11,7. + Si la solución que busca no está en esta lista, póngase en contacto con su representante de cuenta de NetApp.
+Las siguientes soluciones de terceros se han validado para el uso con StorageGRID 11,8. +
+Si la solución que busca no aparece en la lista, póngase en contacto con su representante de cuentas de NetApp.
 
 
 
