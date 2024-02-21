@@ -5,6 +5,7 @@ keywords:
 summary:  
 ---
 = Avisos legales
+:hardbreaks:
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/

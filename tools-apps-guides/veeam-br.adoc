@@ -5,10 +5,11 @@ keywords: veeam,backup,veeam12,veeam11,
 summary: Esta guía se centra en la configuración de NetApp StorageGRID y, en parte, de backups y replicación de Veeam. Este documento está dirigido a administradores de almacenamiento y redes que estén familiarizados con los sistemas Linux y que tengan la tarea de mantener o implementar un sistema NetApp StorageGRID en combinación con Veeam Backup and Replication. 
 ---
 = Prácticas recomendadas de StorageGRID para la puesta en marcha con Veeam Backup and Replication
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/veeam-bp/
 
-
-_Oliver Haensel y Aron Klein_
 
 [role="lead"]
 Esta guía se centra en la configuración de NetApp StorageGRID y, en parte, de backups y replicación de Veeam. Este documento está dirigido a administradores de almacenamiento y redes que estén familiarizados con los sistemas Linux y que tengan la tarea de mantener o implementar un sistema NetApp StorageGRID en combinación con Veeam Backup and Replication.
@@ -114,25 +115,25 @@ StorageGRID admite la replicación y el código de borrado para la protección a
 
 Asegúrese de que el bloqueo de objetos está activado en el sistema StorageGRID si es necesario inmutabilidad. Busque la opción en la interfaz de usuario de administración en Configuration/S3 Object Lock.
 
-image:veeam-bp/obj_lock_en.png["Bloqueo de objeto en toda la cuadrícula activado"]
+image::obj_lock_en.png[Bloqueo de objeto en toda la cuadrícula activado]
 
 Al crear el bucket, seleccione «Enable Object Lock» (Habilitar bloqueo de objetos S3) si este bucket se va a utilizar para backups de inmutabilidad. Esto habilitará automáticamente el control de versiones de bloques. Deje desactivada la retención predeterminada, ya que Veeam establecerá la retención de objetos de forma explícita. El control de versiones y el bloqueo de objetos S3 no se deben seleccionar si Veeam no está creando copias de seguridad inmutables.
 
-image:veeam-bp/obj_lock_bucket.png["Active Object Lock en el depósito"]
+image::obj_lock_bucket.png[Active Object Lock en el depósito]
 
 Una vez creado el bloque, vaya a la página de detalles del bloque creado. Seleccione el nivel de coherencia.
 
-image:veeam-bp/bucket_consist_1.png["Opciones de cucharón"]
+image::bucket_consist_1.png[Opciones de cucharón]
 
 Veeam requiere una gran coherencia para bloques de S3. Por lo tanto, para implementaciones de múltiples sitios con Veeam accediendo a los datos desde múltiples ubicaciones, seleccione “strong-global”. Si los backups y restauraciones de Veeam se producen en un solo sitio, el nivel de consistencia debe establecerse en «sitio fuerte». Guarde los cambios.
 
-image:veeam-bp/bucket_consist_2.png["Consistencia del cucharón"]
+image::bucket_consist_2.png[Consistencia del cucharón]
 
 StorageGRID ofrece un servicio de balanceo de carga integrado en cada nodo de administración y nodos de pasarela dedicados. Una de las muchas ventajas de usar este equilibrador de carga es la capacidad de configurar políticas de clasificación de tráfico (QoS). Aunque se utilizan principalmente para limitar el impacto de las aplicaciones en otras cargas de trabajo de clientes o priorizar una carga de trabajo sobre otras, también proporcionan una bonificación de la recopilación de métricas adicionales para ayudar a la supervisión.
 
 En la pestaña de configuración, seleccione “Clasificación de tráfico” y cree una nueva política. Asigne un nombre a la regla y seleccione el tipo de cubo o arrendatario. Introduzca los nombres de los cubos o arrendatarios. Si la QoS es necesaria, establece un límite, pero para la mayoría de las implementaciones, solo queremos agregar los beneficios de monitoreo que proporciona, así que no establezcas un límite.
 
-image:veeam-bp/tc_policy.png["Crear política de TC"]
+image::tc_policy.png[Crear política de TC]
 
 
 
@@ -140,15 +141,15 @@ image:veeam-bp/tc_policy.png["Crear política de TC"]
 
 En función del modelo y la cantidad de dispositivos StorageGRID, puede que sea necesario seleccionar y configurar un límite para el número de operaciones simultáneas en el bloque.
 
-image:veeam-bp/veeam_concur_limit.png["Límite de tareas simultáneas de Veeam"]
+image::veeam_concur_limit.png[Límite de tareas simultáneas de Veeam]
 
 Siga la documentación de Veeam sobre la configuración del trabajo de copia de seguridad en la consola de Veeam para iniciar el asistente. Después de agregar VM, seleccione el repositorio SOBR.
 
-image:veeam-bp/veeam_1.png["Trabajo de backup"]
+image::veeam_1.png[Trabajo de backup]
 
 Haga clic en Configuración avanzada y cambie la configuración de optimización de almacenamiento a 4 MB o más. Se activará la compresión y la deduplicación. Cambie la configuración de invitado según sus requisitos y configure la programación de trabajos de copia de seguridad.
 
-image:veeam-bp/veeam_blk_sz.png["Una captura de pantalla de una descripción de computadora generada automáticamente,width=320,height=375"]
+image::veeam_blk_sz.png[Una captura de pantalla de una descripción de computadora generada automáticamente,320,375]
 
 
 
@@ -159,25 +160,25 @@ Para obtener una visión completa del rendimiento que están teniendo Veeam y St
 StorageGRID proporciona gráficos prácticos para supervisar el funcionamiento del sistema ubicado en la página Métricas de la pestaña Soporte. Los paneles principales a ver serán la información general de S3, ILM y la normativa de clasificación de tráfico si se crea una normativa. En el panel de Descripción general de S3 encontrará información sobre las tasas de funcionamiento de S3, las latencias y las respuestas de las solicitudes.
 
 Si observa las tasas de S3 y las solicitudes activas, puede ver cuánta carga está manejando cada nodo y el número general de solicitudes por tipo.
-image:veeam-bp/s3_over_rates.png["S3 Descripción general de las tarifas"]
+Imagen::S3_over_rates.png[S3 Tasas de visión general]
 
 El gráfico Duración Media muestra el tiempo medio que cada nodo está tomando para cada tipo de solicitud. Esta es la latencia media de la solicitud y puede ser un buen indicador de que se puede requerir un ajuste adicional, o hay espacio para que el sistema StorageGRID asuma más carga.
 
-image:veeam-bp/s3_over_duration.png["S3 Duración de la visión general"]
+image::s3_over_duration.png[S3 Duración de la visión general]
 
 En el gráfico Total de Solicitudes Completadas, puede ver las solicitudes por tipo y códigos de respuesta. Si ve respuestas distintas de 200 (OK) para las respuestas, esto puede indicar un problema como que el sistema StorageGRID está recibiendo una carga elevada enviando respuestas 503 (Lento) y puede que sea necesario realizar algún ajuste adicional, o que haya llegado el momento de expandir el sistema para aumentar la carga.
 
-image:veeam-bp/s3_over_requests.png["S3 Solicitudes de visión general"]
+image::s3_over_requests.png[S3 Solicitudes de visión general]
 
 En la consola de gestión de la vida útil de la información, puede supervisar el rendimiento de eliminación del sistema StorageGRID. StorageGRID usa una combinación de eliminaciones síncronas y asíncronas en cada nodo a fin de intentar optimizar el rendimiento general de todas las solicitudes.
 
-image:veeam-bp/ilm_delete.png["ILM se elimina"]
+image::ilm_delete.png[ILM se elimina]
 
 Con una Política de clasificación de tráfico, podemos ver las métricas del rendimiento de la solicitud del equilibrador de carga, las tasas, la duración, así como los tamaños de los objetos que Veeam envía y recibe.
 
-image:veeam-bp/tc_1.png["Métricas de directivas de clasificación de tráfico"]
+image::tc_1.png[Métricas de directivas de clasificación de tráfico]
 
-image:veeam-bp/tc_2.png["Métricas de directivas de clasificación de tráfico"]
+image::tc_2.png[Métricas de directivas de clasificación de tráfico]
 
 
 
@@ -188,3 +189,5 @@ Si quiere más información sobre el contenido de este documento, consulte los s
 * link:https://docs.netapp.com/us-en/storagegrid-117/["Documentación de producto de NetApp StorageGRID 11,7"^]
 * link:https://www.veeam.com/documentation-guides-datasheets.html?productId=8&version=product%3A8%2F221["Veeam Backup and Replication"^]
 
+
+_Por Oliver Haensel y Aron Klein_

@@ -5,14 +5,10 @@ keywords: Dremio, StorageGRID, lakehouse, object storage, s3
 summary: Configurar el origen de datos de Dremio con StorageGRID 
 ---
 = Configurar el origen de datos de Dremio con StorageGRID
+:hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
-:firstname:  Angela
-:authorinitials:  C
-:lastname: Cheng 
-:author:  Angela Cheng 
-:authors:  Angela Cheng 
+:imagesdir: ../media/dremio/
 
 
 [role="lead"]
@@ -47,7 +43,7 @@ https://docs.dremio.com/current/sonar/data-sources/object/s3/["Conexión a Amazo
 Si utiliza el certificado de CA autofirmado para este punto final S3, siga las instrucciones de la guía de Dremio para agregar este certificado de CA al servidor <JAVA_HOME>/jre/lib/security + de Dremio
 *Captura de pantalla de ejemplo*
 +
-image::../media/dremio/dremio-add-source-general.png[Nueva fuente - General]
+image::dremio-add-source-general.png[Nueva fuente - General]
 
 . Haga clic en 'Opciones avanzadas', seleccione 'Activar modo de compatibilidad'
 . En Propiedades de conexión, haga clic en + Agregar propiedades y agregue estas S3A propiedades.
@@ -82,13 +78,15 @@ _<un valor mayor que 100>_
 *Captura de pantalla de ejemplo*
 
 +
-image::../media/dremio/dremio-add-source-advanced.png[Nuevo origen - Opciones avanzadas]
+image::dremio-add-source-advanced.png[Nuevo origen - Opciones avanzadas]
 
 . Configure otras opciones de Dremio según los requisitos de su organización o aplicación.
 . Haga clic en el botón Guardar para crear este nuevo origen de datos.
 . Una vez que el origen de datos StorageGRID se haya agregado correctamente, se mostrará una lista de cubos en el panel izquierdo. +
 *Captura de pantalla de ejemplo*
 +
-image::../media/dremio/dremio-source-added.png[Se ha añadido un nuevo origen de datos]
+image::dremio-source-added.png[Se ha añadido un nuevo origen de datos]
 
 
+
+_Por Angela Cheng_

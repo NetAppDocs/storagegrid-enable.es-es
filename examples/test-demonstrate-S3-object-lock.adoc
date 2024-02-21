@@ -5,10 +5,11 @@ keywords: cli, aws, S3, object lock, compliance, worm, api
 summary: El bloqueo de objetos proporciona un modelo WORM para evitar que los objetos se eliminen o se sobrescriban. La implementación de StorageGRID de un bloqueo de objetos es un activo de valor empresarial que se evalúa para ayudar a cumplir los requisitos normativos, respalda la conservación legal y el modo de cumplimiento de normativas para la retención de objetos y las políticas de retención de bloques predeterminadas. 
 ---
 = Pruebe y muestre el bloqueo de objetos de S3 en StorageGRID
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
-
-_Aron Klein_
 
 [role="lead"]
 El bloqueo de objetos proporciona un modelo WORM para evitar que los objetos se eliminen o se sobrescriban. La implementación de StorageGRID de un bloqueo de objetos es un activo de valor empresarial que se evalúa para ayudar a cumplir los requisitos normativos, respalda la conservación legal y el modo de cumplimiento de normativas para la retención de objetos y las políticas de retención de bloques predeterminadas.
@@ -220,3 +221,5 @@ aws s3api delete-object  --bucket <bucket> --key <file> --version-id "<VersionId
 An error occurred (AccessDenied) when calling the DeleteObject operation: Access Denied
 ----
 
+
+_Por Aron Klein_

@@ -5,10 +5,11 @@ keywords: Amazon OpenSearch Service, on-premises, Elasticsearch
 summary: En esta guía, se ofrecen instrucciones detalladas para configurar el servicio de integración de búsquedas de NetApp StorageGRID 11.6 con Amazon OpenSearch Service o Elasticsearch en las instalaciones. 
 ---
 = Configure el servicio de integración de búsqueda StorageGRID
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/storagegrid-search-integration-service/
 
-
-_Angela Cheng_
 
 [role="lead"]
 En esta guía, se ofrecen instrucciones detalladas para configurar el servicio de integración de búsquedas de NetApp StorageGRID 11.6 con Amazon OpenSearch Service o Elasticsearch en las instalaciones.
@@ -37,7 +38,7 @@ Las audiencias deben estar familiarizadas con Grid Manager y Tenant Manager y te
 . Cree un inquilino S3 mediante Grid Manager, introduzca un nombre para mostrar y seleccione el protocolo S3.
 . En la página permisos, seleccione la opción permitir servicios de plataforma. Opcionalmente, seleccione otros permisos, si es necesario.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-select-permissions.png[Seleccione la captura de pantalla de permisos]
+image::sg-sis-select-permissions.png[Seleccione la captura de pantalla de permisos]
 
 . Configure la contraseña inicial del usuario raíz del inquilino o, si Identify federation está habilitada en la cuadrícula, seleccione el grupo federado con permiso de acceso raíz para configurar la cuenta de inquilino.
 . Haga clic en Iniciar sesión como raíz y seleccione cucharón: Crear y administrar cucharones.
@@ -101,7 +102,7 @@ NOTE: Debe tener un inicio de sesión de la consola de AWS válido, una clave de
 }
 ----
 +
-image::../media/storagegrid-search-integration-service/sg-sis-search-integration-amazon-opensearch.png[Captura de pantalla de integración de búsqueda]
+image::sg-sis-search-integration-amazon-opensearch.png[Captura de pantalla de integración de búsqueda]
 
 
 
@@ -109,17 +110,17 @@ image::../media/storagegrid-search-integration-service/sg-sis-search-integration
 
 . Espere de 15 a 20 minutos para que el dominio se active.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-activating-domain.png[Activando captura de pantalla del dominio]
+image::sg-sis-activating-domain.png[Activando captura de pantalla del dominio]
 
 . Haga clic en OpenSearch Dashboards URL para abrir el dominio en una nueva pestaña para tener acceso al panel. Si obtiene un error de acceso denegado, compruebe que la dirección IP de origen de la directiva de acceso esté correctamente configurada en la IP pública del equipo para permitir el acceso al panel de control de dominio.
 . En la página de bienvenida del panel, seleccione explorar por su cuenta. En el menú, vaya a Management -> Dev Tools
 . En Herramientas de desarrollo -> Consola , escriba `PUT <index>` Donde se usa el índice para almacenar metadatos de objetos StorageGRID. Utilizamos el nombre de índice 'gmetadata' en el siguiente ejemplo. Haga clic en el símbolo de triángulo pequeño para ejecutar el comando PUT. El resultado esperado se muestra en el panel derecho como se muestra en la siguiente captura de pantalla de ejemplo.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-using-put-command-for-index.png[Uso del comando put para la captura de pantalla de índice]
+image::sg-sis-using-put-command-for-index.png[Uso del comando put para la captura de pantalla de índice]
 
 . Verifique que el índice sea visible desde la IU de Amazon OpenSearch en sgdomain > Indices.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-verifying-the-index.png[Verificando-la captura de pantalla del índice]
+image::sg-sis-verifying-the-index.png[Verificando-la captura de pantalla del índice]
 
 
 
@@ -139,17 +140,17 @@ Para configurar los extremos de servicios de la plataforma, siga estos pasos:
 En este ejemplo, URN se convierte en `arn:aws:es:us-east-1:211234567890:domain/sgdemo /sgmedata/_doc`.
 
 +
-image::../media/storagegrid-search-integration-service/sg-sis-enter-end-points-details.png[captura de pantalla de detalles finales]
+image::sg-sis-enter-end-points-details.png[captura de pantalla de detalles finales]
 
 
 
 . Para acceder al dominio sgDomain de Amazon OpenSearch, elija Access Key como tipo de autenticación y, a continuación, introduzca la clave de acceso y la clave secreta de Amazon S3. Para ir a la página siguiente, haga clic en continuar.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-authenticate-connections-to-endpoints.png[autenticar conexiones a la captura de pantalla de los extremos]
+image::sg-sis-authenticate-connections-to-endpoints.png[autenticar conexiones a la captura de pantalla de los extremos]
 
 . Para verificar el punto final, seleccione usar certificado CA del sistema operativo y probar y crear punto final. Si la verificación se realiza correctamente, aparece una pantalla de extremo similar a la siguiente figura. Si se produce un error de verificación, compruebe que URN incluya `/<index>/_doc` Al final de la ruta, la clave de acceso y la clave secreta de AWS son correctas.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-platform-service-endpoints.png[captura de pantalla de extremos de servicio de la plataforma]
+image::sg-sis-platform-service-endpoints.png[captura de pantalla de extremos de servicio de la plataforma]
 
 
 
@@ -197,14 +198,14 @@ sudo systemctl start docker
 TIP: Tenga en cuenta el nombre de usuario/contraseña y el token creados por Elasticsearch, necesita esos elementos para iniciar la autenticación del extremo de la plataforma StorageGRID y la interfaz de usuario de Kibana.
 
 +
-image::../media/storagegrid-search-integration-service/sg-sis-search-integration-elasticsearch.png[integración de búsqueda captura de pantalla de búsqueda elástica]
+image::sg-sis-search-integration-elasticsearch.png[integración de búsqueda captura de pantalla de búsqueda elástica]
 
 . Después de que se haya iniciado el contenedor de Docker de Kibana, el enlace de URL `\https://0.0.0.0:5601` aparecen en la consola. Reemplace 0.0.0.0 por la dirección IP del servidor en la dirección URL.
 . Inicie sesión en la interfaz de usuario de Kibana con el nombre de usuario `elastic` Y la contraseña generada por Elastic en el paso anterior.
 . Para iniciar sesión por primera vez, en la página de bienvenida del panel, seleccione explorar por su cuenta. En el menú, seleccione Management > Dev Tools.
 . En la pantalla Dev Tools Console, introduzca `PUT <index>` Dónde se usa este índice para almacenar metadatos de objetos StorageGRID. Usamos el nombre del índice `sgmetadata` en este ejemplo. Haga clic en el símbolo de triángulo pequeño para ejecutar el comando PUT. El resultado esperado se muestra en el panel derecho como se muestra en la siguiente captura de pantalla de ejemplo.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-execute-put-command.png[Ejecute la captura de pantalla del comando put]
+image::sg-sis-execute-put-command.png[Ejecute la captura de pantalla del comando put]
 
 
 
@@ -221,17 +222,17 @@ Para configurar extremos para servicios de plataforma, siga estos pasos:
 ** URI: `\https://<elasticsearch-server-ip or hostname>:9200`
 ** URN: `urn:<something>:es:::<some-unique-text>/<index-name>/_doc` Donde el nombre de índice es el nombre que utilizó en la consola de Kibana. Ejemplo: `urn:local:es:::sgmd/sgmetadata/_doc`
 +
-image::../media/storagegrid-search-integration-service/sg-sis-platform-service-endpoint-details.png[Captura de pantalla de detalles del extremo de servicio de la plataforma]
+image::sg-sis-platform-service-endpoint-details.png[Captura de pantalla de detalles del extremo de servicio de la plataforma]
 
 
 
 . Seleccione HTTP básico como tipo de autenticación, introduzca el nombre de usuario `elastic` Y la contraseña generada por el proceso de instalación de Elasticsearch. Para ir a la página siguiente, haga clic en continuar.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-platform-service-endpoint-authentication-type.png[Captura de pantalla de autenticación de extremo de servicio de plataforma]
+image::sg-sis-platform-service-endpoint-authentication-type.png[Captura de pantalla de autenticación de extremo de servicio de plataforma]
 
 . Seleccione no verificar certificado y probar y Crear extremo para verificar el extremo. Si la verificación se realiza correctamente, aparece una pantalla de punto final similar a la siguiente captura de pantalla. Si se produce un error en la verificación, compruebe que las entradas de URN, URI y nombre de usuario/contraseña sean correctas.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-successfully-verified-endpoint.png[Punto final verificado correctamente]
+image::sg-sis-successfully-verified-endpoint.png[Punto final verificado correctamente]
 
 
 
@@ -270,7 +271,7 @@ En este ejemplo, no hemos utilizado ningún prefijo, lo que significa que los me
 ----
 . Utilice el navegador S3 para conectarse a StorageGRID con la clave secreta/acceso de inquilino y cargar objetos de prueba a. `sgmetadata-test` agrupe y añada etiquetas o metadatos personalizados a los objetos.
 +
-image::../media/storagegrid-search-integration-service/sg-sis-upload-test-objects.png[Cargar captura de pantalla de objetos de prueba]
+image::sg-sis-upload-test-objects.png[Cargar captura de pantalla de objetos de prueba]
 
 . Utilice la interfaz de usuario de Kibana para verificar que los metadatos del objeto se cargaron en el índice de metadatos sg.
 +
@@ -290,7 +291,7 @@ GET sgmetadata/_search
 }
 ----
 +
-image::../media/storagegrid-search-integration-service/sg-sis-query1-sample-result.png[Captura de pantalla de resultados de ejemplo de la consulta 1]
+image::sg-sis-query1-sample-result.png[Captura de pantalla de resultados de ejemplo de la consulta 1]
 
 +
 El resultado de ejemplo de la consulta 2 en la siguiente captura de pantalla muestra dos registros con el tipo de etiqueta jpg.
@@ -309,7 +310,7 @@ GET sgmetadata/_search
 }
 ----
 +
-image::../media/storagegrid-search-integration-service/sg-sis-query-two-sample.png[Ejemplo de la consulta 2]
+image::sg-sis-query-two-sample.png[Ejemplo de la consulta 2]
 
 
 
@@ -324,3 +325,5 @@ Si quiere más información sobre el contenido de este documento, consulte los s
 * https://docs.netapp.com/us-en/storagegrid-116/tenant/what-platform-services-are.html["¿Qué son los servicios de plataforma"^]
 * https://docs.netapp.com/us-en/storagegrid-116/index.html["Documentación de StorageGRID 11.6"^]
 
+
+_Por Angela Cheng_

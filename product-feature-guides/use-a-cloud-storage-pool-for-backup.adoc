@@ -5,10 +5,11 @@ keywords: cloud storage pool, backup, ILM, CSP
 summary: Puede crear una regla de ILM para mover objetos a un pool de almacenamiento en el cloud para backup. 
 ---
 = Utilice un pool de almacenamiento en el cloud para el backup
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
-
-_Jonathan Wong_
 
 [role="lead"]
 Puede crear una regla de ILM para mover objetos a un pool de almacenamiento en el cloud para backup.
@@ -34,3 +35,5 @@ Puede crear una regla de ILM para mover objetos a un pool de almacenamiento en e
 Confirmar que el diagrama de retención muestra los objetos almacenados localmente en StorageGRID y en un pool de almacenamiento en cloud para backup.
 
 Confirme que, cuando se activa la regla de ILM, existe una copia en el Cloud Storage Pool y puede recuperar el objeto localmente sin realizar una restauración de objetos.
+
+_Por Jonathan Wong_

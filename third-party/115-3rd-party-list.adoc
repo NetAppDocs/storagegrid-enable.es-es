@@ -5,7 +5,10 @@ keywords: 11.5, third-party applications, storagegrid, ISV
 summary: Soluciones de terceros validadas para StorageGRID 11.5 
 ---
 = Soluciones de terceros validadas de StorageGRID 11.5
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
 
 [role="lead"]

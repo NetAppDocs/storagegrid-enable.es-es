@@ -5,10 +5,11 @@ keywords: cloud storage pool, aws, S3, amazon web services, google cloud
 summary: 'Puede usar un pool de almacenamiento en cloud si desea mover objetos de StorageGRID a un bloque de S3 externo. El bloque externo puede pertenecer a Amazon S3 (AWS) o Google Cloud.' 
 ---
 = Cree Cloud Storage Pool para AWS o Google Cloud
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
-
-_Jonathan Wong_
 
 [role="lead"]
 Puede usar un pool de almacenamiento en cloud si desea mover objetos de StorageGRID a un bloque de S3 externo. El bloque externo puede pertenecer a Amazon S3 (AWS) o Google Cloud.
@@ -50,3 +51,5 @@ El nombre que especifique debe coincidir exactamente con el nombre del bloque de
 
 .Resultado esperado
 Confirme que se ha creado un Cloud Storage Pool para Amazon S3 o Google Cloud.
+
+_Por Jonathan Wong_

@@ -5,10 +5,11 @@ keywords: datadog, snmp
 summary: Configurar Datadog HQ para recopilar métricas y capturas snmp de StorageGRID. 
 ---
 = Configuración de SNMP de Datadog
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/datadog/
 
-
-_Aron Klein_
 
 [role="lead"]
 Configurar Datadog para recopilar métricas y capturas snmp de StorageGRID.
@@ -120,4 +121,6 @@ network_devices:
 
 El agente SNMP del sistema StorageGRID se encuentra en la pestaña Configuración, columna Supervisión. Habilite SNMP e introduzca la información que desee. Si desea configurar capturas, seleccione "Destinos de capturas" y cree un destino para el host del agente de datos que contenga la configuración de capturas.
 
-image::../media/datadog/sg_snmp_conf.png[Configuración de SNMP de StorageGRID]
+image::sg_snmp_conf.png[Configuración de SNMP de StorageGRID]
+
+_Por Aron Klein_

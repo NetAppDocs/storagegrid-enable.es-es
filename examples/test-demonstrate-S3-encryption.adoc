@@ -5,10 +5,11 @@ keywords: cli, aws, S3, encryption, SSE, SSE-C, SSE-S3, api
 summary: StorageGRID y la API de S3 ofrecen varias formas diferentes de cifrar sus datos en reposo. 
 ---
 = Pruebe y muestre opciones de cifrado de S3 en StorageGRID
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
-
-_Aron Klein_
 
 [role="lead"]
 StorageGRID y la API de S3 ofrecen varias formas diferentes de cifrar sus datos en reposo. Para obtener más información, consulte https://docs.netapp.com/us-en/storagegrid-116/admin/reviewing-storagegrid-encryption-methods.html["Consulte los métodos de cifrado de StorageGRID"^].
@@ -185,3 +186,5 @@ aws s3api head-object --bucket <bucket> --key <file> --endpoint-url https://s3.e
 aws s3api get-object --bucket <bucket>  --key <file> <file> --endpoint-url https://s3.example.com
 ----
 
+
+_Por Aron Klein_

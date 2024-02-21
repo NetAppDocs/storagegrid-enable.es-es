@@ -5,7 +5,10 @@ keywords: iam, bucket policy, group policy, policy
 summary: 'A continuación se muestran ejemplos de políticas de bloques y políticas de grupo (políticas IAM).' 
 ---
 = Ejemplo de políticas de bloque y grupo(IAM)
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
 
 [role="lead"]
