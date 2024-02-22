@@ -1262,8 +1262,8 @@ Si la solución que busca no aparece en la lista, póngase en contacto con su re
   <block id="f1b702f1ec8f237dcd7b5c954b6d27b8" category="paragraph">_Por Angela Cheng_</block>
   <block id="3ffee984625220881b57c95936a54d55" category="paragraph">_Por Siegfried Hepp y Aron Klein_</block>
   <block id="f2c634ca704e26f96be1723db6dda32a" category="image-alt">Una captura de pantalla de una descripción de computadora generada automáticamente</block>
-  <block id="54887fd2fb284c696f5a78f49abeb0b0" category="paragraph">Si observa las tasas de S3 y las solicitudes activas, puede ver cuánta carga está manejando cada nodo y el número general de solicitudes por tipo.
-Imagen::S3_over_rates.png[S3 Tasas de visión general]</block>
   <block id="de8e421137ae87b94e3b716c2ac38854" category="paragraph">_Por Oliver Haensel y Aron Klein_</block>
   <block id="9224315283279b10c8f6eac37416df31" category="paragraph">_Por Jonathan Wong_</block>
+  <block id="8cd84a7eff267a91caead66f5ac5a7d2" category="paragraph">Si observa las tasas de S3 y las solicitudes activas, puede ver cuánta carga está manejando cada nodo y el número general de solicitudes por tipo.
+Image::veeam-bp/S3_over_rates.png[S3 Tasas de visión general]</block>
 </blocks>
