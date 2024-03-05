@@ -121,6 +121,6 @@ network_devices:
 
 El agente SNMP del sistema StorageGRID se encuentra en la pestaña Configuración, columna Supervisión. Habilite SNMP e introduzca la información que desee. Si desea configurar capturas, seleccione "Destinos de capturas" y cree un destino para el host del agente de datos que contenga la configuración de capturas.
 
-image::datadog/sg_snmp_conf.png[Configuración de SNMP de StorageGRID]
+image:datadog/sg_snmp_conf.png["Configuración de SNMP de StorageGRID"]
 
 _Por Aron Klein_

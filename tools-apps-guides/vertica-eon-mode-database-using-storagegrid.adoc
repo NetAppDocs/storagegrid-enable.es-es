@@ -34,7 +34,7 @@ Eon Mode separa los recursos computacionales de la capa de almacenamiento comuna
 
 Eon Mode almacena datos en un almacén de objetos compartidos denominado almacenamiento comunitario, un bucket de S3, que está alojado en las instalaciones o en Amazon S3.
 
-image::vertica-eon/sg-vertica-eon-mode-cluster-with-communal-storage.png[Cluster Vertica Eon Mode con almacenamiento comunitario]
+image:vertica-eon/sg-vertica-eon-mode-cluster-with-communal-storage.png["Cluster Vertica Eon Mode con almacenamiento comunitario"]
 
 
 

@@ -48,11 +48,11 @@ match => {"message" => '<%{POSINT:syslog_pri}>%{SYSLOGBASE} %{GREEDYDATA:msg-det
 ----
 *Muestra de Logstash 7.17*
 
-image::elk-config/logstash-7.17.fields-sample.png[Muestra Logstash 7.17]
+image:elk-config/logstash-7.17.fields-sample.png["Muestra Logstash 7.17"]
 
 *Muestra de Logstash 8.23*
 
-image::elk-config/logstash-8.x.fields-sample.png[Muestra Logstash 8.23]
+image:elk-config/logstash-8.x.fields-sample.png["Muestra Logstash 8.23"]
 
 * Pasos*
 
@@ -99,13 +99,13 @@ GET /_cat/indices/*?v=true&s=index
 . Desde la GUI de Kibana, cree un patrón de índice (ELK 7.x) o una vista de datos (ELK 8.x).
 . En la GUI de Kibana, escriba "objetos afeitados" en el cuadro de búsqueda que se encuentra en el centro superior. + en la página objetos guardados, seleccione Importar. En Opciones de importación, seleccione "solicitar acción en conflicto"
 +
-image::elk-config/kibana-import-options.png[Opciones de importación de Kibana]
+image:elk-config/kibana-import-options.png["Opciones de importación de Kibana"]
 
 +
 Importe eleLIMPORT <version>-QUERY-chart-sample.ndjson. + cuando se le solicite que resuelva el conflicto, seleccione el patrón de índice o la vista de datos que creó en el paso 8.
 
 +
-image::elk-config/kibana-import-conflict.png[Conflicto Kibana]
+image:elk-config/kibana-import-conflict.png["Conflicto Kibana"]
 
 +
 Se importan los siguientes objetos de Kibana: + *Consulta* + * audit-msg-s3rq-orlm + * mensajes relacionados con bycast log s3 + * advertencia de nivel de registro o superior + * evento de seguridad fallido + *Gráfico* + * las solicitudes s3 cuentan en función de bycast.log + * código de estado HTTP + * desglose de msg de auditoría por tipo + * respuesta media de s3 Tiempo + *Panel* + * panel de solicitudes S3 utilizando los gráficos anteriores.

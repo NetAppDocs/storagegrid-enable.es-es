@@ -73,27 +73,27 @@ Para implementar el nodo de puerta de enlace de repuesto, siga estos pasos:
 
 . Una vez implementado el equipo virtual, selecciónelo en la lista de equipos virtuales, seleccione la pestaña Configurar vApp Options.
 +
-image::port-remap/vapp_options.png[Pestaña de opciones de vAPP]
+image:port-remap/vapp_options.png["Pestaña de opciones de vAPP"]
 
 . Desplácese hasta la sección Propiedades y seleccione LA propiedad PORT_REMAPP_INBOUND
 +
-image::port-remap/remap_inbound.png[remap puerto entrante]
+image:port-remap/remap_inbound.png["remap puerto entrante"]
 
 . Desplácese hasta la parte superior de la lista Propiedades y haga clic en Editar
 +
-image::port-remap/edit_button.png[botón editar]
+image:port-remap/edit_button.png["botón editar"]
 
 . Seleccione la ficha Tipo, confirme que la casilla de verificación configurable por el usuario está seleccionada y, a continuación, haga clic en Guardar.
 +
-image::port-remap/type_tab.png[ficha tipo]
+image:port-remap/type_tab.png["ficha tipo"]
 
 . En la parte superior de la lista Propiedades, con la propiedad “PORT_REMAPP_INBOUND” aún seleccionada, haga clic en establecer valor.
 +
-image::port-remap/edit_button.png[botón establecer valor]
+image:port-remap/edit_button.png["botón establecer valor"]
 
 . En el campo valor de propiedad, introduzca la red (grid, administrador o cliente), TCP, el puerto original (8082) y el puerto nuevo (10443) con “/” entre cada valor, como se describe a continuación.
 +
-image::port-remap/value.png[valor de propiedad]
+image:port-remap/value.png["valor de propiedad"]
 
 . Si utiliza varias redes, utilice una coma (,) para separar las cadenas de red, por ejemplo, grid/tcp/8082/10443,admin/tcp/8082/10443,client/tcp/8082/10443
 
@@ -106,11 +106,11 @@ Para recuperar el nodo Gateway, siga estos pasos:
 
 . Desplácese hasta la sección Mantenimiento/recuperación de la IU de gestión de grid.
 +
-image::port-remap/maint_menu.png[menú de mantenimiento]
+image:port-remap/maint_menu.png["menú de mantenimiento"]
 
 . Encienda el nodo de la máquina virtual y espere a que el nodo aparezca en la sección Maintenance/Recovery Pending Nodes de la interfaz de usuario de Grid Management.
 +
-image::port-remap/recover_pend.png[recuperación pendiente]
+image:port-remap/recover_pend.png["recuperación pendiente"]
 
 +
 [NOTE]
@@ -284,7 +284,7 @@ Initiating a reboot to trigger the StorageGRID Webscale appliance installation w
 . Cuando haya transcurrido un periodo de tiempo, el dispositivo se reiniciará y podrá acceder a la IU del nodo PGE.
 . Vaya a Configurar redes
 +
-image::port-remap/remap_link.png[Seleccione reasignar puertos]
+image:port-remap/remap_link.png["Seleccione reasignar puertos"]
 
 . Seleccione la red, el protocolo, la dirección y los puertos deseados y, a continuación, haga clic en el botón Agregar regla.
 +
@@ -292,7 +292,7 @@ image::port-remap/remap_link.png[Seleccione reasignar puertos]
 NOTE: La reasignación del puerto de entrada 443 en LA red DE CUADRÍCULA interrumpirá la instalación y los procedimientos de expansión. No se recomienda reasignar el puerto 443 en la red DE RED.
 
 +
-image::port-remap/app_remap.png[agregue el remap de puertos a las redes]
+image:port-remap/app_remap.png["agregue el remap de puertos a las redes"]
 
 . Una de las reasignaciones de puerto deseadas se ha agregado, puede volver a la ficha de inicio y hacer clic en el botón Iniciar instalación.
 
