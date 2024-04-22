@@ -65,6 +65,14 @@ indexpage:
       url: "/tools-apps-guides/veeam-br.html"
     - title: Configurar Dremio con StorageGRID
       url: "/tools-apps-guides/configure-dremio-storagegrid.html"
+    - title: Configure GitLab con StorageGRID
+      url: "/tools-apps-guides/integrate-gitlab.html"
+  - title: Informes técnicos
+    links:
+    - title: NetApp StorageGRID y análisis de Big Data
+      url: "/technical-reports/datalake-analytics.html"
+    - title: Mejores prácticas para el ajuste Hadoop S3A
+      url: "/technical-reports/s3a-tuning.html"
   - title: Procedimientos y ejemplos de API
     links:
     - title: Pruebe y muestre el cifrado S3

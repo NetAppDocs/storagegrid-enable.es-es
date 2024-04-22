@@ -32,6 +32,7 @@ El clon de nodo puede ser un método más rápido para reemplazar nodos de dispo
 * El proceso de clonado del nodo requiere que el nodo de origen esté desconectado al grid durante el proceso de clonado. Si se desconecta un nodo adicional durante esta ocasión, los servicios del cliente podrían verse afectados.
 * Un nodo de almacenamiento solo puede estar desconectado durante 15 días. Si el cálculo del proceso de clonación está cerca de 15 días o supera los 15 días, utilice los procedimientos de expansión y retirada.
 * Para un SG6060 con bandejas de expansión, es necesario añadir el tiempo para el tamaño de unidad de bandeja correcto a la hora del dispositivo de base para obtener el tiempo completo de los clones.
+* La cantidad de volúmenes en un dispositivo de almacenamiento de destino debe ser mayor o igual que la cantidad de volúmenes en el nodo de origen. No se puede clonar un nodo de origen con volúmenes de almacenamiento de objetos 16 (rangedb) en un dispositivo de almacenamiento de destino con volúmenes de almacenamiento de objetos 12, incluso si el dispositivo de destino tiene más capacidad que el nodo de origen. La mayoría de los dispositivos de almacenamiento tienen volúmenes de almacenamiento de objetos de 16 TB, excepto el dispositivo de almacenamiento SGF6112 que solo tiene 12 volúmenes de almacenamiento de objetos. Por ejemplo, no puede clonar de un SG5760 a un SGF6112.
 
 
 
