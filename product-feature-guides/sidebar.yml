@@ -14,3 +14,5 @@ entries:
   url: "/product-feature-guides/node-clone.html"
 - title: Cómo utilizar el remap de puertos
   url: "/product-feature-guides/port-remap.html"
+- title: Cómo reubicar un sitio y cambiar la red
+  url: "/product-feature-guides/site-relocation-and-network-change.html"

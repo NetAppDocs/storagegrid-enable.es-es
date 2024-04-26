@@ -1528,4 +1528,54 @@ Todas las gamas GET</block>
   <block id="0ad1cadfe97c5910e1b3ce75c8b0ff1f" category="sidebar">NetApp StorageGRID y análisis de Big Data</block>
   <block id="6407baffaf35e5f51c2e06e83659fcae" category="sidebar">Mejores prácticas para el ajuste Hadoop S3A</block>
   <block id="34d8c979f20e6e946fc25898c9b703b0" category="sidebar">Ajuste S3A de Hadoop</block>
+  <block id="23e421cbf9f56a23426fd9d29746a636" category="summary">Esta guía describe la preparación y el procedimiento para la reubicación del sitio StorageGRID en una cuadrícula de varios sitios.</block>
+  <block id="8295ab4dfd6c34f8b3da70a8bfaaada3" category="doc">Reubicación del sitio de grid y procedimiento de cambio de red en todo el sitio</block>
+  <block id="a7b0b12fd572901946be0ed19cb6a438" category="paragraph">Esta guía describe la preparación y el procedimiento para la reubicación del sitio StorageGRID en una cuadrícula de varios sitios. Usted debe tener una comprensión completa de este procedimiento y planificar con anticipación para garantizar un proceso sin problemas y minimizar la interrupción a los clientes.</block>
+  <block id="731561f650e3a36691bae029b4547c66" category="inline-link-macro">Cambie las direcciones IP para todos los nodos de la cuadrícula</block>
+  <block id="e16a17e0f04937786448505101cf5703" category="paragraph">Si necesita cambiar la red de Grid de toda la Grid, consulte
+<block ref="25fe4ea07c9ed2c1ea3e524430970ba9" category="inline-link-macro-rx"></block>.</block>
+  <block id="d62541926508b7fc98152bdd26f6b28c" category="section-title">Consideraciones antes de la reubicación del sitio</block>
+  <block id="adb2a3f1ce6044cca831a1c3e1fcc38c" category="inline-link-macro">Recupere el nodo de almacenamiento en más de 15 días</block>
+  <block id="79286dd19701572b9607fd1b47f14c5f" category="list-text">El movimiento del sitio debe completarse y todos los nodos en línea en 15 días para evitar la reconstrucción de la base de datos Cassandra.
+<block ref="fb2aa662be1b0eb04ce42e59fa10d995" category="inline-link-macro-rx"></block></block>
+  <block id="d81093eaf5709c0a3ae4db45ea962851" category="list-text">Si alguna regla de ILM en una política activa utiliza un comportamiento de ingesta estricto, considere cambiarla al equilibrio o a la confirmación doble si el cliente desea seguir PONIENDO objetos en el Grid durante la reubicación del sitio.</block>
+  <block id="5fcd60bee26dbdd38058786d89d30945" category="list-text">Para los dispositivos de almacenamiento con unidades 60 o más, no mueva nunca la bandeja con unidades de disco instaladas.  Etiquete cada unidad de disco y quítelas del compartimento de almacenamiento antes de empacar/mover.</block>
+  <block id="3bf27243eed945ae028b0d83a672aafd" category="list-text">La VLAN de la red de grid del dispositivo StorageGRID se puede realizar de forma remota a través de la red de administración o la red de cliente.  O bien, planifique encontrarse en las instalaciones para realizar el cambio antes o después de la reubicación.</block>
+  <block id="fc1ade2120cd035ae884b4c776a06e08" category="list-text">Compruebe si la aplicación del cliente está utilizando HEAD u OBJECT OPTIMITY antes de PUT. En caso afirmativo, cambie la consistencia del bloque a un sitio seguro para evitar el error de HTTP 500.  Si no está seguro, consulte la descripción general de S3 Gráficos Grafana * Administrador de cuadrícula &gt; Soporte &gt; Métricas * y pase el ratón sobre el gráfico 'Total de solicitudes completadas'.  Si hay un recuento muy alto de 404 objetos Get Object o 404 objetos head, es probable que una o más aplicaciones estén usando objetos head o get nonexistence. El recuento es acumulativo, pasa el ratón sobre una línea de tiempo diferente para ver la diferencia.</block>
+  <block id="61bce3e94387d562e70e4344c21875a9" category="inline-image-macro">S3 Visión de conjunto Grafana gráfico muestra</block>
+  <block id="c8d25296b6242f878bcc65b3463a9213" category="paragraph"><block ref="c8d25296b6242f878bcc65b3463a9213" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="91ecbe84c3a3b51ceb6c3c1c46fe828e" category="section-title">Procedimiento para cambiar la dirección IP de la cuadrícula antes de la reubicación del sitio</block>
+  <block id="7ce3d8dcf98150ca295b4e8b4a175d28" category="inline-link-macro">Agregue la subred a la lista de subred de red de cuadrícula</block>
+  <block id="ef79c64bf374a8f7d8f11ddac8bac6ea" category="list-text">Si se va a utilizar una nueva subred de red de Grid en la nueva ubicación,
+<block ref="a48adf12485e7e1fabf51f229ceb57fd" category="inline-link-macro-rx"></block></block>
+  <block id="a27c73113b9f8b1c8936231a5c6b72db" category="list-text">Inicie sesión en el nodo de administración principal, use CHANGE-ip para hacer el cambio de Grid IP, debe * almacenar en zona intermedia * el cambio antes de cerrar el nodo para su reubicación.</block>
+  <block id="e8ebed2710314532bd7421c291775f7a" category="list-text">Seleccione 2 y, a continuación, 1 para el cambio de IP de cuadrícula</block>
+  <block id="f246621acb182eca202eb998d35a0a71" category="paragraph"><block ref="f246621acb182eca202eb998d35a0a71" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0fc35f100f57d71f3d04d75f8e34db7a" category="list-text">seleccione 5 para mostrar los cambios</block>
+  <block id="51db02a440736bec001c7d690821ec49" category="paragraph"><block ref="51db02a440736bec001c7d690821ec49" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0db10ef124f48bf74646e51d511e42e7" category="list-text">seleccione 10 para validar y aplicar el cambio.</block>
+  <block id="ecf8b3b84403afdd8f30ff4ca92df4d0" category="paragraph"><block ref="ecf8b3b84403afdd8f30ff4ca92df4d0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b535a2204d1cc298ac5c3b36cc8a9249" category="list-text">Debe seleccionar *stage* en este paso.</block>
+  <block id="a8c78f88b73dcaf8b7082c7d8bab4356" category="paragraph"><block ref="a8c78f88b73dcaf8b7082c7d8bab4356" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="23e28a352f23f6051ecbe97b0516b42f" category="list-text">Si el nodo de administración principal está incluido en el cambio anterior, introduzca *'a' para reiniciar manualmente el nodo de administración principal*</block>
+  <block id="6cfd9d702fc475a31c16db4299ee31a0" category="paragraph"><block ref="6cfd9d702fc475a31c16db4299ee31a0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="355ec7ab5ee5e52899a8a48528d82b93" category="list-text">Pulse ENTER para volver al menú anterior y salir de la interfaz CHANGE-ip.</block>
+  <block id="34efad53185ba8366fcb774fe4502175" category="paragraph"><block ref="34efad53185ba8366fcb774fe4502175" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6a713acf175fd861bbb563ab540a06fe" category="list-text">En Grid Manager, descargue el nuevo paquete de recuperación. *Grid manager* &gt; *Mantenimiento* &gt; *Paquete de recuperación*</block>
+  <block id="96557217b00ac75f863bec84c65347bf" category="list-text">Si se requiere un cambio de VLAN en el dispositivo StorageGRID, consulte la sección <block ref="f1c1d143229526a165bf49ac775d4ecd" category="inline-xref-macro-rx"></block>.</block>
+  <block id="26afb12dd81518887c60c85ae47dab08" category="list-text">Apague todos los nodos o dispositivos en el sitio, etiquete/quite las unidades de disco si es necesario, desmonte el rack, empaquete y mueva.</block>
+  <block id="850fa0cd526764089644bd18997fcf0b" category="list-text">Si tiene pensado cambiar la ip de la red de administración y/o la VLAN y la dirección ip de cliente, puede realizar el cambio después de la reubicación.</block>
+  <block id="28b10382e67e37853ae45379b731cfaf" category="section-title">Cambio de VLAN del dispositivo</block>
+  <block id="a65d2c0e652207280c57973442478f26" category="paragraph">En el siguiente procedimiento se asume que tiene acceso remoto a la red de clientes o administradores del dispositivo StorageGRID para realizar el cambio de forma remota.</block>
+  <block id="840a6c754184c6fbce872458dcf35141" category="inline-link-macro">coloque el aparato en modo de mantenimiento</block>
+  <block id="5b8e4de8e50ebe10173b2539d1612010" category="list-text">Antes de apagar el aparato,
+<block ref="1d36a7361466de3adde00ce864c41474" category="inline-link-macro-rx"></block>.</block>
+  <block id="24377316ae141b63c8170119bbfe4239" category="list-text">Utilice un explorador para acceder a la GUI del instalador del dispositivo StorageGRID mediante<block ref="41c0f2506f64eaa17788753cf29de6aa" category="inline-link-rx"></block>.  No se puede utilizar Grid IP debido a que la nueva IP de Grid ya está en su lugar una vez que el dispositivo se arranca en modo de mantenimiento.</block>
+  <block id="fe21d31242c56f4eee91182bd1268a5a" category="list-text">Cambie la VLAN para la red de grid.  Si accede al dispositivo a través de red de cliente, no puede cambiar la VLAN de cliente en este momento; puede cambiarlo después del movimiento.</block>
+  <block id="293c5807e9e9ab4b268fd617e8e5a56d" category="list-text">ssh en el dispositivo y apague el nodo mediante 'hutdoown -h now'</block>
+  <block id="1c33a8d84128bb59ae10a50b662e3a98" category="list-text">Una vez que los dispositivos estén listos en el sitio nuevo, acceda a la interfaz gráfica de usuario del instalador del dispositivo StorageGRID mediante<block ref="fba5b5bfbff166288edb187e140418b2" category="inline-link-rx"></block>.  Confirme que el almacenamiento se encuentre en estado óptimo y que la conectividad de red a otros nodos de Grid mediante las herramientas ping/nmap en la GUI.</block>
+  <block id="786f3a0a71ff6ad9513f86143e55c1ce" category="list-text">Si planea cambiar la IP de red del cliente, puede cambiar la VLAN del cliente en este momento.  La red cliente no está lista hasta que actualice la ip de la red cliente mediante la herramienta CHANGE-ip en el paso posterior.</block>
+  <block id="fff8d22924e491405ba3026b24555fa6" category="list-text">Salga del modo de mantenimiento. En el instalador del dispositivo StorageGRID, seleccione *Avanzado* &gt; *Reiniciar controlador* y, a continuación, seleccione *Reiniciar en StorageGRID*.</block>
+  <block id="6668d4dfafe68f86bfe1db4386e9ce7b" category="list-text">Una vez que todos los nodos estén activos y Grid no muestre ningún problema de conectividad, utilice change-ip para actualizar la red de administración del dispositivo y la red de cliente si es necesario.</block>
+  <block id="bae75f6502d7126b5a2837bf5628cab3" category="sidebar">Cómo reubicar un sitio y cambiar la red</block>
 </blocks>
