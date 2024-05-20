@@ -5,9 +5,13 @@ keywords: data lake, on-premises, analytics, storagegrid, object, hadoop
 summary: Este informe trata el ajuste S3A para StorageGRID. 
 ---
 = Ajuste Hadoop S3A
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
 
+[role="lead"]
 El conector S3A de Hadoop facilita la interacción fluida entre aplicaciones basadas en Hadoop y almacenamiento de objetos S3. El ajuste del conector Hadoop S3A es esencial para optimizar el rendimiento cuando se trabaja con el almacenamiento de objetos S3. Antes de entrar en el ajuste de detalles, entendamos lo básico de Hadoop y sus componentes.
 
 
@@ -73,7 +77,7 @@ Experimente con ambos para determinar cuál se adapta mejor a su carga de trabaj
 
 En resumen, los Comités S3A ofrecen una solución al desafío fundamental de un compromiso de producción consistente, de alto rendimiento y fiable con S3. Su diseño interno garantiza una transferencia de datos eficiente al tiempo que mantiene la integridad de los datos.
 
-image:../media/s3a-tuning/image1.png["S3A Tabla de opciones"]
+image:s3a-tuning/image1.png["S3A Tabla de opciones"]
 
 *3. Thread, tamaños de pool de conexiones y tamaño de bloque*
 
@@ -83,7 +87,7 @@ image:../media/s3a-tuning/image1.png["S3A Tabla de opciones"]
 * Los bloques mayores pueden mejorar el rendimiento de las cargas de datos grandes al reducir la sobrecarga que supone gestionar piezas de varias partes durante la carga. El valor recomendado es de 256 MB o superior para un conjunto de datos grande.
 
 
-image:../media/s3a-tuning/image2.png["S3A Tabla de opciones"]
+image:s3a-tuning/image2.png["S3A Tabla de opciones"]
 
 *4. Carga multiparte*
 
@@ -122,12 +126,12 @@ Una carga de varias partes es un https://docs.aws.amazon.com/AmazonS3/latest/dev
 
 Si la solicitud completa de carga de varias partes no se envía correctamente, las piezas permanecen en StorageGRID y no crearán ningún objeto. Esto ocurre cuando los trabajos se interrumpen, fallan o se anulan. Los artículos permanecen en la cuadrícula hasta que la carga de varias partes se completa o se anula o StorageGRID depura estos artículos si han transcurrido 15 días desde que se inició la carga. Si hay muchas (unos pocos cientos de miles o millones) cargas multiparte en curso en un depósito, cuando Hadoop envía «lista-multiparte-cargas» (esta solicitud no filtra por identificador de carga), la solicitud puede tardar mucho tiempo en completarse o eventualmente en agotarse. Puede considerar establecer fs.S3A.mutlipart.purge en true con un valor fs.S3A.multipart.purge.age apropiado (por ejemplo, 5 a 7 días, no utilice el valor predeterminado de 86400, es decir, 1 día). O póngase en contacto con el servicio de soporte de NetApp para investigar la situación.
 
-image:../media/s3a-tuning/image3.png["S3A Tabla de opciones"]
+image:s3a-tuning/image3.png["S3A Tabla de opciones"]
 
 *5. Buffer escribe datos en la memoria*
 
 Para mejorar el rendimiento, puede almacenar en búfer los datos de escritura en la memoria antes de cargarlos en S3. Esto puede reducir el número de escrituras pequeñas y mejorar la eficiencia.
 
-image:../media/s3a-tuning/image4.png["S3A Tabla de opciones"]
+image:s3a-tuning/image4.png["S3A Tabla de opciones"]
 
 Recuerda que S3 y HDFS funcionan de distintas maneras. Es necesario realizar un ajuste/prueba/experimento cuidadoso para hacer el uso más eficiente de los recursos de S3.

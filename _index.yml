@@ -75,6 +75,8 @@ indexpage:
       url: "/technical-reports/datalake-analytics.html"
     - title: Mejores prácticas para el ajuste Hadoop S3A
       url: "/technical-reports/s3a-tuning.html"
+    - title: 'TR-4871: CommVault Complete Backup and Recovery y NetApp StorageGRID'
+      url: "/technical-reports/tr-4871-commvault.html"
   - title: Procedimientos y ejemplos de API
     links:
     - title: Pruebe y muestre el cifrado S3
