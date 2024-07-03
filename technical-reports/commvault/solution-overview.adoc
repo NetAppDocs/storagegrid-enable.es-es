@@ -1,0 +1,222 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/commvault/solution-overview.html 
+keywords: Backup, on-premises, commvault, storagegrid, object, S3, WORM 
+summary: Explora pocos casos prácticos de las configuraciones de StorageGRID implementadas por los clientes y EL DEPARTAMENTO DE TI de NetApp. 
+---
+= Descripción general de la solución probada
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../../media/
+
+
+[role="lead"]
+La solución probada combina soluciones CommVault y NetApp para crear una potente solución conjunta.
+
+
+
+== Configuración de la solución
+
+En la configuración de laboratorio, el entorno StorageGRID consistía en cuatro dispositivos NetApp StorageGRID SG5712, un nodo de administración principal virtual y un nodo de pasarela virtual. El dispositivo SG5712 es la opción de nivel básico, una configuración de referencia. Elegir opciones de dispositivos de mayor rendimiento como NetApp StorageGRID SG5760 o SG6060 puede proporcionar importantes ventajas de rendimiento. Consulte con su arquitecto de soluciones NetApp StorageGRID para obtener ayuda en el dimensionamiento.
+
+Para su política de protección de datos, StorageGRID utiliza una política integrada de gestión del ciclo de vida de la información para gestionar y proteger los datos. Las reglas de ILM se evalúan en una política de arriba a abajo. Implementamos la política de ILM que se muestra en la siguiente tabla:
+
+[cols="1a,1a,1a"]
+|===
+| Regla de ILM | Cualificadores | Comportamiento de ingesta 
+
+
+ a| 
+Código de borrado 2+1
+ a| 
+Objetos superiores a 200KB
+ a| 
+Equilibrado
+
+
+
+ a| 
+2 Copia
+ a| 
+Todos los objetos
+ a| 
+Registro doble
+
+|===
+La regla Copia de ILM 2 es la regla predeterminada. La regla de codificación de borrado 2+1 se aplicó para esta prueba a cualquier objeto 200KB o mayor. La regla predeterminada se ha aplicado a objetos menores de 200KB. La aplicación de las reglas de este modo es una mejor práctica de StorageGRID.
+
+Para obtener detalles técnicos sobre este entorno de prueba, lea la sección Diseño de la solución y prácticas recomendadas en la https://www.netapp.com/us/media/tr-4831.pdf["Protección de datos de escalado horizontal de NetApp con Commvault"] informe técnico.
+
+
+
+== Especificaciones de hardware de StorageGRID
+
+En la siguiente tabla se describe el hardware de NetApp StorageGRID utilizado en esta prueba. El dispositivo StorageGRID SG5712 con conexión a redes 10Gbps es la opción de gama básica y representa una configuración básica. De manera opcional, el SG5712 puede configurarse para redes 25Gbps.
+
+[cols="1a,1a,1a,1a,1a"]
+|===
+| Hardware subyacente | Cantidad | Disco | Capacidad utilizable | Red 
+
+
+ a| 
+Dispositivos StorageGRID SG5712
+ a| 
+4
+ a| 
+48 x 4TB GB (HDD SAS casi en línea)
+ a| 
+136TB
+ a| 
+10Gbps
+
+|===
+Elegir opciones de dispositivos de mayor rendimiento como los dispositivos NetApp StorageGRID SG5760, SG6060 o SGF6112 all-flash puede proporcionar importantes beneficios de rendimiento. Consulte con su arquitecto de soluciones NetApp StorageGRID para obtener ayuda en el dimensionamiento.
+
+
+
+== Requisitos de software de Commvault y StorageGRID
+
+En las tablas siguientes se enumeran los requisitos de software del software Commvault y NetApp StorageGRID instalado en el software VMware para las pruebas. Se instalaron cuatro gestores de transmisión de datos MediaAgent y un servidor CommServe. En la prueba, se implantaron conexiones de red de 10Gbps GbE para la infraestructura VMware. La siguiente tabla
+
+En la siguiente tabla, se enumeran los requisitos totales del sistema de software Commvault:
+
+[cols="1a,1a,1a,1a,1a,1a"]
+|===
+| Componente | Cantidad | Almacén de datos | Tamaño | Total | IOPS total necesario 
+
+
+ a| 
+Servidor CommServe
+ a| 
+1
+ a| 
+SO
+ a| 
+500GB
+ a| 
+500GB
+ a| 
+n.a.
+
+
+
+ a| 
+ a| 
+ a| 
+SQL
+ a| 
+500GB
+ a| 
+500GB
+ a| 
+n.a.
+
+
+
+ a| 
+MediaAgent
+ a| 
+4
+ a| 
+Unidad central de procesamiento virtual (vCPU)
+ a| 
+16
+ a| 
+64
+ a| 
+n.a.
+
+
+
+ a| 
+ a| 
+ a| 
+RAM
+ a| 
+128GB
+ a| 
+512
+ a| 
+n.a.
+
+
+
+ a| 
+ a| 
+ a| 
+SO
+ a| 
+500GB
+ a| 
+2 TB
+ a| 
+n.a.
+
+
+
+ a| 
+ a| 
+ a| 
+Caché de índice
+ a| 
+2 TB
+ a| 
+8TB
+ a| 
+200 o posterior
+
+
+
+ a| 
+ a| 
+ a| 
+DDB
+ a| 
+2 TB
+ a| 
+8TB
+ a| 
+200-80.000K
+
+|===
+En el entorno de pruebas, se pusieron en marcha un nodo de administración primario virtual y un nodo de puerta de enlace virtual en VMware en una cabina de almacenamiento E-Series E2812 de NetApp. Cada nodo estaba en un servidor independiente con los requisitos mínimos de entorno de producción descritos en la siguiente tabla:
+
+En la siguiente tabla se enumeran los requisitos para los nodos de administración y puerta de enlace virtuales de StorageGRID:
+
+[cols="1a,1a,1a,1a,1a"]
+|===
+| Tipo de nodo | Cantidad | VCPU | RAM | Reducida 
+
+
+ a| 
+Nodo de pasarela
+ a| 
+1
+ a| 
+8
+ a| 
+24GB
+ a| 
+100GB LUN para el SO
+
+
+
+ a| 
+Nodo de administración
+ a| 
+1
+ a| 
+8
+ a| 
+24GB
+ a| 
+100GB LUN para el SO
+
+200GB LUN para tablas del nodo Admin
+
+200GB LUN para el registro de auditoría del nodo de administración
+
+|===

@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/load-balancer/ssl-certificates-storagegrid.html 
+keywords: ssl certificates, storagegrid 
+summary: Comprender la importancia y los pasos para implementar certificados SSL en StorageGRID. 
+---
+= Aprenda a implementar certificados SSL para HTTPS en StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../../media/
+
+
+[role="lead"]
+Comprender la importancia y los pasos para implementar certificados SSL en StorageGRID.
+
+Si utiliza HTTPS, debe tener un certificado de capa de sockets seguros (SSL). El protocolo SSL identifica los clientes y los puntos finales, validándolos como de confianza. SSL también proporciona cifrado del tráfico. Los clientes deben confiar en el certificado SSL. Para lograr esto, el certificado SSL puede provenir de una autoridad de certificación (CA) de confianza mundial, como DigiCert, una CA privada que se ejecuta en su infraestructura, o un certificado autofirmado generado por el host.
+
+El método preferido es utilizar un certificado de CA de confianza global, ya que no se requieren acciones adicionales en el cliente. El certificado se carga en el equilibrador de carga o StorageGRID, y los clientes confían y se conectan al extremo.
+
+El uso de una CA privada requiere la raíz y todos los certificados subordinados se agregan al cliente. El proceso para confiar en un certificado de CA privado puede variar según el sistema operativo y las aplicaciones del cliente. Por ejemplo, en ONTAP para FabricPool, debe cargar cada certificado en la cadena de forma individual (certificado raíz, certificado subordinado, certificado de extremo) en el clúster de ONTAP.
+
+El uso de un certificado autofirmado requiere que el cliente confíe en el certificado proporcionado sin ninguna CA para verificar la autenticidad. Es posible que algunas aplicaciones no acepten certificados autofirmados y no tengan capacidad de ignorar la verificación.
+
+La ubicación del certificado SSL en la ruta de StorageGRID del equilibrador de carga del cliente depende de dónde se necesite la terminación SSL. Puede configurar un equilibrador de carga para que sea el punto final de terminación del cliente y, a continuación, volver a cifrar o cifrar en caliente con un nuevo certificado SSL para la conexión del equilibrador de carga a StorageGRID. O puede pasar por el tráfico y dejar que StorageGRID sea el punto final de terminación SSL. Si el equilibrador de carga es el punto final de terminación SSL, el certificado se instala en el equilibrador de carga y contiene el nombre del asunto para el nombre/URL de DNS y cualquier nombre de URL/DNS alternativo para el que un cliente está configurado para conectarse al destino StorageGRID a través del equilibrador de carga. incluyendo cualquier nombre de comodín. Si el equilibrador de carga está configurado para la transferencia directa, el certificado SSL se debe instalar en StorageGRID. De nuevo, el certificado debe contener el nombre del asunto para el nombre/URL de DNS y cualquier nombre de URL/DNS alternativo para el que un cliente esté configurado para conectarse al destino de StorageGRID a través del equilibrador de carga, incluidos los nombres de comodines. No es necesario incluir los nombres de nodos de almacenamiento individuales en el certificado, solo las URL de extremo.
+
+image:load-balancer-certificate-example.png["Ejemplo de certificado cargado en StorageGRID"]

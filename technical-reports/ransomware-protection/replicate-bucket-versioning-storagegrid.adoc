@@ -1,0 +1,53 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/ransomware-protection/replicate-bucket-versioning-storagegrid.html 
+keywords: bucket versioning, cloudmirror, storagegrid 
+summary: Descubre cómo replicar objetos en un bloque secundario mediante CloudMirror de StorageGRID. 
+---
+= Protección contra ransomware mediante bloque replicado con control de versiones
+:allow-uri-read: 
+
+
+[role="lead"]
+Descubre cómo replicar objetos en un bloque secundario mediante CloudMirror de StorageGRID.
+
+No todas las aplicaciones y cargas de trabajo serán compatibles con el bloqueo de objetos. Otra opción es replicar los objetos en un depósito secundario, ya sea en la misma cuadrícula (preferiblemente un inquilino diferente con acceso restringido), o cualquier otro extremo S3 con el servicio de plataforma StorageGRID, CloudMirror.
+
+StorageGRID CloudMirror es un componente de StorageGRID que se puede configurar para replicar los objetos de un bucket en un destino definido a medida que se ingieren en el bloque de origen y no replica los eliminaciones. Puesto que CloudMirror es un componente integrado de StorageGRID, no se puede desactivar ni manipular mediante un ataque basado en API S3. Puede configurar este bucket replicado con el control de versiones activado. En este escenario, necesita una limpieza automática de las versiones antiguas del depósito replicado que son seguras de descartar. Para ello, puede utilizar el motor de políticas de gestión de la vida útil de la información de StorageGRID. Cree reglas para administrar la ubicación del objeto en función del tiempo no corriente durante varios días suficientes para identificarse y recuperarse de un ataque.
+
+Un inconveniente de este enfoque es que consume más almacenamiento al disponer de una segunda copia completa del bloque y varias versiones de los objetos que se conservan durante cierto tiempo. Además, los objetos que se eliminaron intencionalmente del bloque primario deben eliminarse manualmente del bloque replicado. Hay otras opciones de replicación fuera del producto, como NetApp CloudSync, que pueden replicar eliminaciones para una solución similar. Otra desventaja para el bucket secundario que está activado el control de versiones y no el bloqueo de objetos activado es que existe una serie de cuentas con privilegios que se pueden utilizar para causar daños en la ubicación secundaria. La ventaja es que debe ser una cuenta única para ese extremo o bloque de inquilinos y es probable que el compromiso no incluya el acceso a las cuentas en la ubicación principal o viceversa.
+
+Después de crear los buckets de origen y de destino y de configurar el destino con el control de versiones, puede configurar y habilitar la replicación del siguiente modo:
+
+.Pasos
+. Para configurar CloudMirror, cree un punto final de servicios de plataforma para el destino S3.
++
+image:ransomware-protection-create-endpoint.png["ransomware-protection-create-endpoint"]
+
+. En el bloque de origen, configure la replicación para usar el punto final configurado.
++
+[listing]
+----
+<ReplicationConfiguration>
+    <Role></Role>
+    <Rule>
+        <Status>Enabled</Status>
+        <Prefix></Prefix>
+        <Destination>
+            <Bucket>arn:aws:s3:::mybucket</Bucket>
+            <StorageClass>STANDARD</StorageClass>
+        </Destination>
+    </Rule>
+</ReplicationConfiguration>
+----
+. Cree reglas de ILM para gestionar la ubicación del almacenamiento y la gestión de la duración del almacenamiento de versiones. En este ejemplo, se configuran las versiones no actuales de los objetos que se van a almacenar.
++
+image:ransomware-protection-create-ilm-rule.png["regla-protección-creación-im-ransomware"]
+
++
+image:ransomware-protection-create-ilm-rule-step-2.png["ransomware-protection-create-ilm-rule-step-2"]
+
++
+Hay dos copias en el sitio 1 durante 30 días. También configura las reglas para la versión actual de los objetos en función de usar el tiempo de ingesta como tiempo de referencia en la regla de ILM para que coincida con la duración del almacenamiento del bloque de origen. La ubicación del almacenamiento para las versiones de objetos puede codificarse para el borrado o replicarse.
+
+

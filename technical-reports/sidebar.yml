@@ -2,9 +2,146 @@
 section: technical-reports
 title: Informes técnicos
 entries:
-- title: NetApp StorageGRID y análisis de Big Data
+- title: Introducción a los informes técnicos de StorageGRID
+  url: "/technical-reports/index.html"
+- title: 'TR-4993: Análisis de NetApp StorageGRID y Big Data'
   url: "/technical-reports/datalake-analytics.html"
-- title: Ajuste S3A de Hadoop
+- title: 'TR-4994: Ajuste de Hadoop S3A'
   url: "/technical-reports/s3a-tuning.html"
-- title: 'TR-4871: CommVault Complete Backup and Recovery y NetApp StorageGRID'
-  url: "/technical-reports/tr-4871-commvault.html"
+- title: 'TR-4871: Configurar StorageGRID para backup y recuperación de datos con
+    Commvault'
+  pdf-filename: 'Backup y recuperación de datos de StorageGRID: Uso de Commvault para
+    almacenar y recuperar datos'
+  entries:
+  - title: Realice backups y recupere datos con StorageGRID y Commvault
+    url: "/technical-reports/commvault/index.html"
+  - title: Descripción general de la solución probada
+    url: "/technical-reports/commvault/solution-overview.html"
+  - title: Guía de tamaños de StorageGRID
+    url: "/technical-reports/commvault/sizing.html"
+  - title: Ejecute un trabajo de protección de datos
+    url: "/technical-reports/commvault/data-protection-jobs.html"
+  - title: Revise las pruebas de rendimiento básicas
+    url: "/commvault/baseline-performance-tests.html"
+  - title: Recomendación de nivel de coherencia del bloque
+    url: "/technical-reports/commvault/s3-consistency-levels.html"
+- title: 'TR-4626: Balanceadores de carga'
+  pdf-filename: 'Equilibrador de carga StorageGRID: Equilibradores de carga globales
+    y de terceros'
+  entries:
+  - title: Use balanceadores de carga de terceros con StorageGRID
+    url: "/technical-reports/load-balancer/index.html"
+  - title: Aprenda a implementar certificados SSL para HTTPS en StorageGRID
+    url: "/technical-reports/load-balancer/ssl-certificates-storagegrid.html"
+  - title: Configurar equilibrador de carga de terceros de confianza en StorageGRID
+    url: "/technical-reports/load-balancer/third-party-load-balancer-configuration.html"
+  - title: Obtenga más información sobre los equilibradores de carga del gestor de
+      tráfico local
+    url: "/technical-reports/load-balancer/local-traffic-manager-load-balancer.html"
+  - title: Obtenga información sobre pocos casos de uso de las configuraciones de
+      StorageGRID
+    url: "/technical-reports/load-balancer/example-configuration-storagegrid.html"
+  - title: Valide la conexión SSL en StorageGRID
+    url: "/technical-reports/load-balancer/validate-ssl-connection-storagegrid.html"
+  - title: Comprender los requisitos globales de equilibrio de carga para StorageGRID
+    url: "/technical-reports/load-balancer/global-load-balancing-design.html"
+- title: 'TR-4645: Funciones de seguridad'
+  pdf-filename: 'Funciones de seguridad de StorageGRID 11,7: Protección de los datos
+    y los metadatos en un almacén de objetos'
+  entries:
+  - title: Protege los datos y metadatos de StorageGRID en un almacén de objetos
+    url: "/technical-reports/data-security/index.html"
+  - title: Funciones de seguridad de acceso a los datos
+    url: "/technical-reports/data-security/data-access-security.html"
+  - title: Seguridad de objetos y metadatos
+    url: "/technical-reports/data-security/object-metadata-security.html"
+  - title: Funciones de seguridad de administración
+    url: "/technical-reports/data-security/administration-security.html"
+  - title: Funciones de seguridad de la plataforma
+    url: "/technical-reports/data-security/platform-security.html"
+  - title: Integración del cloud
+    url: "/technical-reports/data-security/cloud-integration-storagegrid.html"
+- title: 'TR-4921: Defensa contra ransomware'
+  pdf-filename: 'Protección contra ransomware con StorageGRID: Protege tus objetos
+    de S3'
+  entries:
+  - title: Protege objetos de StorageGRID S3 contra el ransomware
+    url: "/technical-reports/ransomware-protection/index.html"
+  - title: Defensa contra ransomware mediante bloqueo de objetos
+    url: "/technical-reports/ransomware-protection/understand-object-lock-storagegrid.html"
+  - title: Protección contra ransomware mediante bloque replicado con control de versiones
+    url: "/technical-reports/ransomware-protection/replicate-bucket-versioning-storagegrid.html"
+  - title: Protección frente al ransomware mediante el control de versiones con la
+      política de protección IAM
+    url: "/technical-reports/ransomware-protection/versioning-protective-iam-policy-storagegrid.html"
+- title: 'TR-4765: Monitor StorageGRID'
+  pdf-filename: Supervisar StorageGRID mediante aplicaciones externas
+  entries:
+  - title: Introducción a la supervisión StorageGRID
+    url: "/technical-reports/monitor/index.html"
+  - title: Utilice el panel de control de GMI para supervisar StorageGRID
+    url: "/technical-reports/monitor/getting-started.html"
+  - title: Utilice alertas para supervisar StorageGRID
+    url: "/technical-reports/monitor/alerts-monitoring.html"
+  - title: Supervisión avanzada en StorageGRID
+    url: "/technical-reports/monitor/advanced-monitor-storagegrid.html"
+  - title: Acceda a métricas utilizando cURL en StorageGRID
+    url: "/technical-reports/monitor/access-metrics-curl.html"
+  - title: Ver métricas con Grafana en StorageGRID
+    url: "/technical-reports/monitor/grafana-dashboard.html"
+  - title: Use las directivas de clasificación del tráfico en StorageGRID
+    url: "/technical-reports/monitor/traffic-classification-policies.html"
+  - title: Utilice los registros de auditoría para supervisar StorageGRID
+    url: "/technical-reports/monitor/audit-log-monitoring.html"
+  - title: Utilice la aplicación StorageGRID para Splunk
+    url: "/technical-reports/monitor/storagegrid-app-splunk.html"
+- title: 'TR-4882: Instale una cuadrícula StorageGRID con configuración básica'
+  pdf-filename: Instalar StorageGRID en hosts con configuración básica
+  entries:
+  - title: Introducción a la instalación de StorageGRID
+    url: "/technical-reports/bare-metal/index.html"
+  - title: Requisitos previos para instalar StorageGRID
+    url: "/technical-reports/bare-metal/prerequisites-install-storagegrid.html"
+  - title: Instale Docker para StorageGRID
+    url: "/technical-reports/bare-metal/install-docker-storagegrid.html"
+  - title: Prepare los archivos de configuración de nodos para StorageGRID
+    url: "/technical-reports/bare-metal/node-config-file-storagegrid.html"
+  - title: Instale las dependencias y los paquetes de StorageGRID
+    url: "/technical-reports/bare-metal/install-storagegrid-dependencies.html"
+  - title: Valide los archivos de configuración de StorageGRID
+    url: "/technical-reports/bare-metal/validate-storagegrid-config-files.html"
+  - title: Inicie el servicio de host StorageGRID
+    url: "/technical-reports/bare-metal/start-storagegrid-host-service.html"
+  - title: Configure Grid Manager en StorageGRID
+    url: "/technical-reports/bare-metal/configure-grid-manager-storagegrid.html"
+  - title: Añada detalles de la licencia de StorageGRID
+    url: "/technical-reports/bare-metal/storagegrid-license.html"
+  - title: Agregar sitios a StorageGRID
+    url: "/technical-reports/bare-metal/add-sites-storagegrid.html"
+  - title: Especifique las subredes de red de grid para StorageGRID
+    url: "/technical-reports/bare-metal/grid-network-subnets-storagegrid.html"
+  - title: Aprobar nodos de cuadrícula para StorageGRID
+    url: "/technical-reports/bare-metal/approve-grid-nodes-storagegrid.html"
+  - title: Especifique los detalles del servidor NTP para StorageGRID
+    url: "/technical-reports/bare-metal/ntp-server-storagegrid.html"
+  - title: Especifique los detalles del servidor DNS para StorageGRID
+    url: "/technical-reports/bare-metal/dns-server-storagegrid.html"
+  - title: Especifique las contraseñas del sistema para StorageGRID
+    url: "/technical-reports/bare-metal/system-passwords-storagegrid.html"
+  - title: Revisar la configuración y completar la instalación de StorageGRID
+    url: "/technical-reports/bare-metal/review-config-complete-storagegrid-install.html"
+  - title: Actualice los nodos de configuración básica en StorageGRID
+    url: "/technical-reports/bare-metal/upgrading-bare-metal-nodes-storagegrid.html"
+- title: 'TR-4907: Configuración de StorageGRID con Veritas Enterprise Vault'
+  pdf-filename: 'Recuperación ante desastres de StorageGRID: Configuración de StorageGRID
+    para conmutación al nodo de respaldo del sitio con Veritas Enterprise Vault'
+  entries:
+  - title: Introducción a la configuración de StorageGRID para conmutación por error
+      del sitio
+    url: "/technical-reports/veritas/index.html"
+  - title: Configuración de StorageGRID y Veritas Enterprise Vault
+    url: "/technical-reports/veritas/configure-storagegrid-enterprise-vault.html"
+  - title: Configurar StorageGRID para el ALMACENAMIENTO WORM
+    url: "/technical-reports/veritas/configure-storagegrid-s3-object-lock.html"
+  - title: Configurar StorageGRID para la recuperación ante desastres
+    url: "/technical-reports/veritas/configure-storagegrid-site-failover.html"

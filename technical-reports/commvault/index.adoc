@@ -1,0 +1,116 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/commvault/index.html 
+keywords: Backup, on-premises, commvault, storagegrid, object, S3, WORM 
+summary: Explora pocos casos prácticos de las configuraciones de StorageGRID implementadas por los clientes y EL DEPARTAMENTO DE TI de NetApp. 
+---
+= Realice backups y recupere datos con StorageGRID y Commvault
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../../media/
+
+
+[role="lead"]
+CommVault y NetApp han colaborado para crear una solución de protección de datos conjunta que combina el software Commvault Complete Backup and Recovery para NetApp con el software NetApp StorageGRID para el almacenamiento en cloud. CommVault Complete Backup and Recovery y NetApp StorageGRID ofrecen soluciones exclusivas y fáciles de usar que funcionan conjuntamente para ayudarle a cumplir las demandas del rápido crecimiento de los datos y las crecientes normativas en todo el mundo.
+
+Muchas organizaciones quieren migrar su almacenamiento al cloud, escalar sus sistemas y automatizar la política para la retención de datos a largo plazo. El almacenamiento de objetos basado en cloud es conocido por su resiliencia, capacidad de escalado y eficiencia operativa y de costes que lo convierten en una opción natural como destino para su backup. CommVault y NetApp certificaron conjuntamente su solución combinada en 2014 y desde entonces han diseñado una integración más profunda entre sus dos soluciones. Clientes de todo tipo en todo el mundo han adoptado la solución combinada de CommVault Complete Backup and Recovery y StorageGRID.
+
+
+
+== Acerca de Commvault y StorageGRID
+
+El software Commvault Complete Backup and Recovery es una solución de gestión de datos e información integrada de nivel empresarial creada desde cero en una única plataforma y con una base de código unificado. Todas sus funciones comparten tecnologías back-end, lo que ofrece las ventajas y ventajas incomparables de un enfoque totalmente integrado para proteger, gestionar y acceder a los datos. El software contiene módulos que protegen, archivan, analizan, replican y buscan los datos. Los módulos comparten un conjunto común de servicios de back-end y capacidades avanzadas que interactúan entre sí a la perfección. La solución aborda todos los aspectos de la gestión de datos de su empresa, a la vez que proporciona una escalabilidad infinita y un control sin precedentes de los datos y la información.
+
+NetApp StorageGRID, como nivel de cloud de Commvault, es una solución empresarial de almacenamiento de objetos en cloud híbrido. Puede ponerlo en funcionamiento en numerosos sitios, ya sea en un dispositivo creado para tal fin o como instalación definida por software. StorageGRID permite establecer normativas de gestión de datos que determinan cómo se almacenan y protegen los datos. StorageGRID recopila la información necesaria para desarrollar y aplicar políticas. Examina una amplia gama de características y necesidades, incluyendo rendimiento, durabilidad, disponibilidad, ubicación geográfica, longevidad y coste. Los datos se mantienen completamente y están protegidos a medida que se mueven entre ubicaciones y a medida que envejecen.
+
+El motor de políticas inteligente de StorageGRID le ayuda a elegir una de las siguientes opciones:
+
+* Para utilizar códigos de borrado para realizar backups de datos en varios sitios para garantizar la resiliencia.
+* Para copiar objetos en sitios remotos para minimizar la latencia y el coste de WAN.
+
+
+Cuando StorageGRID almacena un objeto, se accede a él como un objeto, independientemente del lugar donde esté o del número de copias que existan. Este comportamiento es crucial para la recuperación ante desastres, ya que con él, incluso si una copia de backup de sus datos está dañada, StorageGRID puede restaurar sus datos.
+
+Mantener los datos de backup en el almacenamiento primario puede resultar caro. Cuando usa NetApp StorageGRID, libera espacio en su almacenamiento principal migrando los datos de backup inactivos a StorageGRID y se beneficia de las numerosas funcionalidades de StorageGRID. El valor de los datos de backup cambia con el tiempo, al igual que el coste de almacenarlos. StorageGRID puede minimizar el coste de su almacenamiento primario a la vez que aumenta la durabilidad de sus datos.
+
+
+
+== Principales características
+
+Algunas de las funciones clave de la plataforma de software Commvault son:
+
+* Una solución de protección de datos completa compatible con los principales sistemas operativos, aplicaciones y bases de datos en servidores físicos y virtuales, sistemas NAS, infraestructuras basadas en cloud y dispositivos móviles.
+* Gestión simplificada mediante una única consola: Usted puede ver, gestionar y acceder a todas las funciones y a todos los datos e información de la empresa.
+* Múltiples métodos de protección, entre los que se incluyen el backup y el archivado de datos, la gestión de Snapshot, la replicación de datos y la indexación de contenido para exhibición de documentos electrónicos.
+* Gestión del almacenamiento eficiente mediante la deduplicación para el almacenamiento en disco y en cloud.
+* Integración con cabinas de almacenamiento de NetApp como las cabinas AFF, FAS, NetApp HCI y E-Series y sistemas de almacenamiento de escalado horizontal NetApp SolidFire^®^ Integración también con el software NetApp Cloud Volumes ONTAP para automatizar la creación de copias Snapshot™ de NetApp indexadas y compatibles con aplicaciones en toda la cartera de almacenamiento de NetApp.
+* Complete la gestión de infraestructura virtual que admite los principales hipervisores virtuales en las instalaciones y las principales plataformas de proveedores a hiperescala en el cloud público.
+* Las funcionalidades de seguridad avanzadas para limitar el acceso a datos cruciales, ofrecer funcionalidades de gestión granular y proporcionar acceso de inicio de sesión único para los usuarios de Active Directory.
+* Gestión de datos basada en políticas que le permite gestionar los datos en función de las necesidades empresariales, no de la ubicación física.
+* Una experiencia de usuario final innovadora, que capacita a los usuarios para que protejan, encuentren y recuperen sus propios datos.
+* Automatización impulsada por API, lo que le permite usar herramientas de terceros, como vRealize Automation o Service Now, para gestionar sus operaciones de protección y recuperación de datos.
+
+
+Si desea información detallada sobre las cargas de trabajo compatibles, visite https://www.commvault.com/supported-technologies["Tecnologías compatibles de Commvault"].
+
+
+
+== Opciones de backup
+
+Al implementar el software Commvault Complete Backup and Recovery con almacenamiento en cloud, dispone de dos opciones de backup:
+
+* Realice una copia de seguridad en un destino de disco primario y también realice una copia auxiliar en el almacenamiento en cloud.
+* Realice un backup en el almacenamiento en cloud como destino principal.
+
+
+Anteriormente, se consideraba que el almacenamiento de objetos o en el cloud tenía un rendimiento demasiado bajo para poder utilizarlo para el backup principal. El uso de un destino de disco principal permitió a los clientes acelerar los procesos de backup y restauración, así como mantener una copia auxiliar en el cloud como backup en frío. StorageGRID representa la nueva generación de almacenamiento de objetos. StorageGRID ofrece un alto rendimiento y un rendimiento masivo, así como un rendimiento y una flexibilidad más allá de lo que ofrecen otros proveedores de almacenamiento de objetos.
+
+La siguiente tabla enumera las ventajas de cada opción de backup con StorageGRID:
+
+[cols="1a,1a,1a"]
+|===
+|  | Copia de seguridad primaria en disco y copia auxiliar en StorageGRID | Backup principal en StorageGRID 
+
+
+ a| 
+Rendimiento
+ a| 
+Tiempo de recuperación más rápido, con montaje activo o recuperación activa: Ideal para cargas de trabajo de Tier0/Tier1.
+ a| 
+No se puede utilizar para operaciones de montaje activo ni de recuperación activa. Ideal para el funcionamiento de restauración de transmisión y la retención a largo plazo.
+
+
+
+ a| 
+Arquitectura de puesta en marcha
+ a| 
+Utiliza all-flash o un disco giratorio como primer nivel de aterrizaje de backup. StorageGRID se utiliza como nivel secundario.
+ a| 
+Simplifica la puesta en marcha al usar StorageGRID como objetivo de backup todo incluido.
+
+
+
+ a| 
+Funciones avanzadas (restauración en directo)
+ a| 
+Compatible
+ a| 
+No admitido
+
+|===
+
+
+== Dónde encontrar información adicional
+
+Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
+
+* Centro de documentación de StorageGRID 11,8 +
+https://docs.netapp.com/us-en/storagegrid-118/[]
+* Documentación de producto de NetApp +
+https://docs.netapp.com[]
+* Documentación de CommVault +
+https://documentation.commvault.com/2024/essential/index.html[]
+

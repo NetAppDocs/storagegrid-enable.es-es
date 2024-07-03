@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/load-balancer/third-party-load-balancer-configuration.html 
+keywords: third-party load balancer, storagegrid 
+summary: Aprenda a configurar el equilibrador de carga de terceros de confianza en StorageGRID. 
+---
+= Configurar equilibrador de carga de terceros de confianza en StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../../media/
+
+
+[role="lead"]
+Aprenda a configurar el equilibrador de carga de terceros de confianza en StorageGRID.
+
+Si utiliza uno o más equilibradores de carga externos de capa 7 y un bucket o políticas de grupo de S3 basadas en IP, StorageGRID debe determinar la dirección IP del remitente real. Para ello, consulte el cabezal X-Forward-For (XFF), que el equilibrador de carga inserta en la solicitud. Dado que el encabezado XFF se puede suplantar fácilmente en las solicitudes enviadas directamente a los nodos de almacenamiento, StorageGRID debe confirmar que un equilibrador de carga de capa 7 de confianza dirige cada solicitud. Si StorageGRID no puede confiar en el origen de la solicitud, ignorará la cabecera XFF. Hay una API de gestión de grid que permite configurar una lista de equilibradores de carga de capa 7 externos de confianza. Esta nueva API es privada y está sujeta a cambios en futuros lanzamientos de StorageGRID. Para obtener la información más actualizada, consulte el artículo de la base de conocimientos, https://kb.netapp.com/Advice_and_Troubleshooting/Hybrid_Cloud_Infrastructure/StorageGRID/How_to_configure_StorageGRID_to_work_with_third-party_Layer_7_load_balancers["Cómo configurar StorageGRID para que funcione con equilibradores de carga de capa 7 de terceros"^].

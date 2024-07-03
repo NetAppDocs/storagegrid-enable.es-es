@@ -1,0 +1,31 @@
+---
+permalink: technical-reports/monitor/getting-started.html 
+sidebar: sidebar 
+keywords: get started, storagegrid 
+summary: Comience su proceso de supervisión de NetApp StorageGRID con el panel de GMI, que proporciona una descripción general de alto nivel de la cuadrícula y sus componentes principales. 
+---
+= Utilice el panel de control de GMI para supervisar StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../../media/
+
+
+[role="lead"]
+El panel de la interfaz de gestión de grid (GMI) de StorageGRID proporciona una vista centralizada de la infraestructura de StorageGRID, lo que permite supervisar el estado, el rendimiento y la capacidad de todo el grid.
+
+Utilice el panel de control de GMI para examinar cada componente principal de la cuadrícula.
+
+image:monitor-storagegrid-gmi-dashboard.png["monitor-storagegrid-gmi-dashboard"]
+
+
+
+== Información que debe controlar regularmente
+
+En una versión anterior de este informe técnico se indicaban las métricas que se debían comprobar periódicamente frente a las tendencias. Esa información ahora está incluida en el https://docs.netapp.com/us-en/storagegrid-118/landing-monitor-troubleshoot/index.html["Guía de supervisión y solución de problemas"^].
+
+
+
+== Supervisión del almacenamiento
+
+Una versión anterior de este informe técnico muestra dónde supervisar métricas importantes, como espacio de almacenamiento de objetos, espacio de metadatos, recursos de red, etc. Esa información ahora está incluida en el https://docs.netapp.com/us-en/storagegrid-118/landing-monitor-troubleshoot/index.html["Guía de supervisión y solución de problemas"^].

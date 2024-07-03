@@ -1,0 +1,17 @@
+---
+permalink: technical-reports/index.html 
+sidebar: sidebar 
+keywords: intro, technical, reports, storagegrid 
+summary: Una página de introducción para los informes técnicos de StorageGRID. 
+---
+= Introducción a los informes técnicos de StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID de NetApp es una suite de almacenamiento de objetos definido por software que admite diferentes casos de uso en entornos de multinube pública, privada e híbrida. StorageGRID ofrece compatibilidad nativa con la API de Amazon S3 y proporciona innovaciones líderes en el sector, como la gestión automatizada del ciclo de vida, para almacenar, proteger y conservar datos no estructurados de forma rentable durante largos periodos.
+
+StorageGRID ofrece documentación para cubrir las prácticas recomendadas y las recomendaciones para varias funciones e integraciones de StorageGRID.

@@ -1,0 +1,37 @@
+---
+permalink: technical-reports/veritas/index.html 
+sidebar: sidebar 
+keywords: storagegrid, primary storage, configure, veritas, enterprise vault 
+summary: Descubre cómo Veritas Enterprise Vault utiliza StorageGRID como destino de almacenamiento principal para la recuperación ante desastres. 
+---
+= Introducción a la configuración de StorageGRID para conmutación por error del sitio
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../../media/
+
+
+[role="lead"]
+Descubre cómo Veritas Enterprise Vault utiliza StorageGRID como destino de almacenamiento principal para la recuperación ante desastres.
+
+Esta guía de configuración proporciona los pasos para configurar NetApp® StorageGRID® como destino de almacenamiento principal con Veritas Enterprise Vault. También describe cómo configurar StorageGRID para conmutación por error de sitios en un escenario de recuperación ante desastres (DR).
+
+
+
+== Flexible y escalable
+
+StorageGRID proporciona un objetivo de backup de cloud compatible con S3 en las instalaciones para Veritas Enterprise Vault. La figura siguiente muestra la arquitectura Veritas Enterprise Vault y StorageGRID.
+
+image:third-party-veritas-enterprise-vault-and-storagegrid-architecture.png["arquitectura-veritas-empresariales-vault-y-storagegrid-architecture de terceros"]
+
+
+
+== Dónde encontrar información adicional
+
+Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
+
+* Centro de documentación de NetApp StorageGRID https://docs.netapp.com/us-en/storagegrid-118/[]
+* Habilitación para NetApp StorageGRID https://docs.netapp.com/us-en/storagegrid-enable/[]
+* Página de recursos de documentación de StorageGRID https://www.netapp.com/data-storage/storagegrid/documentation/[]
+* Documentación de producto de NetApp https://www.netapp.com/support-and-training/documentation/[]
+
