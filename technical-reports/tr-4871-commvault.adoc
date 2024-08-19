@@ -140,7 +140,7 @@ Registro doble
 |===
 La regla Copia de ILM 2 es la regla predeterminada. La regla de codificación de borrado 2+1 se aplicó para esta prueba a cualquier objeto 200KB o mayor. La regla predeterminada se ha aplicado a objetos menores de 200KB. La aplicación de las reglas de este modo es una mejor práctica de StorageGRID.
 
-Para obtener detalles técnicos sobre este entorno de prueba, lea la sección Diseño de la solución y prácticas recomendadas en la https://www.netapp.com/us/media/tr-4831.pdf["Protección de datos de escalado horizontal de NetApp con Commvault"] informe técnico.
+Para obtener detalles técnicos sobre este entorno de prueba, lea la sección Diseño de soluciones y prácticas recomendadas en el https://www.netapp.com/pdf.html?item=/media/19372-tr-4831.pdf["Protección de datos de escalado horizontal de NetApp con Commvault"^] informe técnico.
 
 
 
@@ -511,7 +511,7 @@ image:commvault/job-summary.png["Resumen del trabajo"]
 
 === Pruebas de rendimiento base
 
-En la tabla 7 se muestran los resultados de nuestras pruebas de rendimiento base. En la operación Copia auxiliar, cuatro CommVault MediaAgent realizaron backups de los datos en un sistema NetApp AFF A300 y se creó una copia auxiliar en NetApp StorageGRID. Si desea obtener información detallada sobre el entorno de configuración de prueba, consulte la sección Diseño de la solución y mejores prácticas en la https://www.netapp.com/us/media/tr-4831.pdf["Protección de datos de escalado horizontal de NetApp con Commvault"] informe técnico.
+En la tabla 7 se muestran los resultados de nuestras pruebas de rendimiento base. En la operación Copia auxiliar, cuatro CommVault MediaAgent realizaron backups de los datos en un sistema NetApp AFF A300 y se creó una copia auxiliar en NetApp StorageGRID. Si desea obtener información detallada sobre el entorno de configuración de pruebas, lea la sección Diseño de la solución y mejores prácticas del https://www.netapp.com/pdf.html?item=/media/19372-tr-4831.pdf["Protección de datos de escalado horizontal de NetApp con Commvault"^] informe técnico.
 
 Las pruebas se llevaron a cabo con 100 equipos virtuales y 1000 equipos virtuales, ambas pruebas con una combinación de 50/50 equipos virtuales Windows y CentOS.
 
