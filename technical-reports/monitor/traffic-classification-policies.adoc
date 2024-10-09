@@ -25,20 +25,20 @@ Para configurar una directiva de clasificación de tráfico, siga estos pasos:
 . Introduzca un nombre y una descripción para la política.
 . Cree una regla de coincidencia.
 +
-image:monitor-matching-rule.png["regla de coincidencia de monitor"]
+image:monitor/monitor-matching-rule.png["regla de coincidencia de monitor"]
 
 . Establezca un límite (opcional).
 +
-image:monitor-limit.png["monitor-limit"]
+image:monitor/monitor-limit.png["monitor-limit"]
 
 . Guarde su política
 +
-image:monitor-traffic-policy.png["monitor-tráfico-política"]
+image:monitor/monitor-traffic-policy.png["monitor-tráfico-política"]
 
 +
 Para ver las métricas asociadas a su directiva de clasificación de tráfico, seleccione su política y haga clic en Métricas. Se genera un panel de Grafana que muestra información como el tráfico de solicitudes de equilibrador de carga y la duración media de solicitudes.
 
 +
-image:monitor-dashboard-showing-metrics.png["monitor-panel-visualización-métricas"]
+image:monitor/monitor-dashboard-showing-metrics.png["monitor-panel-visualización-métricas"]
 
 

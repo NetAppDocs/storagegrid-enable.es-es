@@ -22,7 +22,7 @@ Después de crear los buckets de origen y de destino y de configurar el destino 
 .Pasos
 . Para configurar CloudMirror, cree un punto final de servicios de plataforma para el destino S3.
 +
-image:ransomware-protection-create-endpoint.png["ransomware-protection-create-endpoint"]
+image:ransomware/ransomware-protection-create-endpoint.png["ransomware-protection-create-endpoint"]
 
 . En el bloque de origen, configure la replicación para usar el punto final configurado.
 +
@@ -42,10 +42,10 @@ image:ransomware-protection-create-endpoint.png["ransomware-protection-create-en
 ----
 . Cree reglas de ILM para gestionar la ubicación del almacenamiento y la gestión de la duración del almacenamiento de versiones. En este ejemplo, se configuran las versiones no actuales de los objetos que se van a almacenar.
 +
-image:ransomware-protection-create-ilm-rule.png["regla-protección-creación-im-ransomware"]
+image:ransomware/ransomware-protection-create-ilm-rule.png["regla-protección-creación-im-ransomware"]
 
 +
-image:ransomware-protection-create-ilm-rule-step-2.png["ransomware-protection-create-ilm-rule-step-2"]
+image:ransomware/ransomware-protection-create-ilm-rule-step-2.png["ransomware-protection-create-ilm-rule-step-2"]
 
 +
 Hay dos copias en el sitio 1 durante 30 días. También configura las reglas para la versión actual de los objetos en función de usar el tiempo de ingesta como tiempo de referencia en la regla de ILM para que coincida con la duración del almacenamiento del bloque de origen. La ubicación del almacenamiento para las versiones de objetos puede codificarse para el borrado o replicarse.

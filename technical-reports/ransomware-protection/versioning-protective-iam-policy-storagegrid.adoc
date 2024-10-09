@@ -20,7 +20,7 @@ Un método para proteger los datos sin utilizar el bloqueo de objetos o la repli
 
 En StorageGRID 11,7 se ha introducido una nueva opción de política de grupo de S3 «Mitigación de ransomware» para facilitar la implementación de esta solución. Al crear un grupo de usuarios en el inquilino, después de seleccionar los permisos del grupo, puede ver esta nueva política opcional.
 
-image:ransomware-protection-create-group.png["crear un grupo de protección contra ransomware"]
+image:ransomware/ransomware-protection-create-group.png["crear un grupo de protección contra ransomware"]
 
 A continuación se muestra el contenido de la política de grupo que incluye la mayoría de las operaciones disponibles explícitamente permitidas y el mínimo requerido denegado.
 

@@ -24,7 +24,7 @@ Para agregar sitios, realice los siguientes pasos:
 . En la página Sitios, introduzca el nombre del sitio.
 . Para agregar sitios adicionales, haga clic en el signo más junto a la última entrada del sitio e introduzca el nombre en el nuevo cuadro de texto Nombre del sitio. Agregue tantos sitios adicionales como sea necesario para la topología de la cuadrícula. Puede agregar hasta 16 sitios.
 +
-image:bare-metal-add-sites.png["sitios-complementos-bare-metal"]
+image:bare-metal/bare-metal-add-sites.png["sitios-complementos-bare-metal"]
 
 . Haga clic en Siguiente.
 

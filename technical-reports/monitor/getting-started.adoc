@@ -16,7 +16,7 @@ El panel de la interfaz de gestión de grid (GMI) de StorageGRID proporciona una
 
 Utilice el panel de control de GMI para examinar cada componente principal de la cuadrícula.
 
-image:monitor-storagegrid-gmi-dashboard.png["monitor-storagegrid-gmi-dashboard"]
+image:monitor/monitor-storagegrid-gmi-dashboard.png["monitor-storagegrid-gmi-dashboard"]
 
 
 

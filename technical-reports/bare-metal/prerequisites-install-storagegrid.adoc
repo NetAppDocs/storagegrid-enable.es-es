@@ -172,7 +172,7 @@ Combinando los requisitos de computación y de red mostrados en la tabla anterio
 
 Como se muestra en la siguiente figura, estos servidores alojarán seis contenedores Docker, dos por host. La RAM se calcula proporcionando 24GB GB por contenedor y 16GB GB para el propio SO host.
 
-image:bare-metal-layout-for-three-hosts.png["Distribución de ejemplo para tres hosts."]
+image:bare-metal/bare-metal-layout-for-three-hosts.png["Distribución de ejemplo para tres hosts."]
 
 La RAM total necesaria por host físico (o VM) es de 24 x 2 + 16 GB = 64GB GB. En las siguientes tablas, se enumeran el almacenamiento en disco requerido para los hosts 1, 2 y 3.
 

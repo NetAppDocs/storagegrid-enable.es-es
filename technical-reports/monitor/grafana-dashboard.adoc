@@ -23,10 +23,10 @@ Estos paneles de control prediseñados no solo son útiles para la supervisión,
 . En el GMI, menú:Soporte[Métricas].
 . En la sección Grafana, seleccione el panel de control Nodo.
 +
-image:monitor-node-dashboard.png["supervisión-nodo-consola"]
+image:monitor/monitor-node-dashboard.png["supervisión-nodo-consola"]
 
 . En Grafana, defina los hosts en el nodo en el que desee ver las métricas. En este caso, se selecciona un nodo de almacenamiento. Se proporciona más información que las siguientes capturas de pantalla.
 +
-image:monitor-grafana-metrics.png["métricas-supervisión-gráfica"]
+image:monitor/monitor-grafana-metrics.png["métricas-supervisión-gráfica"]
 
 

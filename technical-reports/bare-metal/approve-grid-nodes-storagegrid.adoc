@@ -32,12 +32,12 @@ NOTE: Si falta un nodo de cuadrícula, confirme que se ha implementado correctam
 
 . Haga clic en el botón de radio situado junto a un nodo pendiente que desee aprobar.
 +
-image:bare-metal-approve-configure-grid-nodes.png["media/bare-metal-approved-configure-grid-nodes"]
+image:bare-metal/bare-metal-approve-configure-grid-nodes.png["media/bare-metal-approved-configure-grid-nodes"]
 
 . Haga clic en Aprobar.
 . En Configuración general, modifique la configuración de las siguientes propiedades, según sea necesario.
 +
-image:bare-metal-admin-node-configuration.png["configuración-nodo-administración-bare-metal"]
+image:bare-metal/bare-metal-admin-node-configuration.png["configuración-nodo-administración-bare-metal"]
 
 +
 -- *Sitio*: El nombre del sistema del sitio para este nodo de red.
@@ -109,9 +109,9 @@ NOTE: Si seleccionó DHCP para la configuración de red de administración y cam
 
 . Haga clic en Guardar. La entrada del nodo de grid se mueve a la lista de nodos aprobados.
 +
-image:bare-metal-approved-node-list.png["lista-nodos-aprobada-bare-metal"]
+image:bare-metal/bare-metal-approved-node-list.png["lista-nodos-aprobada-bare-metal"]
 
-. Repita los pasos 1 a 8 para cada nodo de cuadrícula pendiente que desee aprobar.
+. Repita los pasos 1-8 para cada nodo de cuadrícula pendiente que desee aprobar.
 +
 Debe aprobar todos los nodos que desee de la cuadrícula. Sin embargo, puede volver a esta página en cualquier momento antes de hacer clic en Instalar en la página Resumen. Para modificar las propiedades de un nodo de cuadrícula aprobado, haga clic en su botón de opción y, a continuación, haga clic en Editar.
 

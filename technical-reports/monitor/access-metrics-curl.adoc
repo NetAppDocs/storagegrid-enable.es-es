@@ -21,7 +21,7 @@ Para realizar esta operación, primero debe obtener un token de autorización. P
 . En el GMI, seleccione MENU:Ayuda[Documentación de API].
 . Desplácese hacia abajo hasta Aut. Para buscar operaciones en autorización. La siguiente captura de pantalla muestra los parámetros del método POST.
 +
-image:monitor-post-method.png["método de seguimiento posterior"]
+image:monitor/monitor-post-method.png["método de seguimiento posterior"]
 
 . Haga clic en Pruébalo y edite el cuerpo con su nombre de usuario y contraseña de GMI.
 . Haga clic en Ejecutar.

@@ -32,7 +32,7 @@ Para configurar el monitor de comprobación del estado del administrador de trá
 .. En el campo Cadena de envío, introduzca `OPTIONS / HTTP/1.1\r\n\r\n.` \r\n son devoluciones de carro; las diferentes versiones del software BIG-IP requieren cero, uno o dos conjuntos de secuencias \r\n. Para obtener más información, consulte https://support.f5.com/csp/article/K10655[].
 .. En el campo Cadena de recepción, introduzca: `HTTP/1.1 200 OK`.
 +
-image:load-balancer-monitor-configuration-page.png["Página de configuración del monitor"]
+image:load-balancer/load-balancer-monitor-configuration-page.png["Página de configuración del monitor"]
 
 
 
@@ -56,9 +56,9 @@ Utilice el monitor de comprobación de estado HTTPS-ECV para crear un monitor pe
 
 Para obtener más información, consulte la documentación de Citrix, https://docs.citrix.com/en-us/citrix-adc/current-release/load-balancing/load-balancing-builtin-monitors/monitor-ssl-services.html#sample-configuration-for-https-ecv-health-check-monitor["Configuración de ejemplo para el monitor de comprobación del estado de HTTP-ECV"^].
 
-image:load-balancer-citrix-netscaler-configuration-page.png["Página de configuración de Citrix Netscaler Monitor"]
+image:load-balancer/load-balancer-citrix-netscaler-configuration-page.png["Página de configuración de Citrix Netscaler Monitor"]
 
-image:load-balancer-configure-monitor.png["Configure-monitor.png"]
+image:load-balancer/load-balancer-configure-monitor.png["Configure-monitor.png"]
 
 
 

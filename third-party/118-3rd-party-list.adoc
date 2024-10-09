@@ -37,6 +37,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * DefendX
 * Datos de Diskover
 * Dremio
+* Snapshot de Elasticsearch (incluido el nivel congelado)
 * Imán
 * Archivo de objetos de Fujifilm
 * Servidor empresarial de GitHub
@@ -67,12 +68,13 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * Copo de nieve
 * Spectra Logic en el glaciar local
 * Smartstore de Splunk
+* Estallido
 * Almacenamiento simplificado
 * Trino
 * Empresa de barniz 6.0.4
 * Veeam 12
-* Veritas Enterprise Vault 14
-* Veritas NetBackup 8.0
+* veritas Enterprise Vault 14
+* veritas NetBackup 8,0
 * Vertica 10.x
 * Vidispine
 * Tejido de almacenamiento de Virtalica
@@ -90,8 +92,8 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * OpenText Documentum 21.4
 * RUBRIK
 * Veeam 12
-* Veritas Enterprise Vault 14.2.2
-* Veritas NetBackup 10.1.1 y posterior
+* veritas Enterprise Vault 14.2.2
+* veritas NetBackup 10.1.1 y versiones posteriores
 
 
 

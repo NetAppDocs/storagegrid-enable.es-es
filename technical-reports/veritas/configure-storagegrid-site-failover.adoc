@@ -14,11 +14,11 @@ summary: Aprende a configurar la conmutación al nodo de respaldo del sitio Stor
 [role="lead"]
 Aprende a configurar la conmutación al nodo de respaldo del sitio StorageGRID en un escenario de recuperación de desastres.
 
-Es un común que la puesta en marcha de una arquitectura de StorageGRID sea multisitio. Los sitios pueden ser activo-activo o activo-pasivo para recuperación de desastres. En un escenario de recuperación ante desastres, asegúrese de que Veritas Enterprise Vault puede mantener la conexión con su almacenamiento principal (StorageGRID) y continuar procesando y recuperando los datos durante un fallo del centro. En esta sección se proporciona orientación de configuración de alto nivel para una puesta en marcha activo-pasivo en dos sitios. Para obtener información detallada sobre estas directrices, consulte link:https://docs.netapp.com/us-en/storagegrid-118/["Documentación de StorageGRID"] la página o póngase en contacto con un experto de StorageGRID.
+Es un común que la puesta en marcha de una arquitectura de StorageGRID sea multisitio. Los sitios pueden ser activo-activo o activo-pasivo para recuperación de desastres. En un escenario de recuperación ante desastres, asegúrese de que veritas Enterprise Vault puede mantener la conexión con su almacenamiento principal (StorageGRID) y continuar procesando y recuperando los datos durante un fallo del centro. En esta sección se proporciona orientación de configuración de alto nivel para una puesta en marcha activo-pasivo en dos sitios. Para obtener información detallada sobre estas directrices, consulte link:https://docs.netapp.com/us-en/storagegrid-118/["Documentación de StorageGRID"] la página o póngase en contacto con un experto de StorageGRID.
 
 
 
-== Requisitos previos para configurar StorageGRID con Veritas Enterprise Vault
+== Requisitos previos para configurar StorageGRID con veritas Enterprise Vault
 
 Antes de configurar la conmutación por error del sitio StorageGRID, verifique los siguientes requisitos previos:
 
@@ -36,13 +36,13 @@ Para configurar la conmutación por error del sitio StorageGRID, lleve a cabo lo
 .Pasos
 . Para garantizar la conectividad con StorageGRID durante los fallos del sitio, configure un grupo de alta disponibilidad. En la interfaz del administrador de grid de StorageGRID (GMI), haga clic en Configuración, Grupos de alta disponibilidad y + Crear.
 +
-image:third-party-create-high-availability-group.png["crear un grupo de alta disponibilidad de terceros"]
+image:vertias/veritas-create-high-availability-group.png["grupo de alta disponibilidad de creación vertical/versas"]
 
 . Especifique la información obligatoria. Haga clic en Seleccionar interfaces e incluya las interfaces de red de site1 y Site2 donde site1 (el sitio principal) es el maestro preferido. Asigne una dirección IP virtual dentro de la misma subred. Haga clic en Guardar.
 +
-image:third-party-edit-high-availability-group.png["grupo-de-alta-disponibilidad-edición-de-terceros"]
+image:veritas/veritas-edit-high-availability-group.png["grupo de alta disponibilidad de vertias/veritas-edit"]
 
-. Esta dirección IP virtual (VIP) debe asociarse al nombre de host S3 utilizado durante la configuración de particiones de Veritas Enterprise Vault. La dirección VIP resuelve el tráfico a site1 y, durante el fallo de site1, la dirección VIP redirige el tráfico de forma transparente A Site2.
+. Esta dirección IP virtual (VIP) debe asociarse al nombre de host S3 utilizado durante la configuración de particiones de veritas Enterprise Vault. La dirección VIP resuelve el tráfico a site1 y, durante el fallo de site1, la dirección VIP redirige el tráfico de forma transparente A Site2.
 . Asegúrese de que los datos se replican tanto en site1 como en Site2. De esta forma, si site1 falla, los datos de objetos siguen disponibles en Site2. Para ello, primero se configuran los pools de almacenamiento.
 +
 En StorageGRID GMI, haga clic en ILM, Pools de almacenamiento y, a continuación, en + Create. Siga al asistente para crear dos pools de almacenamiento: Uno para site1 y otro para Site2.
@@ -51,14 +51,14 @@ En StorageGRID GMI, haga clic en ILM, Pools de almacenamiento y, a continuación
 Los pools de almacenamiento son agrupaciones lógicas de nodos que se utilizan para definir la ubicación del objeto
 
 +
-image:third-party-storage-pool-details-site-1.png["terceros-almacenamiento-pool-detalles-sitio-1"]
+image:veritas/veritas-storage-pool-details-site-1.png["vértigas/veritas-storage-pool-details-site-1"]
 
 +
-image:third-party-storage-pool-details-site-2.png["terceros-almacenamiento-pool-detalles-sitio-2"]
+image:veritas/veritas-storage-pool-details-site-2.png["vértigas/veritas-storage-pool-details-site-2"]
 
 . En StorageGRID GMI, haga clic en ILM, Reglas y, a continuación, en + Crear. Siga el asistente para crear una regla de ILM que especifique una copia para almacenar por sitio con un comportamiento de ingesta de equilibrada.
 +
-image:third-party-storage-pool-details-site-3.png["terceros-almacenamiento-pool-detalles-sitio-3"]
+image:veritas/veritas-storage-pool-details-site-3.png["vértigas/veritas-storage-pool-details-site-3"]
 
 . Agregue la regla de ILM a una política de ILM y active la política.
 
@@ -66,8 +66,8 @@ image:third-party-storage-pool-details-site-3.png["terceros-almacenamiento-pool-
 Esta configuración da como resultado el siguiente resultado:
 
 * Una IP de extremo virtual S3 donde site1 es el primario y Site2 es el extremo secundario. Si site1 falla, el VIP se conmuta a Site2.
-* Cuando se envían datos archivados desde Veritas Enterprise Vault, StorageGRID garantiza que se almacene una copia en site1 y que se almacene otra en Site2. Si site1 falla, Enterprise Vault sigue ingiriendo y recuperando de Site2.
+* Cuando se envían datos archivados desde veritas Enterprise Vault, StorageGRID garantiza que se almacene una copia en site1 y que se almacene otra en Site2. Si site1 falla, Enterprise Vault sigue ingiriendo y recuperando de Site2.
 
 
 
-NOTE: Ambas configuraciones son transparentes para Veritas Enterprise Vault. El punto final S3, el nombre del depósito, las claves de acceso, etc. son los mismos. No es necesario volver a configurar los ajustes de conexión S3 en la partición de Veritas Enterprise Vault.
+NOTE: Ambas configuraciones son transparentes para veritas Enterprise Vault. El punto final S3, el nombre del depósito, las claves de acceso, etc. son los mismos. No es necesario volver a configurar los ajustes de conexión S3 en la partición de veritas Enterprise Vault.

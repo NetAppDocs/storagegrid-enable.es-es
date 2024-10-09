@@ -30,7 +30,7 @@ Los balanceadores de carga son un componente esencial de un sistema de almacenam
 
 En la siguiente figura se utiliza la URL de ejemplo/ nombre de dominio completamente cualificado (FQDN) “s3.company.com”. El equilibrador de carga crea una IP virtual (VIP) que se resuelve en el FQDN mediante DNS y, a continuación, dirige las solicitudes de las aplicaciones a un pool de nodos de StorageGRID. El balanceador de carga realiza una comprobación del estado de cada nodo y solo establece conexiones con nodos en buen estado.
 
-image:load-balancer-local-traffic-manager-load-balancer.png["Equilibrador de carga de gestor de tráfico local"]
+image:load-balancer/load-balancer-local-traffic-manager-load-balancer.png["Equilibrador de carga de gestor de tráfico local"]
 
 La figura muestra el equilibrador de carga proporcionado por StorageGRID, pero el concepto es el mismo para los equilibradores de carga de terceros. Las aplicaciones establecen una sesión HTTP mediante la VIP del balanceador de carga y el tráfico pasa a través del balanceador de carga a los nodos de almacenamiento. De forma predeterminada, todo el tráfico, desde la aplicación al balanceador de carga y desde el balanceador de carga al nodo de almacenamiento se cifra a través de HTTPS. HTTP es una opción compatible.
 

@@ -21,7 +21,7 @@ Para asegurarse de que la instalación se complete correctamente, revise cuidado
 .Pasos
 . Abra la página Resumen.
 +
-image:bare-metal-summary-page.png["página de resumen completo"]
+image:bare-metal/bare-metal-summary-page.png["página de resumen completo"]
 
 . Verifique que toda la información de configuración de la cuadrícula sea correcta. Utilice los enlaces Modify de la página Summary para volver atrás y corregir los errores.
 . Haga clic en instalar.
@@ -42,13 +42,13 @@ CAUTION: El archivo del paquete de recuperación debe estar protegido porque con
 
 . Seleccione la opción He descargado y verificado correctamente el archivo del paquete de recuperación y, a continuación, haga clic en Siguiente.
 +
-image:bare-metal-download-recovery-package.png["paquete de recuperación-descarga-completa"]
+image:bare-metal/bare-metal-download-recovery-package.png["paquete de recuperación-descarga-completa"]
 
 +
 Si la instalación aún está en curso, se abre la página Estado de la instalación. Esta página indica el progreso de la instalación para cada nodo de cuadrícula.
 
 +
-image:bare-metal-installation-status.png["estado de instalación completa"]
+image:bare-metal/bare-metal-installation-status.png["estado de instalación completa"]
 
 +
 Cuando se alcanza la etapa completa para todos los nodos de cuadrícula, se abre la página de inicio de sesión para Grid Manager.

@@ -2,7 +2,7 @@
 permalink: technical-reports/veritas/index.html 
 sidebar: sidebar 
 keywords: storagegrid, primary storage, configure, veritas, enterprise vault 
-summary: Descubre cómo Veritas Enterprise Vault utiliza StorageGRID como destino de almacenamiento principal para la recuperación ante desastres. 
+summary: Descubre cómo veritas Enterprise Vault utiliza StorageGRID como destino de almacenamiento principal para la recuperación ante desastres. 
 ---
 = Introducción a la configuración de StorageGRID para conmutación por error del sitio
 :hardbreaks:
@@ -12,17 +12,17 @@ summary: Descubre cómo Veritas Enterprise Vault utiliza StorageGRID como destin
 
 
 [role="lead"]
-Descubre cómo Veritas Enterprise Vault utiliza StorageGRID como destino de almacenamiento principal para la recuperación ante desastres.
+Descubre cómo veritas Enterprise Vault utiliza StorageGRID como destino de almacenamiento principal para la recuperación ante desastres.
 
-Esta guía de configuración proporciona los pasos para configurar NetApp® StorageGRID® como destino de almacenamiento principal con Veritas Enterprise Vault. También describe cómo configurar StorageGRID para conmutación por error de sitios en un escenario de recuperación ante desastres (DR).
+Esta guía de configuración proporciona los pasos para configurar NetApp® StorageGRID® como destino de almacenamiento principal con veritas Enterprise Vault. También describe cómo configurar StorageGRID para conmutación por error de sitios en un escenario de recuperación ante desastres (DR).
 
 
 
 == Flexible y escalable
 
-StorageGRID proporciona un objetivo de backup de cloud compatible con S3 en las instalaciones para Veritas Enterprise Vault. La figura siguiente muestra la arquitectura Veritas Enterprise Vault y StorageGRID.
+StorageGRID proporciona un objetivo de backup de cloud compatible con S3 en las instalaciones para veritas Enterprise Vault. La figura siguiente muestra la arquitectura veritas Enterprise Vault y StorageGRID.
 
-image:third-party-veritas-enterprise-vault-and-storagegrid-architecture.png["arquitectura-veritas-empresariales-vault-y-storagegrid-architecture de terceros"]
+image:veritas/veritas-enterprise-vault-and-storagegrid-architecture.png["veritas-veritas-enterprise-vault-and-StorageGRID-architecture"]
 
 
 

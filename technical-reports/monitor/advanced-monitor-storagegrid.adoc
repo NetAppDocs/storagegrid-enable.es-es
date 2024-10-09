@@ -21,11 +21,11 @@ Aprenda a acceder y exportar métricas para ayudar a resolver problemas.
 
 Prometheus es un software de código abierto para recopilar métricas. Para acceder a Prometheus integrado de StorageGRID mediante la GMI, vaya a MENU:Soporte[Métricas].
 
-image:monitor-metrics-page.png["monitor-métricas-página"]
+image:monitor/monitor-metrics-page.png["monitor-métricas-página"]
 
 Como alternativa, puede navegar directamente al enlace.
 
-image:monitor-prometheus-interface.png["monitor-interfaz-prometheus"]
+image:monitor/monitor-prometheus-interface.png["monitor-interfaz-prometheus"]
 
 Con esta vista, puede acceder a la interfaz de Prometheus. Desde ahí, podrá buscar en las métricas disponibles e incluso experimentar con consultas.
 
@@ -35,7 +35,7 @@ Para realizar una consulta de URL de Prometheus, siga estos pasos:
 . Comience a escribir en el cuadro de texto de la consulta. A medida que escribe, se muestran las métricas. Para nuestros propósitos, solo las métricas que comienzan con StorageGRID y Node son importantes.
 . Para ver el número de sesiones HTTP de cada nodo, escriba `storagegrid_http` y seleccione `storagegrid_http_sessions_incoming_currently_established`. Haga clic en Ejecutar y muestre la información en formato de gráfico o consola.
 +
-image:monitor-http-sessions.png["monitor-http-sessions"]
+image:monitor/monitor-http-sessions.png["monitor-http-sessions"]
 
 
 
@@ -56,13 +56,13 @@ Para exportar métricas a través de la API, siga estos pasos:
 . En el GMI, seleccione MENU:Ayuda[Documentación de API].
 . Desplácese hasta Metrics y seleccione GET /grid/metric-query.
 +
-image:monitor-metrics-query.png["monitor-metrics-query"]
+image:monitor/monitor-metrics-query.png["monitor-metrics-query"]
 
 +
 La respuesta incluye la misma información que puede obtener a través de una consulta URL de Prometheus. Puede volver a ver el número de sesiones HTTP que se han establecido actualmente en cada nodo de almacenamiento. También puede descargar la respuesta en formato JSON para su lectura. En la siguiente figura se muestran respuestas de consulta de Prometheus de ejemplo.
 
 +
-image:monitor-sample-prometheus-query-responses.png["monitor-sample-prometheus-query-responses"]
+image:monitor/monitor-sample-prometheus-query-responses.png["monitor-sample-prometheus-query-responses"]
 
 
 

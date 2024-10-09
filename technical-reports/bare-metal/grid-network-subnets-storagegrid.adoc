@@ -28,7 +28,7 @@ Para especificar subredes de red de grid, realice los siguientes pasos:
 . En el cuadro de texto Subred 1, especifique la dirección de red CIDR para al menos una red de cuadrícula.
 . Haga clic en el signo más situado junto a la última entrada para añadir una entrada de red adicional. Si ya ha desplegado al menos un nodo, haga clic en Detectar subredes de redes de grid para rellenar automáticamente la lista de subredes de red de grid con las subredes notificadas por los nodos de grid que se han registrado con Grid Manager.
 +
-image:bare-metal-subnets-grid-network.png["bare-metal-subnets-grid-network"]
+image:bare-metal/bare-metal-subnets-grid-network.png["bare-metal-subnets-grid-network"]
 
 . Haga clic en Siguiente.
 
