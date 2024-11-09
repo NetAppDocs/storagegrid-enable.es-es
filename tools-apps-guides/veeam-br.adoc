@@ -186,7 +186,7 @@ image:veeam-bp/tc_2.png["Métricas de directivas de clasificación de tráfico"]
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
 
-* link:https://docs.netapp.com/us-en/storagegrid-118/["Documentación de producto de NetApp StorageGRID 11,8"^]
+* link:https://docs.netapp.com/us-en/storagegrid-119/["Documentación de producto de NetApp StorageGRID 11,9"^]
 * link:https://www.veeam.com/documentation-guides-datasheets.html?productId=8&version=product%3A8%2F221["Veeam Backup and Replication"^]
 
 

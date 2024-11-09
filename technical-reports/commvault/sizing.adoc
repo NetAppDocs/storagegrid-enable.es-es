@@ -122,6 +122,6 @@ StorageGRID escala el rendimiento usando nodos de mayor rendimiento para los nod
 
 [NOTE]
 ====
-Para obtener más información sobre cómo ampliar el sistema StorageGRID, consulte https://docs.netapp.com/us-en/storagegrid-118/landing-expand/index.html["Guía de ampliación de StorageGRID 11,8"].
+Para obtener más información sobre la ampliación del sistema StorageGRID, consulte https://docs.netapp.com/us-en/storagegrid-119/landing-expand/index.html["Guía de ampliación de StorageGRID 11,9"].
 
 ====

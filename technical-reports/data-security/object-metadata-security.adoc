@@ -32,7 +32,7 @@ Cuando se habilita el cifrado, cada objeto se cifra con una clave simétrica ún
 
 
 | Discos de cifrado compatibles con el estándar de procesamiento de información federal (FIPS) 140-2  a| 
-Los dispositivos StorageGRID SG5712, SG5760, SG6060 y SGF6024 ofrecen la opción de discos de cifrado conformes a la normativa FIPS 140-2-2. Las claves de cifrado para los discos pueden gestionarse opcionalmente un servidor KMIP externo.
+Los dispositivos StorageGRID SG5812, SG5860, SG6160 y SGF6024 ofrecen la opción de discos de cifrado conformes a la normativa FIPS 140-2-2. Las claves de cifrado para los discos pueden gestionarse opcionalmente un servidor KMIP externo.
 | Permite un almacenamiento seguro de datos, metadatos y objetos del sistema. También ofrece cifrado de objetos basado en software StorageGRID, que protege el almacenamiento y la transmisión de objetos. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
 
 

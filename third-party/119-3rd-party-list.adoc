@@ -1,10 +1,10 @@
 ---
-permalink: third-party/117-3rd-party-list.html 
+permalink: third-party/118-3rd-party-list.html 
 sidebar: sidebar 
-keywords: 11.7, third-party applications, storagegrid, ISV 
-summary: Soluciones de terceros validadas para StorageGRID 11,7 
+keywords: 11.9, third-party applications, storagegrid, ISV 
+summary: Soluciones de terceros validadas para StorageGRID 11,9 
 ---
-= Soluciones de terceros validadas con StorageGRID 11,7
+= Soluciones de terceros validadas con StorageGRID 11,9
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,7 +12,7 @@ summary: Soluciones de terceros validadas para StorageGRID 11,7
 
 
 [role="lead"]
-Las siguientes soluciones de terceros se han validado para el uso con StorageGRID 11,7. + Si la solución que busca no está en esta lista, póngase en contacto con su representante de cuenta de NetApp.
+Las siguientes soluciones de terceros se han validado para el uso con StorageGRID 11,9. + Si la solución que busca no está en esta lista, póngase en contacto con su representante de cuenta de NetApp.
 
 
 
@@ -67,11 +67,12 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * Copo de nieve
 * Spectra Logic en el glaciar local
 * Smartstore de Splunk
+* Estallido
 * Almacenamiento simplificado
 * Trino
 * Empresa de barniz 6.0.4
 * Veeam 12
-* Veritas Enterprise Vault 14
+* Veritas Enterprise Vault 15,1
 * Veritas NetBackup 8.0
 * Vertica 10.x
 * Vidispine
@@ -90,7 +91,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * OpenText Documentum 21.4
 * RUBRIK
 * Veeam 12
-* Veritas Enterprise Vault 14.2.2
+* Veritas Enterprise Vault 15,1
 * Veritas NetBackup 10.1.1 y posterior
 
 
@@ -126,6 +127,8 @@ Estas soluciones han sido probadas.
 
 Estas soluciones han sido probadas.
 
+* Entrust KeyControl 10,2
+* Hashicorp Vault 1.15.0
 * Thales CipherTrust Manager 2,0
 * Thales CipherTrust Manager 2,1
 * Thales CipherTrust Manager 2,2
@@ -133,4 +136,9 @@ Estas soluciones han sido probadas.
 * Thales CipherTrust Manager 2,4
 * Thales CipherTrust Manager 2,8
 * Thales CipherTrust Manager 2,9
+* Thales CipherTrust Manager 2,10
+* Thales CipherTrust Manager 2,11
+* Thales CipherTrust Manager 2,12
+* Thales CipherTrust Manager 2,13
+* Thales CipherTrust Manager 2,14
 

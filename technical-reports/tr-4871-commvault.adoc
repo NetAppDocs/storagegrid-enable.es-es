@@ -258,7 +258,7 @@ StorageGRID escala el rendimiento usando nodos de mayor rendimiento para los nod
 
 [NOTE]
 ====
-Para obtener más información sobre cómo ampliar el sistema StorageGRID, consulte https://docs.netapp.com/us-en/storagegrid-118/landing-expand/index.html["Guía de ampliación de StorageGRID 11,8"].
+Para obtener más información sobre la ampliación del sistema StorageGRID, consulte https://docs.netapp.com/us-en/storagegrid-119/landing-expand/index.html["Guía de ampliación de StorageGRID 11,9"].
 
 ====
 
@@ -577,8 +577,7 @@ CommVault MediaAgent son transportadores de datos en un entorno Commvault. En la
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
 
-* Centro de documentación de StorageGRID 11,8 +
-https://docs.netapp.com/us-en/storagegrid-118/[]
+* Centro de documentación de StorageGRID 11,9 + https://docs.netapp.com/us-en/storagegrid-119/[]
 * Documentación de producto de NetApp +
 https://docs.netapp.com[]
 * Documentación de CommVault +

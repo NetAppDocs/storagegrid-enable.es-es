@@ -68,8 +68,8 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * Trino
 * Empresa de barniz 6.0.4
 * Veeam 12
-* veritas Enterprise Vault 14
-* veritas NetBackup 8,0
+* Veritas Enterprise Vault 14
+* Veritas NetBackup 8.0
 * Vertica 10.x
 * Vidispine
 * Tejido de almacenamiento de Virtalica
@@ -86,8 +86,8 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * IBM Filenet
 * OpenText Documentum 21.4
 * Veeam 12
-* veritas Enterprise Vault 14.2.2
-* veritas NetBackup 10.1.1 y versiones posteriores
+* Veritas Enterprise Vault 14.2.2
+* Veritas NetBackup 10.1.1 y posterior
 
 
 

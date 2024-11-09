@@ -16,11 +16,11 @@ summary: Descubra las funciones de seguridad integrales de la solución de almac
 [role="lead"]
 Descubra las funciones de seguridad integrales de la solución de almacenamiento de objetos de StorageGRID.
 
-Esta es una descripción general de las muchas características de seguridad de NetApp® StorageGRID®, que cubren el acceso a datos, objetos y metadatos, el acceso administrativo y la seguridad de la plataforma. Se ha actualizado para incluir las últimas características lanzadas con StorageGRID 11,8.
+Esta es una descripción general de las muchas características de seguridad de NetApp® StorageGRID®, que cubren el acceso a datos, objetos y metadatos, el acceso administrativo y la seguridad de la plataforma. Se ha actualizado para incluir las últimas características lanzadas con StorageGRID 11,9.
 
 La seguridad es una parte integral de la solución de almacenamiento de objetos de NetApp StorageGRID. La seguridad es especialmente importante porque muchos tipos de datos de contenido enriquecido que se adaptan perfectamente al almacenamiento de objetos también son confidenciales por naturaleza y sujetos a regulaciones y cumplimiento de normativas. A medida que las funcionalidades de StorageGRID continúan evolucionando, el software pone a su disposición muchas funciones de seguridad imprescindibles para proteger la política de seguridad de la organización y ayudar a la organización a cumplir las prácticas recomendadas del sector.
 
-Este documento ofrece una descripción general de las muchas características de seguridad de StorageGRID 11,8, divididas en cinco categorías:
+Este documento ofrece una descripción general de las muchas características de seguridad de StorageGRID 11,9, divididas en cinco categorías:
 
 * Funciones de seguridad de acceso a los datos
 * Funciones de seguridad de objetos y metadatos
@@ -42,7 +42,7 @@ NetApp StorageGRID ofrece funciones de seguridad avanzadas para casos de uso de 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
 
 * NetApp StorageGRID: Evaluación del cumplimiento de las normas SEC 17a-4(f), FINRA 4511(c) y CFTC 1,31(c)-(d) https://www.netapp.com/media/9041-ar-cohasset-netapp-storagegrid-sec-assessment.pdf[]
-* Página de documentación de StorageGRID 11,8 https://docs.netapp.com/us-en/storagegrid-118/[]
+* Página de documentación de StorageGRID 11,9 https://docs.netapp.com/us-en/storagegrid-119/[]
 * Página de recursos de documentación de StorageGRID https://www.netapp.com/data-storage/storagegrid/documentation/[]
 * Documentación de producto de NetApp https://www.netapp.com/support-and-training/documentation/[]
 
