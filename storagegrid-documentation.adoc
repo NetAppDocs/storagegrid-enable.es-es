@@ -15,7 +15,7 @@ summary: Puede encontrar la documentación completa de cada versión de StorageG
 Puede encontrar la documentación completa de cada versión de StorageGRID de NetApp aquí:
 
 * https://docs.netapp.com/us-en/storagegrid-appliances/index.html["Dispositivos StorageGRID"]
-* https://docs.netapp.com/us-en/storagegrid-118/index.html["StorageGRID 11,9"^]
+* https://docs.netapp.com/us-en/storagegrid-119/index.html["StorageGRID 11,9"^]
 * https://docs.netapp.com/us-en/storagegrid-118/index.html["StorageGRID 11,8"^]
 * https://docs.netapp.com/us-en/storagegrid-117/index.html["StorageGRID 11,7"^]
 * https://docs.netapp.com/us-en/storagegrid-116/index.html["StorageGRID 11.6"^]
