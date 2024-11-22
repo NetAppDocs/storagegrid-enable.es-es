@@ -12,6 +12,8 @@ summary: Esta guía se centra en la configuración de NetApp StorageGRID y, en p
 
 
 [role="lead"]
+_Por Oliver Haensel y Aron Klein_
+
 Esta guía se centra en la configuración de NetApp StorageGRID y, en parte, de backups y replicación de Veeam. Este documento está dirigido a administradores de almacenamiento y redes que estén familiarizados con los sistemas Linux y que tengan la tarea de mantener o implementar un sistema NetApp StorageGRID en combinación con Veeam Backup and Replication.
 
 
@@ -189,5 +191,3 @@ Si quiere más información sobre el contenido de este documento, consulte los s
 * link:https://docs.netapp.com/us-en/storagegrid-119/["Documentación de producto de NetApp StorageGRID 11,9"^]
 * link:https://www.veeam.com/documentation-guides-datasheets.html?productId=8&version=product%3A8%2F221["Veeam Backup and Replication"^]
 
-
-_Por Oliver Haensel y Aron Klein_

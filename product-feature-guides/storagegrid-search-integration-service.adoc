@@ -12,7 +12,7 @@ summary: En esta guía, se ofrecen instrucciones detalladas para configurar el s
 
 
 [role="lead"]
-En esta guía, se ofrecen instrucciones detalladas para configurar el servicio de integración de búsquedas de NetApp StorageGRID 11.6 con Amazon OpenSearch Service o Elasticsearch en las instalaciones.
+Esta guía proporciona instrucciones detalladas para configurar el servicio de integración de búsqueda de NetApp StorageGRID con Amazon OpenSearch Service o Elasticsearch en las instalaciones.
 
 
 

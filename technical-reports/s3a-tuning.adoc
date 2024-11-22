@@ -12,6 +12,8 @@ summary: Este informe trata el ajuste S3A para StorageGRID.
 
 
 [role="lead"]
+_Por Angela Cheng_
+
 El conector S3A de Hadoop facilita la interacción fluida entre aplicaciones basadas en Hadoop y almacenamiento de objetos S3. El ajuste del conector Hadoop S3A es esencial para optimizar el rendimiento cuando se trabaja con el almacenamiento de objetos S3. Antes de entrar en el ajuste de detalles, entendamos lo básico de Hadoop y sus componentes.
 
 
