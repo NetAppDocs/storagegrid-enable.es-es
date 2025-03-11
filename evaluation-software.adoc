@@ -8,7 +8,7 @@ summary: Pasos para acceder al software de evaluación de StorageGRID para un po
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

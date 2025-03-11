@@ -43,27 +43,27 @@ link:https://docs.netapp.com/us-en/storagegrid-118/expand/updating-subnets-for-g
 +
 .. Seleccione 2 y, a continuación, 1 para el cambio de IP de cuadrícula
 +
-image:site-relocation/ip-change-1.png[""]
+image:site-relocation/ip-change-1.png["edición de change-ip"]
 
 .. seleccione 5 para mostrar los cambios
 +
-image:site-relocation/ip-change-2.png[""]
+image:site-relocation/ip-change-2.png["validar"]
 
 .. seleccione 10 para validar y aplicar el cambio.
 +
-image:site-relocation/ip-change-3.png[""]
+image:site-relocation/ip-change-3.png["cambios de etapa"]
 
 .. Debe seleccionar *stage* en este paso.
 +
-image:site-relocation/ip-change-4.png[""]
+image:site-relocation/ip-change-4.png["Reinicie admin manualmente"]
 
 .. Si el nodo de administración principal está incluido en el cambio anterior, introduzca *'a' para reiniciar manualmente el nodo de administración principal*
 +
-image:site-relocation/ip-change-5.png[""]
+image:site-relocation/ip-change-5.png["Menú anterior"]
 
 .. Pulse ENTER para volver al menú anterior y salir de la interfaz CHANGE-ip.
 +
-image:site-relocation/ip-change-6.png[""]
+image:site-relocation/ip-change-6.png["Continuar"]
 
 
 

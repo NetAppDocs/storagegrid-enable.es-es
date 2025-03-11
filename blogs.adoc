@@ -8,7 +8,7 @@ summary: Puede encontrar algunos blogs de StorageGRID de NetApp aquí.
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
