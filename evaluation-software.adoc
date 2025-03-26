@@ -20,13 +20,13 @@ Esta instrucción está destinada al personal de ventas, partners y clientes pot
 
 . Regístrese para obtener una cuenta en https://mysupport.netapp.com/site/user/registration["Sitio de soporte de NetApp"] utilizando su correo electrónico de empresa.
 +
-.. Si ya tiene una cuenta, continúe con el siguiente paso.
+.. Asegúrese de que no ha iniciado sesión con la cuenta recién creada.
+.. Si ya tiene una cuenta, asegúrese de que no ha iniciado sesión y continúe con el siguiente paso.
 
 
-. Inicie sesión con la cuenta creada.
 . Crear un caso de soporte no técnico para elevar los niveles de acceso a «cliente potencial». Para ello, haga clic en el "https://mysupport.netapp.com/site/help?relevanturl=%2Fuser%2Fregistration["Notifique un problema"]enlace “ en el pie de página de la página web.
 . Seleccione «Problema de registro» como categoría de comentarios.
-. En la sección de comentarios, escriba lo siguiente: «Me gustaría obtener acceso a un cliente potencial para descargar el software de evaluación de StorageGRID».
+. En la sección de comentarios, escriba: “Mi dirección de correo electrónico de la cuenta es _Su-Correo-Dirección_. Me gustaría obtener acceso a un posible cliente para descargar el software de evaluación de StorageGRID».
 +
 .. Mencione el nombre de la persona interna de NetApp que sugirió la solicitud de acceso de un posible cliente.
 
