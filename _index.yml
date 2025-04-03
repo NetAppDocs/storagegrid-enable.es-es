@@ -39,6 +39,8 @@ indexpage:
       url: "/third-party/112-3rd-party-list.html"
   - title: Guías de características de productos
     links:
+    - title: Lograr un objetivo de punto de recuperación cero con StorageGRID
+      url: "/product-feature-guides/achieve-zero-rpo.html"
     - title: Cree Cloud Storage Pool para AWS o Google
       url: "/product-feature-guides/create-cloud-storage-pool-aws-google-cloud.html"
     - title: Cree Cloud Storage Pool para el almacenamiento de Azure Blob
