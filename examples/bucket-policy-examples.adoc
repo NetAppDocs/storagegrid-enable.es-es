@@ -33,7 +33,7 @@ NOTE: La acción S3:ListBucket Permitida es obligatoria para que los usuarios re
 
 El *Recurso* es el cubo o cubetas en los que los principales se otorgan o se les niega la capacidad de realizar las acciones. Opcionalmente puede haber una *condición* para cuando la acción de política es válida.
 
-El formato de la policía JSON se verá así:
+El formato de la política JSON se verá así:
 
 [source, json]
 ----
@@ -66,11 +66,11 @@ El formato de la policía JSON se verá así:
 
 El generador de políticas de AWS es una gran herramienta para ayudar a obtener el código json con el formato correcto y la información que está tratando de implementar.
 
-Para generar los permisos para una directiva de grupo de StorageGRID: * Seleccione la política de IAM para el tipo de política. * Seleccione el botón para el efecto deseado - Permitir o Denegar. Es recomendable iniciar las directivas con los permisos de denegación y, a continuación, agregar los permisos de permiso * en el menú desplegable de acciones. Haga clic en el cuadro junto a tantas acciones de S3 que desee incluir en este permiso o en el cuadro Todas las acciones. * Escriba las rutas de acceso del depósito en el cuadro Nombre del recurso de Amazon (arn). Incluya “arn:aws:S3::” antes del nombre del depósito. arn:aws:s3:::examplebucket
+Para generar los permisos para una directiva de grupo de StorageGRID: * Seleccione la política de IAM para el tipo de política. * Seleccione el botón para el efecto deseado - Permitir o Denegar. Es recomendable iniciar las directivas con los permisos de denegación y, a continuación, agregar los permisos de permiso * en el menú desplegable de acciones. Haga clic en el cuadro junto a tantas acciones de S3 que desee incluir en este permiso o en el cuadro Todas las acciones. * Escriba las rutas de acceso del depósito en el cuadro Nombre del recurso de Amazon (arn). Incluya “arn:aws:S3::” antes del nombre del depósito. «arn:aws:s3:::example_bucket»
 
 image:policy/group-generic.png["Generar una política de grupo"]
 
-Para generar los permisos para una política de depósito: * Elija la política de bloques de S3 para el tipo de política. * Seleccione el botón para el efecto deseado - Permitir o Denegar. Es una buena práctica iniciar las políticas con los permisos de denegación y, a continuación, agregar los permisos de permiso * Tipo en la información de usuario o grupo para el Principal. * En el menú desplegable de acciones haz clic en el cuadro junto a tantas de las S3 acciones que quieras incluir en este permiso o en el cuadro “Todas las acciones”. * Escriba las rutas de acceso del depósito en el cuadro Nombre del recurso de Amazon (arn). Incluya “arn:aws:S3::” antes del nombre del depósito. arn:aws:s3:::examplebucket
+Para generar los permisos para una política de depósito: * Elija la política de bloques de S3 para el tipo de política. * Seleccione el botón para el efecto deseado - Permitir o Denegar. Es una buena práctica iniciar las políticas con los permisos de denegación y, a continuación, agregar los permisos de permiso * Tipo en la información de usuario o grupo para el Principal. * En el menú desplegable de acciones haz clic en el cuadro junto a tantas de las S3 acciones que quieras incluir en este permiso o en el cuadro “Todas las acciones”. * Escriba las rutas de acceso del depósito en el cuadro Nombre del recurso de Amazon (arn). Incluya “arn:aws:S3::” antes del nombre del depósito. «arn:aws:s3:::example_bucket»
 
 image:policy/bucket-generic.png["Generar una política de bloque"]
 
@@ -80,7 +80,7 @@ Por ejemplo, si desea generar una política de depósito para permitir que todos
 * Elija el efecto Permitir
 * Introduzca la información del grupo de Marketing: arn:aws:iam::95390887230002558202:federated-group/Marketing
 * Haga clic en la casilla de «Todas las acciones»
-* Introduzca la información del bloque: arn:aws:S3:::examplebucket,arn:aws:S3:::examplebucket/*
+* Introduzca la información del bloque: arn:aws:S3:::example_bucket,arn:aws:S3:::example_bucket/*
 
 
 image:policy/example-bucket1.png["Genere el primer permiso en la política"]
@@ -97,7 +97,7 @@ image:policy/permission1.png["Primer permiso de la política introducida"]
 
 image:policy/getobject.png["Seleccione GetObject"] image:policy/listbucket.png["Seleccione ListBucket"]
 
-* Introduzca la información del bloque: arn:aws:S3:::examplebucket,arn:aws:S3:::examplebucket/*
+* Introduzca la información del bloque: arn:aws:S3:::example_bucket,arn:aws:S3:::example_bucket/*
 
 
 image:policy/example-bucket2.png["Genere el segundo permiso en la política"]
@@ -105,7 +105,7 @@ image:policy/example-bucket2.png["Genere el segundo permiso en la política"]
 * Haga clic en el botón «Agregar declaración»
 
 
-image:policy/permission3.png["Segundo permiso en la política"]
+image:policy/permission2.png["Segundo permiso en la política"]
 
 * Haga clic en el botón “Generar Política” y aparecerá una ventana emergente con su política generada.
 
@@ -126,8 +126,8 @@ image:policy/example-output.png["La salida final"]
       "Action": "s3:*",
       "Effect": "Allow",
       "Resource": [
-        "arn:aws:s3:::examplebucket",
-        "arn:aws:s3:::examplebucket/*"
+        "arn:aws:s3:::example_bucket",
+        "arn:aws:s3:::example_bucket/*"
       ],
       "Principal": {
         "AWS": [
@@ -143,8 +143,8 @@ image:policy/example-output.png["La salida final"]
       ],
       "Effect": "Allow",
       "Resource": [
-        "arn:aws:s3:::examplebucket",
-        "arn:aws:s3:::examplebucket/*"
+        "arn:aws:s3:::example_bucket",
+        "arn:aws:s3:::example_bucket/*"
       ],
       "Principal": "*"
     }
@@ -164,8 +164,8 @@ Por ejemplo:
       "Action": "s3:*",
       "Effect": "Allow",
       "Resource": [
-        "arn:aws:s3:::examplebucket",
-        "arn:aws:s3:::examplebucket/*"
+        "arn:aws:s3:::example_bucket",
+        "arn:aws:s3:::example_bucket/*"
       ],
       "Principal": {
         "AWS": [
@@ -181,8 +181,8 @@ Por ejemplo:
       ],
       "Effect": "Allow",
       "Resource": [
-        "arn:aws:s3:::examplebucket",
-        "arn:aws:s3:::examplebucket/*"
+        "arn:aws:s3:::example_bucket",
+        "arn:aws:s3:::example_bucket/*"
       ],
       "Principal": "*"
     }
