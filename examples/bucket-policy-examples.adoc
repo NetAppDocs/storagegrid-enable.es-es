@@ -26,10 +26,61 @@ Las políticas de bloque y de grupo comparten la mayoría de los mismos elemento
 
 Todas las políticas definirán el efecto, las acciones y los recursos. Las políticas de buckets también definirán un principal.
 
-El *efecto* será permitir o denegar la solicitud. El *Principal* es la(s) cuenta(s)/usuario(s) que está siendo otorgado o denegado las habilidades. Puede definirse como un comodín «++*++» o un usuario o grupo local o federado desde el inquilino en el que reside el depósito, o bien, desde otro inquilino en la cuadrícula. El usuario o grupo se puede identificar por nombre o cadena de ID. La *Acción* es el conjunto de S3 operaciones que se otorgan o se deniegan al usuario(s).
+El *efecto* será permitir o denegar la solicitud.
+
+El *Principal*
+
+* Solo se aplica a políticas de bloques.
+* El principal es la(s) cuenta(s)/usuario(s) que se está otorgando o denegando los permisos.
+* Se puede definir como:
++
+** Un comodín «++*++»
++
+[listing]
+----
+"Principal":"*"
+----
++
+[listing]
+----
+"Principal":{"AWS":"*"}
+----
+** Un ID de inquilino para todos los usuarios de un inquilino (equivalente a la cuenta de AWS).
++
+[listing]
+----
+"Principal": { "AWS": "27233906934684427525" }
+----
+** Un usuario (local o federado desde dentro del inquilino que reside el bloque (o bien, otro inquilino en el grid)
++
+[listing]
+----
+"Principal": { "AWS": "arn:aws:iam::76233906934699427431:user/tenant1user1" }
+----
++
+[listing]
+----
+"Principal": { "AWS": "arn:aws:iam::27233906934684427525:federated-user/tenant2user1" }
+----
+** Un grupo (local o federado desde dentro del inquilino que reside el bloque (o bien, otro inquilino en la cuadrícula).
++
+[listing]
+----
+"Principal": { "AWS": "arn:aws:iam::76233906934699427431:group/DevOps"  }
+----
++
+[listing]
+----
+"Principal": { "AWS": "arn:aws:iam::27233906934684427525:federated-group/Managers"  }
+----
 
 
-NOTE: La acción S3:ListBucket Permitida es obligatoria para que los usuarios realicen cualquier acción S3.
+
+
+La *Acción* es el conjunto de S3 operaciones que se otorgan o se deniegan al usuario(s).
+
+
+NOTE: Para las políticas de grupo, la acción S3:ListBucket Permitido es necesaria para que los usuarios realicen cualquier acción S3.
 
 El *Recurso* es el cubo o cubetas en los que los principales se otorgan o se les niega la capacidad de realizar las acciones. Opcionalmente puede haber una *condición* para cuando la acción de política es válida.
 
@@ -43,10 +94,13 @@ El formato de la política JSON se verá así:
       "Sid": "Custom name for this permission",
       "Effect": "Allow or Deny",
       "Principal": {
-        "AWS": "arn:aws:iam::Tenant_ID:federated-group/Group_Name",
-        "AWS": "arn:aws:iam::Tenant_ID:group/Group_Name",
-        "AWS": "arn:aws:iam::Tenant_ID::federated-user/User_Name",
-        "AWS": "User_Name"
+        "AWS": [
+          "arn:aws:iam::tenant_ID::user/User_Name",
+          "arn:aws:iam::tenant_ID::federated-user/User_Name",
+          "arn:aws:iam::tenant_ID:group/Group_Name",
+          "arn:aws:iam::tenant_ID:federated-group/Group_Name",
+          "tenant_ID"
+        ]
       },
       "Action": [
         "s3:ListBucket",
@@ -311,87 +365,6 @@ Esta política de grupo restringirá a los usuarios la supresión de objetos ver
 ----
 
 
-== Políticas de bloques
-
-
-
-=== Restringir las eliminaciones de objetos versionados por el usuario en un depósito
-
-Esta política de depósito restringirá a un usuario (identificado por el ID de usuario «56622399308951294926») de eliminar objetos versionados por versionID
-
-[source, json]
-----
-{
-  "Statement": [
-    {
-      "Action": [
-        "s3:DeleteObjectVersion"
-      ],
-      "Effect": "Deny",
-      "Resource": "arn:aws:s3:::verdeny/*",
-      "Principal": {
-        "AWS": [
-          "56622399308951294926"
-        ]
-      }
-    },
-    {
-      "Action": "s3:*",
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::verdeny/*",
-      "Principal": {
-        "AWS": [
-          "56622399308951294926"
-        ]
-      }
-    }
-  ]
-}
-----
-
-
-=== Restringir bloque a un solo usuario con acceso de sólo lectura
-
-Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloque y denys explícitamente acceso a todos los demás usuarios. La agrupación de las declaraciones denegadas en la parte superior de la directiva es una buena práctica para una evaluación más rápida.
-
-[source, json]
-----
-{
-    "Statement": [
-        {
-            "Sid": "Deny non user1",
-            "Effect": "Deny",
-            "NotPrincipal": {
-                "AWS": "arn:aws:iam::34921514133002833665:user/user1"
-            },
-            "Action": [
-                "s3:*"
-            ],
-            "Resource": [
-                "arn:aws:s3:::bucket1",
-                "arn:aws:s3:::bucket1/*"
-            ]
-        },
-        {
-            "Sid": "Allow user1 read access to bucket bucket1",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::34921514133002833665:user/user1"
-            },
-            "Action": [
-                "s3:GetObject",
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::bucket1",
-                "arn:aws:s3:::bucket1/*"
-            ]
-        }
-    ]
-}
-----
-
-
 === Restrinja un grupo a un único subdirectorio (prefijo) con acceso de solo lectura
 
 Esta política permite a los miembros del grupo tener acceso de solo lectura a un subdirectorio (prefijo) dentro de un bloque. El nombre del depósito es «study» y el subdirectorio es «study01».
@@ -459,5 +432,135 @@ Esta política permite a los miembros del grupo tener acceso de solo lectura a u
             ]
         }
     ]
+}
+----
+
+
+== Políticas de bloques
+
+
+
+=== Restringir bloque a un solo usuario con acceso de sólo lectura
+
+Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloque y denys explícitamente acceso a todos los demás usuarios. La agrupación de las declaraciones denegadas en la parte superior de la directiva es una buena práctica para una evaluación más rápida.
+
+[source, json]
+----
+{
+    "Statement": [
+        {
+            "Sid": "Deny non user1",
+            "Effect": "Deny",
+            "NotPrincipal": {
+                "AWS": "arn:aws:iam::34921514133002833665:user/user1"
+            },
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucket1",
+                "arn:aws:s3:::bucket1/*"
+            ]
+        },
+        {
+            "Sid": "Allow user1 read access to bucket bucket1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::34921514133002833665:user/user1"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucket1",
+                "arn:aws:s3:::bucket1/*"
+            ]
+        }
+    ]
+}
+----
+
+
+=== restringe un bloque a algunos usuarios con acceso de solo lectura.
+
+[source, json]
+----
+{
+    "Statement": [
+      {
+        "Sid": "Deny all S3 actions to employees 002-005",
+        "Effect": "deny",
+        "Principal": {
+          "AWS": [
+            "arn:aws:iam::46521514133002703882:user/employee-002",
+            "arn:aws:iam::46521514133002703882:user/employee-003",
+            "arn:aws:iam::46521514133002703882:user/employee-004",
+            "arn:aws:iam::46521514133002703882:user/employee-005"
+          ]
+        },
+        "Action": "*",
+        "Resource": [
+          "arn:aws:s3:::databucket1",
+          "arn:aws:s3:::databucket1/*"
+        ]
+      },
+      {
+        "Sid": "Allow read-only access for employees 002-005",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": [
+            "arn:aws:iam::46521514133002703882:user/employee-002",
+            "arn:aws:iam::46521514133002703882:user/employee-003",
+            "arn:aws:iam::46521514133002703882:user/employee-004",
+            "arn:aws:iam::46521514133002703882:user/employee-005"
+          ]
+        },
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectTagging",
+          "s3:GetObjectVersion"
+        ],
+        "Resource": [
+          "arn:aws:s3:::databucket1",
+          "arn:aws:s3:::databucket1/*"
+        ]
+      }
+    ]
+}
+----
+
+
+=== Restringir las eliminaciones de objetos versionados por el usuario en un depósito
+
+Esta política de depósito restringirá a un usuario (identificado por el ID de usuario «56622399308951294926») de eliminar objetos versionados por versionID
+
+[source, json]
+----
+{
+  "Statement": [
+    {
+      "Action": [
+        "s3:DeleteObjectVersion"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::verdeny/*",
+      "Principal": {
+        "AWS": [
+          "56622399308951294926"
+        ]
+      }
+    },
+    {
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::verdeny/*",
+      "Principal": {
+        "AWS": [
+          "56622399308951294926"
+        ]
+      }
+    }
+  ]
 }
 ----
