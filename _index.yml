@@ -105,6 +105,8 @@ indexpage:
       url: "/examples/test-demonstrate-S3-object-lock.html"
     - title: Ejemplos de políticas de bloque y grupo
       url: "/examples/bucket-policy-examples.html"
+    - title: Ejemplos de políticas de ciclo de vida de buckets
+      url: "/examples/bucket-lifecycle-examples.html"
   - title: Publicaciones de blog
     links:
     - title: Blogs de StorageGRID

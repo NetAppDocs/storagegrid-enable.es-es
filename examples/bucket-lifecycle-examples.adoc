@@ -1,0 +1,296 @@
+---
+permalink: examples/bucket-lifecycle-examples.html 
+sidebar: sidebar 
+keywords: iam, bucket policy, lifecycle policy, policy, bucket 
+summary: Ciclo de vida del bucket en StorageGRID. 
+---
+= Ciclo de vida de un bucket en StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear una configuración del ciclo de vida de S3 para controlar cuándo se eliminan objetos específicos del sistema StorageGRID.
+
+
+
+== ¿Qué es una configuración de ciclo de vida?
+
+Una configuración de ciclo de vida es un conjunto de reglas que se aplican a los objetos en bloques de S3 específicos. Cada regla especifica qué objetos se ven afectados y cuándo caducarán dichos objetos (en una fecha específica o después de un número determinado de días).
+
+Cada objeto sigue la configuración de retención de un ciclo de vida de bloques de S3 o una política de ILM. Cuando se configura el ciclo de vida de un bloque de S3, las acciones de caducidad del ciclo de vida anulan la política de ILM de los objetos que coinciden con el filtro de ciclo de vida del bloque. Los objetos que no coinciden con el filtro de ciclo de vida del bloque utilizan la configuración de retención de la política de ILM. Si un objeto coincide con un filtro de ciclo de vida del bloque y no se especifica ninguna acción de caducidad explícitamente, no se utiliza la configuración de retención de la política de ILM y se implica que las versiones de los objetos se retienen permanentemente.
+
+Como resultado, es posible que se elimine un objeto de la cuadrícula aunque las instrucciones de colocación de una regla de ILM aún se apliquen al objeto. O bien, un objeto podría conservarse en la cuadrícula incluso después de que hayan transcurrido las instrucciones de ubicación de ILM para el objeto.
+
+StorageGRID admite hasta 1,000 reglas de ciclo de vida en una configuración del ciclo de vida. Cada regla puede incluir los siguientes elementos XML:
+
+* Caducidad: Elimine un objeto cuando se alcance una fecha especificada o cuando se alcance un número especificado de días, empezando desde el momento en que se ingirió el objeto.
+* NoncurrentVersionExpiration: Elimine un objeto cuando se alcance un número especificado de días, empezando desde el momento en que el objeto se volvió no actual.
+* Filtro (prefijo, etiqueta)
+* Estado *ID
+
+
+StorageGRID admite el uso de las siguientes operaciones de bloques para gestionar las configuraciones del ciclo de vida:
+
+* DeleteBucketLifecycle
+* GetBucketLifecycleConfiguration
+* PutBucketLifecycleConfiguration
+
+
+
+
+== Estructura de una política de ciclo de vida
+
+Como primer paso en la creación de una configuración de ciclo de vida, se crea un archivo JSON que incluye una o varias reglas. Por ejemplo, este archivo JSON incluye tres reglas, de la siguiente manera:
+
+. La regla 1 solo se aplica a los objetos que coinciden con el prefijo category1/ y cuyo valor de clave2 es tag2. El parámetro Expiration especifica que los objetos que coinciden con el filtro caducarán a la medianoche del 22 de agosto de 2020.
+. La regla 2 solo se aplica a los objetos que coinciden con el prefijo category2/. El parámetro Expiración especifica que los objetos que coinciden con el filtro expirarán 100 días después de su ingesta.
++
+
+CAUTION: Las reglas que especifican un número de días son relativas al momento en que se ingirió el objeto. Si la fecha actual supera la fecha de ingesta más el número de días, es posible que algunos objetos se eliminen del bloque en cuanto se aplique la configuración del ciclo de vida.
+
+. La regla 3 solo se aplica a los objetos que coinciden con el prefijo category3/. El parámetro Expiración especifica que cualquier versión no vigente de los objetos coincidentes caducará 50 días después de que dejen de estar vigentes.
+
+
+[source, json]
+----
+{
+	"Rules": [
+        {
+		    "ID": "rule1",
+			"Filter": {
+                "And": {
+                    "Prefix": "category1/",
+                    "Tags": [
+                        {
+                            "Key": "key2",
+							"Value": "tag2"
+                        }
+                    ]
+                }
+            },
+			"Expiration": {
+                "Date": "2020-08-22T00:00:00Z"
+            },
+            "Status": "Enabled"
+        },
+		{
+            "ID": "rule2",
+			"Filter": {
+                "Prefix": "category2/"
+            },
+			"Expiration": {
+                "Days": 100
+            },
+            "Status": "Enabled"
+        },
+		{
+            "ID": "rule3",
+			"Filter": {
+                "Prefix": "category3/"
+            },
+			"NoncurrentVersionExpiration": {
+                "NoncurrentDays": 50
+            },
+            "Status": "Enabled"
+        }
+    ]
+}
+----
+
+
+== Aplicar la configuración del ciclo de vida al bloque
+
+Después de crear el archivo de configuración de ciclo de vida, se aplica a un depósito emitiendo una solicitud PutBucketLifecycleConfiguration.
+
+Esta solicitud aplica la configuración del ciclo de vida en el archivo de ejemplo a los objetos de un depósito denominado `testbucket`.
+
+[listing]
+----
+aws s3api --endpoint-url <StorageGRID endpoint> put-bucket-lifecycle-configuration
+--bucket testbucket --lifecycle-configuration file://bktjson.json
+----
+Para validar que una configuración del ciclo de vida se ha aplicado correctamente al bloque, emita una solicitud GetBucketLifecycleConfiguration. Por ejemplo:
+
+[listing]
+----
+aws s3api --endpoint-url <StorageGRID endpoint> get-bucket-lifecycle-configuration
+ --bucket testbucket
+----
+
+
+== Ejemplo de políticas de ciclo de vida para depósitos estándar (sin versiones)
+
+
+
+=== Eliminar objetos después de 90 días
+
+Caso de uso: Esta política es ideal para gestionar datos relevantes por tiempo limitado, como archivos temporales, registros o datos de procesamiento intermedio. Beneficio: Reduce los costos de almacenamiento y garantiza que el bucket esté ordenado.
+
+[source, json]
+----
+{
+	"Rules": [
+	  {
+		"ID": "Delete after 90 day rule",
+		"Filter": {},
+		"Status": "Enabled"，
+		  "Expiration": {
+			  "Days": 90
+	    }
+	  }
+	]
+}
+----
+
+
+== Ejemplo de políticas de ciclo de vida para depósitos versionados
+
+
+
+=== Eliminar versiones no actuales después de 10 días
+
+Caso de uso: Esta política ayuda a gestionar el almacenamiento de objetos con versiones no actuales, que pueden acumularse con el tiempo y consumir un espacio considerable. Beneficio: Optimiza el uso del almacenamiento conservando solo la versión más reciente.
+
+[source, json]
+----
+{
+	"Rules": [
+	        {
+		"ID": "NoncurrentVersionExpiration 10 day rule",
+		"Filter": {},
+		"Status": "Enabled"，
+		  "NoncurrentVersionExpiration": {
+			  "NoncurrentDays": 10
+	   	}
+    }
+	]
+}
+----
+
+
+=== Mantener 5 versiones no actuales
+
+Caso de uso: útil cuando desea conservar una cantidad limitada de versiones anteriores para fines de recuperación o auditoría. Beneficio: conserve suficientes versiones no actuales para garantizar un historial y puntos de recuperación suficientes.
+
+[source, json]
+----
+{
+	"Rules": [
+	  {
+		"ID": "NewerNoncurrentVersions 5 version rule",
+		"Filter": {},
+		"Status": "Enabled"，
+		"NoncurrentVersionExpiration": {
+		  	"NewerNoncurrentVersions": 5
+	    }
+    }
+	]
+}
+----
+
+
+=== Eliminar marcadores de eliminación cuando no existan otras versiones
+
+Caso de uso: Esta política ayuda a gestionar los marcadores de eliminación que quedan después de eliminar todas las versiones no actuales, los cuales pueden acumularse con el tiempo. Beneficio: Reduce el desorden innecesario.
+
+[source, json]
+----
+{
+	"Rules": [
+    {
+		"ID": "Delete marker cleanup rule",
+		"Filter": {},
+		"Status": "Enabled"，
+		"Expiration": {
+        "ExpiredObjectDeleteMarker": true
+	  	}
+    }
+	]
+}
+----
+
+
+=== Eliminar versiones actuales después de 30 días, eliminar versiones no actuales después de 60 días y eliminar los marcadores de eliminación creados por la eliminación de la versión actual una vez que no existan otras versiones.
+
+Caso de uso: Proporcionar un ciclo de vida completo para las versiones actuales y no actuales, incluyendo los marcadores de eliminación. Beneficio: Reducir los costos de almacenamiento y garantizar que el depósito esté ordenado, conservando suficientes puntos de recuperación e historial.
+
+[source, json]
+----
+{
+  "Rules": [
+    {
+      "ID": "Delete current version",
+      "Status": "Enabled",
+      "Expiration": {
+        "Days": 30
+      },
+    },
+    {
+      "ID": "noncurrent version retention",
+      "Status": "Enabled",
+      "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 60
+      }
+    },
+    {
+      "ID": "Markers",
+      "Status": "Enabled",
+      "Expiration": {
+        "ExpiredObjectDeleteMarker": true
+      }
+    }
+  ]
+}
+----
+
+
+=== eliminar marcadores de eliminación que no tienen otras versiones y han existido durante 5 días, conservar 4 versiones no actuales y al menos 30 días de historial para objetos con el "prefijo account_" y mantener 2 versiones y al menos 10 días de historial para todas las demás versiones de objetos.
+
+Caso de uso: Proporcionar reglas únicas para objetos específicos, junto con otros objetos, para gestionar el ciclo de vida completo de las versiones actuales y futuras, incluyendo los marcadores de eliminación. Beneficio: Reducir los costos de almacenamiento y garantizar que el depósito esté ordenado, conservando suficientes puntos de recuperación e historial para satisfacer diversas necesidades del cliente.
+
+[source, json]
+----
+{
+  "Rules": [
+    {
+      "ID": "Markers",
+      "Status": "Enabled",
+      "Expiration": {
+        "Days": 5,
+        "ExpiredObjectDeleteMarker": true
+      },
+    },
+    {
+      "ID": "accounts version retention",
+      "Status": "Enabled",
+      "NoncurrentVersionExpiration": {
+        "NewerNoncurrentVersions": 4,
+        "NoncurrentDays": 30
+      },
+      "Filter": {
+          "Prefix":"account_"
+      }
+    },
+    {
+      "ID": "noncurrent version retention",
+      "Status": "Enabled",
+      "NoncurrentVersionExpiration": {
+        "NewerNoncurrentVersions": 2,
+        "NoncurrentDays": 10
+      }
+    }
+  ]
+}
+----
+
+
+== Conclusión
+
+* Revise y actualice periódicamente las políticas del ciclo de vida y alinéelas con los objetivos de ILM y gestión de datos.
+* Pruebe las políticas en un entorno o contenedor que no sea de producción antes de aplicarlas ampliamente para garantizar que funcionen según lo previsto
+* Utilice identificaciones descriptivas para las reglas para que sea más intuitivo, ya que la estructura lógica puede volverse compleja.
+* Supervise el impacto de estas políticas de ciclo de vida del depósito en el uso y el rendimiento del almacenamiento para realizar los ajustes necesarios.
+
