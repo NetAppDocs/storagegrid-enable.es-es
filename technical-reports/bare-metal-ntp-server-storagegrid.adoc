@@ -1,0 +1,38 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/bare-metal-ntp-server-storagegrid.html 
+keywords: ntp server , storagegrid 
+summary: Aprenda a especificar la información de configuración NTP para su sistema StorageGRID para que las operaciones realizadas en servidores independientes puedan mantenerse sincronizadas. 
+---
+= Especifique los detalles del servidor NTP para StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Aprenda a especificar la información de configuración NTP para su sistema StorageGRID para que las operaciones realizadas en servidores independientes puedan mantenerse sincronizadas.
+
+Para evitar problemas con la desviación de tiempo, debe especificar cuatro referencias de servidor NTP externo del estrato 3 o superior.
+
+
+NOTE: Al especificar el origen NTP externo para una instalación StorageGRID de nivel de producción, no utilice el servicio de hora de Windows (W32Time) en una versión de Windows anterior a Windows Server 2016. El servicio de hora en versiones anteriores de Windows no es lo suficientemente preciso y no es compatible con Microsoft para su uso en entornos exigentes como StorageGRID.
+
+Los nodos a los que se asignaron anteriormente los roles NTP primarios utilizan los servidores NTP externos.
+
+
+CAUTION: La red cliente no se activa lo suficientemente temprano en el proceso de instalación para ser la única fuente de servidores NTP. Asegúrese de que se pueda acceder al menos a un servidor NTP a través de la red de grid o la red de administración.
+
+Para especificar la información del servidor NTP, realice los siguientes pasos:
+
+.Pasos
+. En los cuadros de texto Server 1 to Server 4, especifique las direcciones IP para al menos cuatro servidores NTP.
+. Si es necesario, haga clic en el signo más junto a la última entrada para agregar más entradas de servidor.
++
+image:bare-metal/bare-metal-add-server-entries.png["bare-metal-add-server-entradas"]
+
+. Haga clic en Siguiente.
+

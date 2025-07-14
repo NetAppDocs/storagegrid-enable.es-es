@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/bare-metal-upgrading-bare-metal-nodes-storagegrid.html 
+keywords: bare-metal, upgrade, storagegrid 
+summary: Conozca el proceso de actualización de nodos con configuración básica en StorageGRID. 
+---
+= Actualice los nodos de configuración básica en StorageGRID
+:allow-uri-read: 
+
+
+[role="lead"]
+Conozca el proceso de actualización de nodos con configuración básica en StorageGRID.
+
+El proceso de actualización de los nodos con configuración básica es distinto al de los dispositivos o los nodos de VMware. Antes de realizar una actualización de un nodo de configuración básica, primero debe actualizar los archivos RPM en todos los hosts antes de ejecutar la actualización a través de la GUI.
+
+[listing]
+----
+[root@host1 rpms]# rpm -Uvh StorageGRID-Webscale-Images-*.rpm
+[root@host1 rpms]# rpm -Uvh StorageGRID-Webscale-Service-*.rpm
+----
+Ahora puede continuar con la actualización de software a través de la GUI.

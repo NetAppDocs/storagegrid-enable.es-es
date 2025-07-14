@@ -1,0 +1,19 @@
+---
+permalink: technical-reports/monitor-storagegrid-app-splunk.html 
+sidebar: sidebar 
+keywords: storagegrid app, splunk 
+summary: Explore la aplicación de NetApp StorageGRID para Splunk que importa y enriquece datos de StorageGRID, lo que ofrece potentes funciones de búsqueda y análisis. 
+---
+= Utilice la aplicación StorageGRID para Splunk
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Obtenga más información sobre la aplicación NetApp StorageGRID para Splunk que le permite supervisar y analizar su entorno StorageGRID en la plataforma Splunk.
+
+Splunk es una plataforma de software que importa e indexa datos de máquina para ofrecer potentes funciones de búsqueda y análisis. La aplicación de NetApp StorageGRID es un complemento para Splunk que importa y enriquece los datos que se aprovechan de StorageGRID.
+
+Las instrucciones sobre cómo instalar, actualizar y configurar el complemento StorageGRID se pueden encontrar aquí: https://splunkbase.splunk.com/app/3895/#/details[]

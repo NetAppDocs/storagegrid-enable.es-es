@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/data-security-object-metadata-security.html 
+keywords: object metadata security, storagegrid 
+summary: Explora las funciones de seguridad de objetos y metadatos en StorageGRID. 
+---
+= Seguridad de objetos y metadatos
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Explora las funciones de seguridad de objetos y metadatos en StorageGRID.
+
+[cols="20,30a,30,20"]
+|===
+| Función | Función | Impacto | Cumplimiento de normativas 
+
+
+| Cifrado de objetos del lado del servidor del estándar de cifrado avanzado (AES)  a| 
+StorageGRID proporciona cifrado de objetos en el servidor basado en AES 128 y AES 256. Los administradores de grid pueden activar el cifrado como valor predeterminado global. StorageGRID también admite el encabezado de cifrado de lado del servidor x-amz S3 para permitir habilitar o deshabilitar el cifrado por objeto. Cuando está activado, los objetos se cifran cuando se almacenan o están en tránsito entre los nodos de la cuadrícula.
+| Ayuda a proteger el almacenamiento y la transmisión de objetos, independientemente del hardware de almacenamiento subyacente. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Gestión de claves incorporada  a| 
+Cuando se habilita el cifrado, cada objeto se cifra con una clave simétrica única generada aleatoriamente, que se almacena en StorageGRID sin acceso externo.
+| Permite el cifrado de objetos sin necesidad de gestión de claves externa. |  
+
+
+| Discos de cifrado compatibles con el estándar de procesamiento de información federal (FIPS) 140-2  a| 
+Los dispositivos StorageGRID SG5812, SG5860, SG6160 y SGF6024 ofrecen la opción de discos de cifrado conformes a la normativa FIPS 140-2-2. Las claves de cifrado para los discos pueden gestionarse opcionalmente un servidor KMIP externo.
+| Permite un almacenamiento seguro de datos, metadatos y objetos del sistema. También ofrece cifrado de objetos basado en software StorageGRID, que protege el almacenamiento y la transmisión de objetos. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Exploración de integridad de fondo y reparación automática  a| 
+StorageGRID usa un mecanismo interconectado compuesto por hashes, sumas de comprobación y comprobaciones de redundancia cíclicas (CRC) en el nivel de objeto y subobjeto para ofrecer protección frente a la incoherencia, manipulación o modificación de datos, tanto cuando los objetos se encuentran en almacenamiento como en tránsito. StorageGRID detecta automáticamente los objetos dañados o alterados, y los reemplaza mientras pone en cuarentena los datos modificados y alerta al administrador.
+| Permite a los administradores de Grid cumplir los acuerdos de nivel de servicios, las normativas y otras obligaciones relativas a la durabilidad de los datos. Ayuda a los clientes a detectar virus o ransomware que intentan cifrar, manipular o modificar datos. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Retención y ubicación de objetos basadas en políticas  a| 
+StorageGRID permite que los administradores de Grid configuren las reglas de ILM, las cuales especifican la retención de objetos, la ubicación, la protección, la transición y la caducidad. Los administradores de grid pueden configurar StorageGRID para que filtre objetos por sus metadatos y para aplicar reglas a distintos niveles de granularidad, incluidos todo el grid, inquilino, bloque, prefijo de clave o. y pares clave-valor de metadatos definidos por el usuario. StorageGRID ayuda a garantizar que los objetos se almacenan según las reglas de ILM durante sus ciclos de vida, a menos que el cliente los elimine de manera explícita.
+| Ayuda a aplicar la ubicación, la protección y la retención de los datos. Ayuda a los clientes a lograr el acuerdo de nivel de servicio en cuanto a durabilidad, disponibilidad y rendimiento. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Análisis de metadatos en segundo plano  a| 
+StorageGRID analiza periódicamente los metadatos de objetos en segundo plano para aplicar cambios en la ubicación o la protección de los datos de objetos según lo especificado por ILM.
+| Ayuda a detectar objetos corruptos. |  
+
+
+| Coherencia ajustable  a| 
+Los inquilinos pueden seleccionar niveles de coherencia en el nivel del bucket para garantizar que estén disponibles recursos, como la conectividad multisitio.
+| Proporciona la opción de confirmar las escrituras en el grid solo cuando hay un número necesario de sitios o recursos disponibles. |  
+|===

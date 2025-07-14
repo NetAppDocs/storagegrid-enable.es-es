@@ -1,0 +1,82 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/data-security-platform-security.html 
+keywords: platform security, storagegrid 
+summary: Obtenga más información sobre las características de seguridad de la plataforma en StorageGRID. 
+---
+= Funciones de seguridad de la plataforma
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Obtenga más información sobre las características de seguridad de la plataforma en StorageGRID.
+
+[cols="20,30a,30,20"]
+|===
+| Función | Función | Impacto | Cumplimiento de normativas 
+
+
+| Infraestructura de clave pública interna (PKI), certificados de nodo y TLS  a| 
+StorageGRID utiliza una PKI interna y certificados de nodo para autenticar y cifrar la comunicación entre nodos. La comunicación entre nodos está protegida por TLS.
+| Ayuda a proteger el tráfico del sistema a través de LAN o WAN, especialmente en una implementación multisitio. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Firewall de nodo  a| 
+StorageGRID configura automáticamente tablas IP y reglas de firewall para controlar el tráfico de red entrante y saliente, así como para cerrar los puertos no utilizados.
+| Ayuda a proteger el sistema de StorageGRID, los datos y los metadatos frente al tráfico de red no solicitado. | -- 
+
+
+| Endurecimiento del SO  a| 
+El sistema operativo básico de dispositivos físicos StorageGRID y nodos virtuales está reforzado; se eliminan los paquetes de software no relacionados.
+| Ayuda a minimizar posibles superficies de ataque. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Actualizaciones periódicas de la plataforma y del software  a| 
+StorageGRID proporciona versiones regulares de software que incluyen sistemas operativos, binarios de aplicaciones y actualizaciones de software.
+| Ayuda a mantener el sistema StorageGRID actualizado con los binarios de software y aplicaciones actuales. | -- 
+
+
+| Inicio de sesión raíz desactivado a través de shell seguro (SSH)  a| 
+El inicio de sesión raíz a través de SSH está deshabilitado en todos los nodos StorageGRID. El acceso SSH utiliza autenticación de certificados.
+| Ayuda a los clientes a protegerse contra posibles fallos remotos de contraseña del inicio de sesión root. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Sincronización de tiempo automatizada  a| 
+StorageGRID sincroniza automáticamente los relojes del sistema de cada nodo en varios servidores de protocolo de tiempo de redes de tiempo (NTP) externos. Se requieren al menos cuatro servidores NTP de estrato 3 o posterior.
+| Asegura la misma referencia de tiempo en todos los nodos. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Redes independientes para el tráfico de grid interno, de administración y de clientes  a| 
+Los nodos de software y los dispositivos de hardware de StorageGRID admiten múltiples interfaces de red físicas y virtuales, para que los clientes puedan separar el tráfico de grid interno, de administración y de clientes en diferentes redes.
+| Permita a los administradores de Grid segregar el tráfico de red interno y externo y distribuir tráfico a través de redes con diferentes SLA. | -- 
+
+
+| Varias interfaces de LAN virtual (VLAN)  a| 
+StorageGRID admite la configuración de interfaces VLAN en sus redes de grid y cliente de StorageGRID.
+| Permita que los administradores de Grid dividan y aíslen el tráfico de aplicaciones para mejorar la seguridad, la flexibilidad y el rendimiento. |  
+
+
+| Red cliente no confiable  a| 
+La interfaz de red de cliente no confiable acepta conexiones entrantes solo en puertos que se han configurado explícitamente como puntos finales de equilibrio de carga.
+| Garantiza que las interfaces expuestas a redes que no son de confianza estén protegidas. | -- 
+
+
+| Firewall configurable  a| 
+Gestionar puertos abiertos y cerrados para redes de administración, grid y cliente.
+| Permitir a los administradores de grid controlar el acceso a los puertos y administrar el acceso de dispositivos aprobados a los puertos. |  
+
+
+| Comportamiento SSH mejorado  a| 
+Al actualizar un nodo a StorageGRID 11,5, se generan nuevos certificados de host SSH y claves de host.
+| Mejora la protección contra ataques de hombre en el medio. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
+| Cifrado de nodos  a| 
+Como parte de la nueva función de cifrado del servidor host KMS, se agrega una nueva configuración de cifrado de nodos al instalador de dispositivos StorageGRID.
+| Este ajuste se debe activar durante la etapa de configuración de hardware de la instalación del dispositivo. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+|===

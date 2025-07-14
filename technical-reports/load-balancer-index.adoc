@@ -1,0 +1,79 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/load-balancer-index.html 
+keywords: object storage, load balancer 
+summary: Obtenga información sobre el papel de un equilibrador de carga global y de terceros en sistemas de almacenamiento de objetos como StorageGRID. 
+---
+= Use balanceadores de carga de terceros con StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Obtenga información sobre el papel de un equilibrador de carga global y de terceros en sistemas de almacenamiento de objetos como StorageGRID.
+
+Guía general para implementar NetApp® StorageGRID® con equilibradores de carga de terceros.
+
+El almacenamiento de objetos es sinónimo de almacenamiento en cloud y, como cabe esperar, las aplicaciones que aprovechan el almacenamiento en cloud dirigen ese almacenamiento a través de una URL. Detrás de esa misma URL, StorageGRID puede escalar la capacidad, el rendimiento y la durabilidad en un solo sitio o en sitios con distribución geográfica. El componente que hace posible esta sencillez es un equilibrador de carga.
+
+El objetivo de este documento es informar a los clientes de StorageGRID sobre las opciones de equilibrio de carga y proporcionar una guía general para la configuración de equilibradores de carga de terceros.
+
+
+
+== Conceptos básicos del equilibrador de carga
+
+Los balanceadores de carga son un componente esencial de un sistema de almacenamiento de objetos de clase empresarial como StorageGRID. StorageGRID consta de varios nodos de almacenamiento, cada uno de los cuales puede presentar el espacio de nombres Simple Storage Service (S3) completo para una instancia de StorageGRID determinada. Los balanceadores de carga crean un extremo de alta disponibilidad detrás del que podemos colocar nodos StorageGRID. StorageGRID es única entre los sistemas de almacenamiento de objetos compatibles con S3, ya que proporciona su propio balanceador de carga, pero también admite balanceadores de carga de uso general o de terceros, como F5, Citrix Netscaler, HA Proxy, NGINX, etc.
+
+En la siguiente figura se utiliza la URL de ejemplo/ nombre de dominio completamente cualificado (FQDN) “s3.company.com”. El equilibrador de carga crea una IP virtual (VIP) que se resuelve en el FQDN mediante DNS y, a continuación, dirige las solicitudes de las aplicaciones a un pool de nodos de StorageGRID. El balanceador de carga realiza una comprobación del estado de cada nodo y solo establece conexiones con nodos en buen estado.
+
+image:load-balancer/load-balancer-local-traffic-manager-load-balancer.png["Equilibrador de carga de gestor de tráfico local"]
+
+La figura muestra el equilibrador de carga proporcionado por StorageGRID, pero el concepto es el mismo para los equilibradores de carga de terceros. Las aplicaciones establecen una sesión HTTP mediante la VIP del balanceador de carga y el tráfico pasa a través del balanceador de carga a los nodos de almacenamiento. De forma predeterminada, todo el tráfico, desde la aplicación al balanceador de carga y desde el balanceador de carga al nodo de almacenamiento se cifra a través de HTTPS. HTTP es una opción compatible.
+
+
+
+=== Equilibradores de carga locales y globales
+
+Existen dos tipos de equilibradores de carga:
+
+* *Administradores de tráfico local (LTM)*. Distribuye las conexiones en un pool de nodos en un único sitio.
+* *Global Service Load Balancer (GSLB)*. Distribuye las conexiones en múltiples sitios, equilibradores de carga LTM con equilibrio de carga eficaz. Piense en un GSLB como un servidor DNS inteligente. Cuando un cliente solicita una URL de extremo de StorageGRID, el GSLB lo resuelve al VIP de un LTM según la disponibilidad u otros factores (por ejemplo, qué sitio puede proporcionar una latencia menor para la aplicación). Aunque siempre se requiere un LTM, un GSLB es opcional en función del número de sitios de StorageGRID y los requisitos de su aplicación.
+
+
+
+
+=== Equilibrador de carga de nodo de puerta de enlace StorageGRID frente al equilibrador de carga de terceros
+
+StorageGRID es único entre los proveedores de almacenamiento de objetos compatibles con S3, ya que proporciona un balanceador de carga nativo disponible como dispositivo, máquina virtual o contenedor específicamente creados. El balanceador de carga proporcionado por StorageGRID también se conoce como nodo de puerta de enlace.
+
+Para los clientes que no poseen aún un balanceador de carga, como F5, Citrix, etc., la implementación de un balanceador de carga de terceros puede ser muy compleja. El balanceador de carga de StorageGRID simplifica enormemente las operaciones del balanceador de carga.
+
+El nodo de puerta de enlace es un equilibrador de carga de alto rendimiento, altamente disponible y de nivel empresarial. Los clientes pueden optar por implementar el nodo de pasarela, el equilibrador de carga de terceros, o incluso ambos, en el mismo grid. El nodo de puerta de enlace es un gestor de tráfico local frente a un GSLB.
+
+El equilibrador de carga de StorageGRID ofrece las siguientes ventajas:
+
+* *Simplicidad*. Configuración automática de pools de recursos, comprobaciones de estado, parches y mantenimiento, todo gestionado por StorageGRID.
+* *Rendimiento*. El equilibrador de carga de StorageGRID está dedicado a StorageGRID, no puede competir con otras aplicaciones en cuanto a ancho de banda.
+* *Coste*. La máquina virtual (VM) y las versiones de contenedor se proporcionan sin coste adicional.
+* *Clasificaciones de tráfico*. La función de clasificación de tráfico avanzada permite reglas de calidad de servicio específicas de StorageGRID junto con análisis de cargas de trabajo.
+* *Futuras características específicas de StorageGRID*. StorageGRID continuará optimizando y añadiendo características innovadoras al equilibrador de carga en los próximos lanzamientos.
+
+
+Para obtener más información sobre el despliegue del nodo de puerta de enlace de StorageGRID, consulte la https://docs.netapp.com/us-en/storagegrid-117/["Documentación de StorageGRID"^].
+
+
+
+== Dónde encontrar información adicional
+
+Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
+
+* Centro de documentación de NetApp StorageGRID https://docs.netapp.com/us-en/storagegrid-118/[]
+* Habilitación para NetApp StorageGRID https://docs.netapp.com/us-en/storagegrid-enable/[]
+* Consideraciones de diseño del equilibrador de carga StorageGRID F5 https://www.netapp.com/blog/storagegrid-f5-load-balancer-design-considerations/[]
+* Loadbalancer.org—Load Equilibrio de NetApp StorageGRID https://www.loadbalancer.org/applications/load-balancing-netapp-storagegrid/[]
+* Kemp: NetApp StorageGRID de equilibrio de carga https://support.kemptechnologies.com/hc/en-us/articles/360045186451-NetApp-StorageGRID[]
+

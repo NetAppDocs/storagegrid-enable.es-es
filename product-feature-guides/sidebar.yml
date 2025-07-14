@@ -22,12 +22,12 @@ entries:
   pdf-filename: Migrar el almacenamiento basado en objetos de ONTAP S3 a StorageGRID
   entries:
   - title: Migrar de ONTAP S3 a StorageGRID
-    url: "/product-feature-guides/ontap-migrate/index.html"
+    url: "/product-feature-guides/ontap-migrate-index.html"
   - title: Preparando ONTAP
-    url: "/product-feature-guides/ontap-migrate/preparing-ontap.html"
+    url: "/product-feature-guides/ontap-migrate-preparing-ontap.html"
   - title: Preparando StorageGRID
-    url: "/product-feature-guides/ontap-migrate/preparing-sg.html"
+    url: "/product-feature-guides/ontap-migrate-preparing-sg.html"
   - title: Rellene y replique el bloque
-    url: "/product-feature-guides/ontap-migrate/populate-replicate.html"
+    url: "/product-feature-guides/ontap-migrate-populate-replicate.html"
   - title: Migre usuarios y claves y después la transición
-    url: "/product-feature-guides/ontap-migrate/migrate-cutover.html"
+    url: "/product-feature-guides/ontap-migrate-cutover.html"

@@ -1,0 +1,167 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/load-balancer-local-traffic-manager-load-balancer.html 
+keywords: local traffic manager, load balancer 
+summary: Explore las directrices para los balanceadores de carga de gestor de tráfico local y determine la configuración óptima. 
+---
+= Obtenga más información sobre los equilibradores de carga del gestor de tráfico local
+:hardbreaks:
+:allow-uri-read: 
+:experimental: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Explore las directrices para los balanceadores de carga de gestor de tráfico local y determine la configuración óptima.
+
+A continuación se presenta como guía general para la configuración de equilibradores de carga de terceros. Trabaje con el administrador de balanceo de carga para determinar la configuración óptima para su entorno.
+
+
+
+== Cree un grupo de recursos de nodos de almacenamiento
+
+Agrupe los nodos de almacenamiento de StorageGRID en un pool de recursos o un grupo de servicios (la terminología puede diferir con equilibradores de carga específicos). Los nodos de almacenamiento de StorageGRID presentan la API S3 en los puertos siguientes:
+
+* S3 HTTPS: 18082
+* S3 HTTP: 18084
+
+
+La mayoría de los clientes eligen presentar las API en el servidor virtual a través de los puertos HTTPS y HTTP estándar (443 y 80).
+
+
+NOTE: Cada sitio de StorageGRID requiere tres nodos de almacenamiento predeterminados, dos de los cuales deben estar en buen estado.
+
+
+
+== Comprobación del estado
+
+Los balanceadores de carga de terceros requieren un método para determinar el estado de cada nodo y su elegibilidad para recibir tráfico. NetApp recomienda el método HTTP `OPTIONS` para realizar la comprobación del estado. El equilibrador de carga emite solicitudes HTTP `OPTIONS` a cada nodo de almacenamiento individual y espera una `200` respuesta del estado.
+
+Si algún nodo de almacenamiento no proporciona `200` una respuesta, ese nodo no puede atender solicitudes de almacenamiento. Los requisitos de la aplicación y del negocio deben determinar el tiempo de espera para estas comprobaciones y la acción que realiza el equilibrador de carga.
+
+Por ejemplo, si tres de los cuatro nodos de almacenamiento del centro de datos 1 están inactivos, podría dirigir todo el tráfico al centro de datos 2.
+
+El intervalo de sondeo recomendado es de una vez por segundo y marca al nodo como desconectado después de tres comprobaciones que han fallado.
+
+
+
+=== S3 ejemplo de comprobación de estado
+
+En el siguiente ejemplo, enviamos `OPTIONS` y comprobamos `200 OK`. Utilizamos `OPTIONS` porque Amazon S3) no admite solicitudes no autorizadas.
+
+[listing, subs="verbatim,quotes"]
+----
+##curl -X OPTIONS https://10.63.174.75:18082 --verbose --insecure##
+* Rebuilt URL to: https://10.63.174.75:18082/
+*   Trying 10.63.174.75...
+* TCP_NODELAY set
+* Connected to 10.63.174.75 (10.63.174.75) port 18082 (#0)
+* TLS 1.2 connection using TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+* Server certificate: webscale.stl.netapp.com
+* Server certificate: NetApp Corp Issuing CA 1
+* Server certificate: NetApp Corp Root CA
+> OPTIONS / HTTP/1.1
+> Host: 10.63.174.75:18082
+> User-Agent: curl/7.51.0
+> Accept: */*
+>
+< HTTP/1.1 ##200 OK##
+< Date: Mon, 22 May 2017 15:17:30 GMT
+< Connection: KEEP-ALIVE
+< Server: StorageGRID/10.4.0
+< x-amz-request-id: 3023514741
+----
+
+
+=== Comprobaciones de estado basadas en archivos o contenidos
+
+En general, NetApp no recomienda comprobaciones de estado basadas en archivos. Normalmente, un archivo pequeño —`healthcheck.htm`, por ejemplo, se crea en un depósito con una política de sólo lectura. El equilibrador de carga recupera y evalúa este archivo. Este enfoque tiene varias desventajas:
+
+* *Depende de una sola cuenta.* Si la cuenta propietaria del archivo está deshabilitada, la comprobación del estado genera errores y no se procesa ninguna solicitud de almacenamiento.
+* *Normas de protección de datos.* El esquema de protección de datos predeterminado es un enfoque de dos copias. En este escenario, si los dos nodos de almacenamiento que alojan el archivo de comprobación de estado no están disponibles, la comprobación del estado genera un error y las solicitudes de almacenamiento no se envían a nodos de almacenamiento en buen estado, lo que se vuelve sin conexión.
+* *Bloat de registro de auditoría.* El equilibrador de carga recupera el archivo de cada nodo de almacenamiento cada X minutos, lo que crea muchas entradas del registro de auditoría.
+* *Recursos intensivos.* Recuperar el archivo de comprobación de estado de cada nodo cada pocos segundos consume recursos de grid y de red.
+
+
+Si se requiere una comprobación del estado basada en contenido, utilice un inquilino dedicado con un depósito dedicado de S3.
+
+
+
+=== Persistencia de la sesión
+
+La persistencia de la sesión, o la persistencia, hace referencia al tiempo en que una sesión HTTP determinada puede persistir. De forma predeterminada, los nodos de almacenamiento descartan las sesiones tras 10 minutos. Una mayor persistencia puede dar lugar a un mejor rendimiento, ya que las aplicaciones no tienen que restablecer sus sesiones para cada acción; sin embargo, mantener estas sesiones abiertas consume recursos. Si determina que su carga de trabajo se beneficiará, puede reducir la persistencia de la sesión en un equilibrador de carga de terceros.
+
+
+
+== Direccionamiento virtual tipo alojado
+
+El estilo hospedado virtual es ahora el método predeterminado para AWS S3, y aunque StorageGRID y muchas aplicaciones aún admiten el estilo de ruta, es mejor implementar el soporte virtual de estilo hospedado. Las solicitudes virtuales de estilo alojado tienen el bucket como parte del nombre del host.
+
+Para admitir el estilo hospedado virtual, haga lo siguiente:
+
+* Soporte de búsquedas de DNS comodín: *.s3.company.com
+* Utilice un certificado SSL con nombres alternativos de asunto para admitir comodines: *.s3.company.com Algunos clientes han expresado preocupaciones de seguridad sobre el uso de certificados comodín. StorageGRID sigue admitiendo el acceso al estilo de ruta, al igual que las aplicaciones clave como FabricPool. Dicho esto, ciertas llamadas a la API S3 fallan o se comportan incorrectamente sin soporte virtual alojado.
+
+
+
+
+== Terminación SSL
+
+Existen ventajas de seguridad para la terminación SSL en equilibradores de carga de terceros. Si el equilibrador de carga está comprometido, la rejilla se divide.
+
+Hay tres configuraciones compatibles:
+
+* *SSL pass-through.* El certificado SSL se instala en StorageGRID como certificado de servidor personalizado.
+* *Terminación SSL y re-encriptación (recomendado).* Esto puede ser beneficioso si ya está realizando la gestión de certificados SSL en el equilibrador de carga en lugar de instalar el certificado SSL en StorageGRID. Esta configuración proporciona la ventaja de seguridad adicional de limitar la superficie de ataque al equilibrador de carga.
+* *Terminación SSL con HTTP.* En esta configuración, SSL se termina en el equilibrador de carga de terceros y la comunicación del equilibrador de carga a StorageGRID no está cifrada para aprovechar la descarga de SSL (con bibliotecas SSL integradas en procesadores modernos esto es de beneficio limitado).
+
+
+
+
+== Pasar por la configuración
+
+Si prefiere configurar el equilibrador de carga para la transferencia, debe instalar el certificado en StorageGRID. Vaya al menú:Configuración[Certificados de servidor > Object Storage API Service Endpoints Certificado de servidor].
+
+
+
+== Visibilidad de la IP del cliente de origen
+
+StorageGRID 11,4 introdujo el concepto de un equilibrador de carga de terceros de confianza. Para reenviar la IP de la aplicación cliente a StorageGRID, debe configurar esta función. Para obtener más información, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Hybrid_Cloud_Infrastructure/StorageGRID/How_to_configure_StorageGRID_to_work_with_third-party_Layer_7_load_balancers["Cómo configurar StorageGRID para que funcione con equilibradores de carga de capa 7 de terceros."^]
+
+Para activar el encabezado XFF que se utilizará para ver la IP de la aplicación cliente, siga estos pasos:
+
+.Pasos
+. Registre la IP del cliente en el registro de auditoría.
+. Use `aws:SourceIp` la política de grupo o bloque S3.
+
+
+
+
+=== Estrategias de equilibrio de carga
+
+La mayoría de las soluciones de equilibrio de carga ofrecen múltiples estrategias para el equilibrio de carga. Las siguientes son estrategias comunes:
+
+* *Round robin.* Un ajuste universal pero sufre con pocos nodos y grandes transferencias obstruyendo nodos individuales.
+* *Menos conexión.* Una buena opción para cargas de trabajo de objetos pequeños o mixtos, lo que produce una distribución igual de las conexiones a todos los nodos.
+
+
+La elección del algoritmo se vuelve menos importante, con un mayor número de nodos de almacenamiento entre los que elegir.
+
+
+
+=== Ruta de datos
+
+Todos los datos fluyen a través de los balanceadores de carga del gestor de tráfico local. StorageGRID no admite el enrutamiento directo del servidor (DSR).
+
+
+
+==== Verificando la distribución de las conexiones
+
+Para verificar que su método distribuye la carga uniformemente entre los nodos de almacenamiento, compruebe las sesiones establecidas en cada nodo en un sitio determinado:
+
+* *Método UI.* Vaya al menú:Soporte[Métricas > Visión General de S3 > Sesiones HTTP de LDR]
+* *API de métricas.* Uso `storagegrid_http_sessions_incoming_currently_established`
+

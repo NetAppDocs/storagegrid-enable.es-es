@@ -1,0 +1,67 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/bare-metal-configure-grid-manager-storagegrid.html 
+keywords: grid manager, storagegrid 
+summary: Aprenda a configurar Grid Manager en StorageGRID en el nodo de administración principal. 
+---
+= Configure Grid Manager en StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Aprenda a configurar Grid Manager en StorageGRID en el nodo de administración principal.
+
+Complete la instalación configurando el sistema StorageGRID desde la interfaz de usuario de Grid Manager en el nodo de administración principal.
+
+
+
+== Escalones de alto nivel
+
+La configuración de la cuadrícula y la finalización de la instalación implican las siguientes tareas:
+
+.Pasos
+. <<Navegue a Grid Manager>>
+. link:storagegrid-license.html["Especifique la información de licencia de StorageGRID"]
+. link:add-sites-storagegrid.html["Agregar sitios a StorageGRID"]
+. link:grid-network-subnets-storagegrid.html["Especifique las subredes de red de cuadrícula"]
+. link:approve-grid-nodes-storagegrid.html["Aprobar los nodos de cuadrícula pendientes"]
+. link:ntp-server-storagegrid.html["Especifique la información del servidor NTP"]
+. link:dns-server-storagegrid.html["Especifique la información del servidor del sistema de nombres de dominio"]
+. link:system-passwords-storagegrid.html["Especifique las contraseñas del sistema StorageGRID"]
+. link:review-config-complete-storagegrid-install.html["Revise la configuración y complete la instalación"]
+
+
+
+
+== Navegue a Grid Manager
+
+Utilice Grid Manager para definir toda la información necesaria para configurar el sistema StorageGRID.
+
+Antes de comenzar, el nodo de administración principal debe desplegarse y haber completado la secuencia de inicio inicial.
+
+Para utilizar Grid Manager para definir información, realice los siguientes pasos.
+
+.Pasos
+. Acceda a Grid Manager en la siguiente dirección:
++
+[listing]
+----
+https://primary_admin_node_grid_ip
+----
++
+También puede acceder a Grid Manager en el puerto 8443.
+
++
+[listing]
+----
+https://primary_admin_node_ip:8443
+----
+. Haga clic en Instalar un sistema StorageGRID. Se muestra la página utilizada para configurar una cuadrícula StorageGRID.
+
+
+image:bare-metal/bare-metal-configure-storagegrid-grid.png["bare-metal-configure-storagegrid-grid"]

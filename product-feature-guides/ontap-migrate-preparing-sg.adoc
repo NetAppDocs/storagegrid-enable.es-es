@@ -1,0 +1,126 @@
+---
+permalink: product-feature-guides/ontap-migrate-preparing-sg.html 
+sidebar: sidebar 
+keywords: S3, ONTAP S3, ONTAP, StorageGRID, migration 
+summary: Migrar de ONTAP S3 a StorageGRID. 
+---
+= Habilita S3 de nivel empresarial al migrar sin problemas el almacenamiento basado en objetos desde ONTAP S3 a StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Habilita S3 de nivel empresarial al migrar sin problemas el almacenamiento basado en objetos desde ONTAP S3 a StorageGRID
+
+
+
+== Preparando StorageGRID
+
+Continuando con la configuración de esta demostración, crearemos un inquilino, un usuario, un grupo de seguridad, una política de grupo y un bucket.
+
+
+
+==== Cree el inquilino
+
+Vaya a la pestaña «Tenentes» y haga clic en el botón «Crear»
+
+image:ontap-migrate/sg-tenant-create-01.png["Botón Agregar arrendatario"]
+
+Rellene los detalles del arrendatario que proporciona un nombre de arrendatario, seleccione S3 para el tipo de cliente y no se requiere ninguna cuota. No es necesario seleccionar servicios de plataforma ni permitir S3 SELECT. Si lo desea, puede utilizar el origen de identidad propio. Establezca la contraseña root y haga clic en el botón Finalizar.
+
+Haga clic en el nombre del inquilino para ver los detalles del inquilino. * Necesitará el ID de inquilino más tarde, así que cópielo*. Haga clic en el botón Iniciar sesión. Esto le llevará al inicio de sesión del portal de inquilinos. Guarde la URL para usarla en el futuro.
+
+image:ontap-migrate/sg-tenant-select.png["Seleccione el arrendatario"]
+
+Esto le llevará al inicio de sesión del portal de inquilinos. Guarde la URL para uso futuro e introduzca las credenciales de usuario raíz.
+
+image:ontap-migrate/sg-tenant-login.png["Inicio de sesión de inquilino"]
+
+
+
+==== Cree el usuario
+
+Navegue a la pestaña Usuarios y cree un nuevo usuario.
+
+image:ontap-migrate/sg-user-create-01.png["Navegar a los usuarios"]
+
+image:ontap-migrate/sg-user-create-02.png["Crear nuevo usuario"]
+
+Ahora que se ha creado el nuevo usuario, haga clic en el nombre del usuario para abrir los detalles del usuario.
+
+Copie el ID de usuario de la URL que se utilizará más adelante.
+
+image:ontap-migrate/sg-user-id.png["Copiar nuevo ID"]
+
+Para crear las S3 teclas, haga clic en el nombre de usuario.
+
+image:ontap-migrate/sg-user-keys-create-01.png["Crear claves S3"]
+
+Seleccione la pestaña “Teclas de acceso” y haga clic en el botón “Crear clave”. No es necesario establecer una hora de caducidad. Descargue las S3 claves, ya que no se pueden recuperar de nuevo una vez cerrada la ventana.
+
+image:ontap-migrate/sg-user-keys-create-02.png["Claves de descarga"]
+
+
+
+==== Cree el grupo de seguridad
+
+Ahora vaya a la página Grupos y cree un nuevo grupo.
+
+image:ontap-migrate/sg-group-create.png["Crear nuevo grupo"]
+
+Establezca los permisos de grupo en Sólo lectura. Estos son los permisos de IU del inquilino, no los permisos S3.
+
+image:ontap-migrate/sg-group-permissions.png["Establecer permisos de grupo"]
+
+Los permisos S3 se controlan con la directiva de grupo (política de IAM). Establezca la política de grupo en Personalizar y pegue la política json en el cuadro. Esta política permitirá a los usuarios de este grupo enumerar los depósitos del arrendatario y realizar cualquier operación S3 en el depósito denominado «bucket» o subcarpetas del depósito denominado «bucket».
+
+[source, json]
+----
+{
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": "s3:ListAllMyBuckets",
+        "Resource": "arn:aws:s3:::*"
+      },
+      {
+         "Effect": "Allow",
+        "Action": "s3:*",
+        "Resource": ["arn:aws:s3:::bucket","arn:aws:s3:::bucket/*"]
+      }
+    ]
+}
+----
+image:ontap-migrate/sg-group-policy.png["Defina la política de grupo"]
+
+Por último, añadir el usuario al grupo y terminar.
+
+image:ontap-migrate/sg-group-add-user.png["Agregar usuario al grupo"]
+
+
+
+==== Cree dos cubos
+
+Navegue a la pestaña CUADROS y haga clic en el botón Crear CUCHO.
+
+image:ontap-migrate/sg-create-buckets.png["Crear Cumples"]
+
+Defina el nombre y la región del período.
+
+image:ontap-migrate/sg-create-bucket1-01.png["Crear Cumples"]
+
+En este primer bloque, active el control de versiones.
+
+image:ontap-migrate/sg-bucket1-vers.png["Establezca el control de versiones"]
+
+Ahora cree un segundo bloque sin el control de versiones activado.
+
+image:ontap-migrate/sg-create-bucket2.png["Crear segundo cucharón"]
+
+No active el control de versiones en este segundo bloque.
+
+image:ontap-migrate/sg-create-bucket2-nver.png["no defina el control de versiones"]
+
+_Por Rafael Guedes, y Aron Klein_
