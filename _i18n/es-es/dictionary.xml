@@ -3382,4 +3382,39 @@ StorageGRID escala el rendimiento usando nodos de mayor rendimiento para los nod
   <block id="0be6d03a29c17471b0414e9b31482b15" category="list-text">IBM Storage Protect</block>
   <block id="0987bb97934aa3a8ea668bd0c91ce52d" category="sidebar">Funciones de seguridad en StorageGRID : cómo proteger sus datos y metadatos en un almacén de objetos</block>
   <block id="243c98f4ed7a2d56d634e9cc955fda88" category="sidebar">Recuperación ante desastres de StorageGRID : configuración de StorageGRID para conmutación por error del sitio mediante Veritas Enterprise Vault</block>
+  <block id="b12c5a1ea2cfdcd9e96af62ad1fff2c7" category="summary">Instrucciones para crear un repositorio de instantáneas de Elasticsearch para utilizar el almacenamiento de objetos StorageGRID .</block>
+  <block id="4f466fb92f96dcdf64e32b3a68249a6a" category="doc">Configuración del repositorio de instantáneas de Elasticsearch</block>
+  <block id="19c69b64ad875941da2ed25675b966b5" category="paragraph">Elasticsearch admite el uso de almacenamiento de objetos compatible con AWS S3 para repositorios de instantáneas.  Este artículo proporciona instrucciones paso a paso sobre cómo crear un repositorio de instantáneas de Elasticsearch S3 con StorageGRID como almacenamiento de objetos de back-end.</block>
+  <block id="593e0b72d2a3823ab9f1704dbeeea1c8" category="list-text">StorageGRID 11.8 o superior</block>
+  <block id="51065ec24ee246c3860e0580defca4c6" category="list-text">Elasticsearch 8.x o superior</block>
+  <block id="3212d51fa371e3cef1d789ecfe0afca6" category="paragraph">Los lectores están familiarizados con la terminología y las operaciones de StorageGRID y Elasticsearch.</block>
+  <block id="85c3fd6ac4074bb1ab06b16868d0c009" category="list-text">Cree un depósito StorageGRID para utilizarlo en el repositorio de instantáneas de Elasticsearch.  El control de versiones del bucket debe estar habilitado.  Utilice un depósito por repositorio.  No comparta un depósito entre varios repositorios o clústeres de Elasticsearch.</block>
+  <block id="8ed3f9dd5d7290bd016b83485c0170a1" category="list-text">Agregue la clave de acceso del inquilino de StorageGRID y la clave secreta al almacén de claves de Elasticsearch.  Inicie sesión en el nodo maestro de Elasticsearch, navegue hasta el<block ref="1b2b598aea8f192d3794b0c30af92997" prefix=" " category="inline-code"></block> directorio y uso<block ref="0bf694e981bb45a58aed7488327af4f3" prefix=" " category="inline-code"></block> para agregar la clave de acceso y la clave secreta.</block>
+  <block id="5fd300737b7909532dc522634d75def5" category="paragraph">Comando de muestra:</block>
+  <block id="08a6dcd3a697d0604f6f4b47807f6ca0" category="paragraph">Para mostrar las claves, utilice el comando 'elasticsearch-keystore show &lt;key-name&gt;'.</block>
+  <block id="6806cdb70b916f3b6bb474b9328b08ca" category="list-text">Para clústeres de Elasticsearch de varios nodos, repita el paso 2 en cada nodo o consulte la documentación de Elasticsearch.</block>
+  <block id="621e717bf791d95428a170667a596197" category="list-text">Desde la GUI web de Kibana, navegue a la página de la Consola de herramientas de desarrollo y use<block ref="f6703ca746887e8ad69c184ef80e8ded" prefix=" " category="inline-code"></block> API para aplicar los cambios a cada nodo.</block>
+  <block id="9b6e1b5bf3e12eb4e808e1b9701528f4" category="inline-image-macro">Captura de pantalla de muestra de reload_secure_settings</block>
+  <block id="c94eb203f327e8a870bff84bf0051606" category="paragraph"><block ref="c94eb203f327e8a870bff84bf0051606" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="59b63a4c7f8e78be87c3100ed37b264a" category="list-text">Utilice el<block ref="14122a9963d2d5fd106baa062ba587b4" prefix=" " category="inline-code"></block> API para crear un nuevo repositorio de instantáneas.</block>
+  <block id="98679aa6d08189789aa0c65c691db370" category="paragraph">En este ejemplo, el nombre del repositorio es<block ref="be9022aec77b31961957096c13c23219" prefix=" " category="inline-code"></block> , y el tamaño del búfer corresponde al tamaño de la parte de carga multiparte de S3.</block>
+  <block id="3c823bd21419d345a9d7d4276488edfb" category="paragraph">El protocolo predeterminado es HTTPS.  Para usar HTTP con el punto final StorageGRID S3, agregue<block ref="356f3d9b207a577071350c04e64206cb" prefix=" " category="inline-code"></block> a la configuración.</block>
+  <block id="e09538d2ae213ccd0a221584775b5ca5" category="paragraph">Utilice el nombre del depósito creado en el paso 1 y el nombre del cliente configurado en el paso 2.</block>
+  <block id="4faca7afc4d2b0538a33d3192d453ad1" category="inline-image-macro">Captura de pantalla de muestra de la API de Elasticsearch</block>
+  <block id="175e963c73089d05b73e4053f63b0a3a" category="paragraph"><block ref="175e963c73089d05b73e4053f63b0a3a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="09585352abb495a58301939509e2b605" category="list-text">Desde la GUI web de Kibana, navegue a la página Administración de pila &gt; Instantánea y restauración, seleccione la pestaña Repositorios.</block>
+  <block id="73f00594e61a1e09208a849e16bedd7d" category="paragraph">Haga clic en el nombre del repositorio para ver los detalles o modificar algunas configuraciones, como la cantidad máxima de bytes de instantáneas por segundo, cuyo valor predeterminado es 40 MB/s por nodo Elasticsearch.</block>
+  <block id="fc2619b84c9b3173bc9c93dafbf91e8d" category="paragraph">Para configuraciones no visibles en esta página, utilice el<block ref="14122a9963d2d5fd106baa062ba587b4" prefix=" " category="inline-code"></block> API en la consola de herramientas de desarrollo para realizar cambios.</block>
+  <block id="565feae94d4b22672a12be27e4f99c63" category="inline-image-macro">Captura de pantalla de muestra del repositorio de instantáneas</block>
+  <block id="aac419a72b01b501d95dbe3debe250f2" category="paragraph"><block ref="aac419a72b01b501d95dbe3debe250f2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8d7340f8e7c758cdf4fd4e3455548757" category="list-text">Configure una política de ciclo de vida del depósito para administrar objetos de versión no actual en el depósito de instantáneas.  Por ejemplo, eliminar versiones no actuales después de 90 días.</block>
+  <block id="5fe1a3050ef9538f4f00d7bf6e4d66b1" category="list-text">Elastic requiere que los clientes validen el almacenamiento S3 que no es de AWS antes de usarlo para almacenar instantáneas.</block>
+  <block id="56f4d43e66895a25e9c1e43ca43d69cc" category="paragraph">Siga las instrucciones de Elastic para validar la configuración:</block>
+  <block id="0734208a8b40c0aab9c1218baedefbf1" category="paragraph"><block ref="0734208a8b40c0aab9c1218baedefbf1" category="inline-link-rx"></block></block>
+  <block id="1743c3ed2b99313c86b17e91ff8ae63b" category="list-text">Después de la validación, sigue la guía de Elasticsearch para crear una política para almacenar instantáneas nocturnas.</block>
+  <block id="1d605538b3de6fc7352ff1756867d1b9" category="inline-link">Repositorio s3 de Elasticsearch</block>
+  <block id="755c869a02438bc9363beeea0e91da57" category="list-text"><block ref="755c869a02438bc9363beeea0e91da57" category="inline-link-rx"></block></block>
+  <block id="e226403172953bd7e5c34989260a72a8" category="inline-link">Cómo se eliminan los objetos versionados de S3</block>
+  <block id="e35c2c56a508398c870b7b6e9e717abf" category="list-text"><block ref="e35c2c56a508398c870b7b6e9e717abf" category="inline-link-rx"></block></block>
+  <block id="29b6d470059c168ae42b0d8923792ea7" category="sidebar">Instrucciones para crear un repositorio de instantáneas de Elasticsearch</block>
 </blocks>
