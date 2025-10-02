@@ -16,11 +16,11 @@ summary: Descubra las funciones de seguridad integrales de la solución de almac
 [role="lead"]
 Descubra las funciones de seguridad integrales de la solución de almacenamiento de objetos de StorageGRID.
 
-Esta es una descripción general de las muchas características de seguridad de NetApp® StorageGRID®, que cubren el acceso a datos, objetos y metadatos, el acceso administrativo y la seguridad de la plataforma. Se ha actualizado para incluir las últimas características lanzadas con StorageGRID 11,9.
+Esta es una descripción general de las numerosas características de seguridad de NetApp® StorageGRID®, que abarcan el acceso a datos, objetos y metadatos, acceso administrativo y seguridad de la plataforma.  Se ha actualizado para incluir las funciones más nuevas lanzadas con StorageGRID 12.0.
 
 La seguridad es una parte integral de la solución de almacenamiento de objetos de NetApp StorageGRID. La seguridad es especialmente importante porque muchos tipos de datos de contenido enriquecido que se adaptan perfectamente al almacenamiento de objetos también son confidenciales por naturaleza y sujetos a regulaciones y cumplimiento de normativas. A medida que las funcionalidades de StorageGRID continúan evolucionando, el software pone a su disposición muchas funciones de seguridad imprescindibles para proteger la política de seguridad de la organización y ayudar a la organización a cumplir las prácticas recomendadas del sector.
 
-Este documento ofrece una descripción general de las muchas características de seguridad de StorageGRID 11,9, divididas en cinco categorías:
+Este documento es una descripción general de las numerosas características de seguridad en StorageGRID 12.0, divididas en cinco categorías:
 
 * Funciones de seguridad de acceso a los datos
 * Funciones de seguridad de objetos y metadatos
@@ -29,7 +29,7 @@ Este documento ofrece una descripción general de las muchas características de
 * Integración del cloud
 
 
-Este documento está diseñado para ser una hoja de datos de seguridad; no detalla cómo configurar el sistema para que admita las características de seguridad enumeradas en que no están configuradas de forma predeterminada. El https://docs.netapp.com/us-en/storagegrid-118/harden/index.html["Guía para el fortalecimiento de StorageGRID"^] está disponible en la página oficial https://docs.netapp.com/us-en/storagegrid-118/["Documentación de StorageGRID"^] .
+Este documento pretende ser una hoja de datos de seguridad; no detalla cómo configurar el sistema para admitir las funciones de seguridad enumeradas en él que no están configuradas de manera predeterminada.  El https://docs.netapp.com/us-en/storagegrid/harden/index.html["Guía para el fortalecimiento de StorageGRID"^] está disponible en la página oficial https://docs.netapp.com/us-en/storagegrid/["Documentación de StorageGRID"^] página.
 
 Además de las capacidades descritas en este informe, StorageGRID sigue el https://www.netapp.com/us/legal/vulnerability-response.aspx["Política de notificación y respuesta de vulnerabilidad de seguridad de los productos de NetApp"^]. Las vulnerabilidades informadas se verifican y responden a ellas según el proceso de respuesta a incidentes de seguridad del producto.
 
@@ -42,7 +42,7 @@ NetApp StorageGRID ofrece funciones de seguridad avanzadas para casos de uso de 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
 
 * NetApp StorageGRID: Evaluación del cumplimiento de las normas SEC 17a-4(f), FINRA 4511(c) y CFTC 1,31(c)-(d) https://www.netapp.com/media/9041-ar-cohasset-netapp-storagegrid-sec-assessment.pdf[]
-* Página de documentación de StorageGRID 11,9 https://docs.netapp.com/us-en/storagegrid-119/[]
+* Página de documentación de StorageGRIDhttps://docs.netapp.com/us-en/storagegrid/[]
 * Documentación de producto de NetApp https://www.netapp.com/support-and-training/documentation/[]
 
 

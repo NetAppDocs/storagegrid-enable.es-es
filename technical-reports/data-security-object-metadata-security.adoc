@@ -36,6 +36,11 @@ Los dispositivos StorageGRID SG5812, SG5860, SG6160 y SGF6024 ofrecen la opción
 | Permite un almacenamiento seguro de datos, metadatos y objetos del sistema. También ofrece cifrado de objetos basado en software StorageGRID, que protege el almacenamiento y la transmisión de objetos. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
 
 
+| Cifrado compatible con el Estándar Federal de Procesamiento de Información (FIPS) 140-3 para nodos  a| 
+Los dispositivos StorageGRID SG5812, SG5860, SG6160, SGF6112, SG1100 y SG110 ofrecen la opción de cifrado de nodo compatible con FIPS 140-3.  Las claves de cifrado de los nodos son administradas por un servidor KMIP externo.
+| Permite un almacenamiento seguro de datos, metadatos y objetos del sistema. También ofrece cifrado de objetos basado en software StorageGRID, que protege el almacenamiento y la transmisión de objetos. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+
+
 | Exploración de integridad de fondo y reparación automática  a| 
 StorageGRID usa un mecanismo interconectado compuesto por hashes, sumas de comprobación y comprobaciones de redundancia cíclicas (CRC) en el nivel de objeto y subobjeto para ofrecer protección frente a la incoherencia, manipulación o modificación de datos, tanto cuando los objetos se encuentran en almacenamiento como en tránsito. StorageGRID detecta automáticamente los objetos dañados o alterados, y los reemplaza mientras pone en cuarentena los datos modificados y alerta al administrador.
 | Permite a los administradores de Grid cumplir los acuerdos de nivel de servicios, las normativas y otras obligaciones relativas a la durabilidad de los datos. Ayuda a los clientes a detectar virus o ransomware que intentan cifrar, manipular o modificar datos. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 

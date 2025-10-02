@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/ransomware-protection-investigate-branch-buckets.html 
+keywords: object lock, storagegrid 
+summary: Descubra cómo se pueden utilizar los buckets de sucursales para investigar y remediar un ataque de ransomware. 
+---
+= Investigación y remediación de ransomware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Aprenda a investigar y remediar buckets después de un posible ataque de ransomware con StorageGRID.
+
+En StorageGRID 12.0, se agregó la nueva función de depósito de ramas para ampliar la utilidad del control de versiones para la defensa contra ransomware.  Un bucket de rama proporciona acceso a los objetos de un bucket tal como existían en un momento determinado, siempre que todavía existan en el bucket.  Los depósitos de ramas solo se pueden crear para depósitos base con control de versiones habilitado.
+
+Esto significa que si sospecha que se ha producido un ataque de ransomware, puede crear un depósito de ramas de lectura y escritura, o de solo lectura, que contenga todos los objetos y versiones que existían antes del momento del ataque inicial.  Puede utilizar esta rama del depósito para comparar con el contenido del depósito base para determinar qué objetos han cambiado y si el cambio fue parte del ataque o no.  También puede utilizar una rama bucket para continuar las operaciones del cliente utilizando la rama limpia mientras investiga el ataque.
+
+
+
+== Creación de un depósito de rama
+
+* Vaya a la página de detalles del depósito base y a la pestaña Ramas para crear un depósito de ramas.
+
+
+image:ransomware/ransomware-protection-branch-create.png["creación de rama de protección contra ransomware"]
+
+* Una vez que se hace clic en el botón Crear rama, se abrirá una ventana emergente con detalles predefinidos de la región asociada con el ramal base.
+* Proporcione el nombre de la rama, con anticipación, y seleccione qué tipo de rama desea crear.
+
+
+image:ransomware/ransomware-protection-branch-define.png["definición de rama de protección contra ransomware"]

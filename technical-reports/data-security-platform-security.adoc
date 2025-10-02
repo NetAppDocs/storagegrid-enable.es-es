@@ -72,8 +72,8 @@ Gestionar puertos abiertos y cerrados para redes de administración, grid y clie
 
 
 | Comportamiento SSH mejorado  a| 
-Al actualizar un nodo a StorageGRID 11,5, se generan nuevos certificados de host SSH y claves de host.
-| Mejora la protección contra ataques de hombre en el medio. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
+Deshabilitar SSH de forma predeterminada antes de la instalación.  En el estado predeterminado, el acceso SSH solo está habilitado en la dirección de los puertos de administración local del enlace.  Las contraseñas de usuario administrador y raíz se establecen en el número de serie del controlador de cómputo del dispositivo.  El inicio de sesión solo está permitido en la consola serie y en la consola gráfica (BMC KVM).  SSH en cualquier puerto de red está deshabilitado.
+| Mejora la protección del acceso a la red. | Normativa SEC 17a-4(f) CTFC 1,31(c)-(d) (FINRA) regla 4511(c) 
 
 
 | Cifrado de nodos  a| 

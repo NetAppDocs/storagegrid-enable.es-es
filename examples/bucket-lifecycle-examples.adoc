@@ -223,13 +223,15 @@ Caso de uso: Proporcionar un ciclo de vida completo para las versiones actuales 
   "Rules": [
     {
       "ID": "Delete current version",
+      "Filter": {},
       "Status": "Enabled",
       "Expiration": {
         "Days": 30
-      },
+      }
     },
     {
       "ID": "noncurrent version retention",
+      "Filter": {},
       "Status": "Enabled",
       "NoncurrentVersionExpiration": {
         "NoncurrentDays": 60
@@ -237,6 +239,7 @@ Caso de uso: Proporcionar un ciclo de vida completo para las versiones actuales 
     },
     {
       "ID": "Markers",
+      "Filter": {},
       "Status": "Enabled",
       "Expiration": {
         "ExpiredObjectDeleteMarker": true
@@ -247,7 +250,7 @@ Caso de uso: Proporcionar un ciclo de vida completo para las versiones actuales 
 ----
 
 
-=== eliminar marcadores de eliminación que no tienen otras versiones y han existido durante 5 días, conservar 4 versiones no actuales y al menos 30 días de historial para objetos con el "prefijo account_" y mantener 2 versiones y al menos 10 días de historial para todas las demás versiones de objetos.
+=== eliminar marcadores de eliminación que no tengan otras versiones, conservar 4 versiones no actuales y al menos 30 días de historial para objetos con el "prefijo account_" y mantener 2 versiones y al menos 10 días de historial para todas las demás versiones de objetos.
 
 Caso de uso: Proporcionar reglas únicas para objetos específicos, junto con otros objetos, para gestionar el ciclo de vida completo de las versiones actuales y futuras, incluyendo los marcadores de eliminación. Beneficio: Reducir los costos de almacenamiento y garantizar que el depósito esté ordenado, conservando suficientes puntos de recuperación e historial para satisfacer diversas necesidades del cliente.
 
@@ -257,25 +260,24 @@ Caso de uso: Proporcionar reglas únicas para objetos específicos, junto con ot
   "Rules": [
     {
       "ID": "Markers",
+      "Filter": {},
       "Status": "Enabled",
       "Expiration": {
-        "Days": 5,
         "ExpiredObjectDeleteMarker": true
-      },
+      }
     },
     {
       "ID": "accounts version retention",
+      "Filter": {"Prefix":"account_"},
       "Status": "Enabled",
       "NoncurrentVersionExpiration": {
         "NewerNoncurrentVersions": 4,
         "NoncurrentDays": 30
-      },
-      "Filter": {
-          "Prefix":"account_"
       }
     },
     {
       "ID": "noncurrent version retention",
+      "Filter": {},
       "Status": "Enabled",
       "NoncurrentVersionExpiration": {
         "NewerNoncurrentVersions": 2,

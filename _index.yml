@@ -51,8 +51,6 @@ indexpage:
       url: "/product-feature-guides/storagegrid-search-integration-service.html"
     - title: Consideraciones y rendimiento del clon de nodos
       url: "/product-feature-guides/node-clone.html"
-    - title: Cómo utilizar el remap de puertos
-      url: "/product-feature-guides/port-remap.html"
     - title: Cómo reubicar un sitio y cambiar la red
       url: "/product-feature-guides/site-relocation-and-network-change.html"
     - title: Migrar el almacenamiento basado en objetos de ONTAP S3 a StorageGRID

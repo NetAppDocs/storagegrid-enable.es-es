@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: technical-reports/load-balancer-storagegrid.html 
+keywords: object storage, load balancer 
+summary: Obtenga información sobre la función de los balanceadores de carga de StorageGRID . 
+---
+= Utilice balanceadores de carga de StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Obtenga información sobre la función de un equilibrador de carga de nodo de puerta de enlace de StorageGRID .
+
+Orientación general para la implementación de nodos de puerta de enlace NetApp® StorageGRID®.
+
+
+
+== Equilibrador de carga de nodo de puerta de enlace StorageGRID frente al equilibrador de carga de terceros
+
+StorageGRID es único entre los proveedores de almacenamiento de objetos compatibles con S3, ya que proporciona un balanceador de carga nativo disponible como dispositivo, máquina virtual o contenedor específicamente creados. El balanceador de carga proporcionado por StorageGRID también se conoce como nodo de puerta de enlace.
+
+Para los clientes que no poseen aún un balanceador de carga, como F5, Citrix, etc., la implementación de un balanceador de carga de terceros puede ser muy compleja. El balanceador de carga de StorageGRID simplifica enormemente las operaciones del balanceador de carga.
+
+El nodo de puerta de enlace es un equilibrador de carga de alto rendimiento, altamente disponible y de nivel empresarial. Los clientes pueden optar por implementar el nodo de pasarela, el equilibrador de carga de terceros, o incluso ambos, en el mismo grid. El nodo de puerta de enlace es un gestor de tráfico local frente a un GSLB.
+
+El equilibrador de carga de StorageGRID ofrece las siguientes ventajas:
+
+* *Simplicidad*. Configuración automática de pools de recursos, comprobaciones de estado, parches y mantenimiento, todo gestionado por StorageGRID.
+* *Actuación*.  El balanceador de carga StorageGRID está dedicado a StorageGRID, puede proporcionar almacenamiento en caché de alto rendimiento y no compite con otras aplicaciones por el ancho de banda.
+* *Coste*. La máquina virtual (VM) y las versiones de contenedor se proporcionan sin coste adicional.
+* *Clasificaciones de tráfico*. La función de clasificación de tráfico avanzada permite reglas de calidad de servicio específicas de StorageGRID junto con análisis de cargas de trabajo.
+* *Futuras características específicas de StorageGRID*. StorageGRID continuará optimizando y añadiendo características innovadoras al equilibrador de carga en los próximos lanzamientos.
+
+
+Como nodo integrado de StorageGRID, el administrador de tráfico local tiene la capacidad de usar una verificación de estado avanzada para distribuir solicitudes en función del estado del nodo de almacenamiento, la carga y la disponibilidad de recursos.  Además, tiene la capacidad de distribuir la carga entre múltiples sitios cuando los costos del enlace StorageGRID se establecen en "0" entre los sitios.  En el caso de que los nodos de almacenamiento no estén disponibles pero el nodo de enlace esté disponible en un sitio, la carga se dirigirá automáticamente a otro sitio en la red.
+
+La función de almacenamiento en caché del equilibrador de carga del nodo de puerta de enlace está diseñada para proporcionar una mejora sustancial del rendimiento para ciertas cargas de trabajo (como el entrenamiento de IA) que vuelven a leer un conjunto de datos varias veces como parte del procesamiento de esos datos.  Los nodos de puerta de enlace de almacenamiento en caché también se pueden implementar físicamente distantes del resto de la red, lo que permite un mejor rendimiento y una menor utilización de la red WAN en algunas cargas de trabajo.  La caché funciona en un modo de lectura diferida, donde las escrituras no se almacenan en caché y no modifican el estado de la caché.  Cada nodo de puerta de enlace de almacenamiento en caché funciona independientemente de cualquier otro nodo de puerta de enlace de almacenamiento en caché.
+
+Para obtener detalles sobre la implementación del nodo de puerta de enlace de StorageGRID , consulte la https://docs.netapp.com/us-en/storagegrid/["Documentación de StorageGRID"^] .

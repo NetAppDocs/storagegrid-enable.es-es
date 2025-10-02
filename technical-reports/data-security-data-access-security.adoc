@@ -44,7 +44,7 @@ StorageGRID admite los siguientes conjuntos de cifrado para TLS:
 
 Compatibilidad con TLS v1,2 y 1,3.
 
-SSLv3, TLS v1,1 y versiones anteriores ya no son compatibles.
+No se admiten SSLv3, TLS v1.1 y anteriores.
 | Permite que un cliente y StorageGRID se identifiquen y autentiquen entre sí y se comuniquen con confidencialidad e integridad de los datos. Garantiza el uso de una versión de TLS reciente. Los cifrados ahora se pueden configurar en la configuración de configuración/seguridad | -- 
 
 
@@ -128,6 +128,27 @@ StorageGRID permite crear varias claves de acceso y estar activas simultáneamen
 | S3 Política de acceso de IAM  a| 
 StorageGRID admite políticas de IAM S3, lo que permite a los administradores de Grid especificar control de acceso granular por inquilino, bloque o prefijo de objeto. StorageGRID también admite condiciones y variables de política de IAM, lo que permite políticas de control de acceso más dinámicas.
 | Permite a los administradores de Grid especificar el control de acceso por grupos de usuarios para todo el inquilino; también permite a los usuarios inquilinos especificar el control de acceso para sus propios bloques y objetos. | -- 
+
+
+| API del servicio de token de seguridad S3 AssumeRole  a| 
+StorageGRID admite la API AssumeRole de S3 STS para proporcionar credenciales de seguridad temporales (ID de clave de acceso, clave de acceso secreta, token de sesión) con permisos de alcance reducido y duración limitada.  Las políticas de sesión en línea para restringir aún más los permisos durante la sesión son compatibles como parte de la API AssumeRole.
+| Permite a los administradores de inquilinos proporcionar acceso temporal seguro a los datos de los objetos. | -- 
+
+
+| Servicio de notificación simple  a| 
+StorageGRID admite el envío de notificaciones sobre el acceso a objetos. Se admiten los siguientes tipos de eventos:
+
+* s3:ObjetoCreado:
+* s3:ObjetoCreado:Poner
+* s3:ObjetoCreado:Publicación
+* s3:ObjetoCreado:Copiar
+* s3:Objeto creado:Carga multiparte completa
+* s3:Objeto eliminado:
+* s3:ObjetoEliminado:Eliminar
+* s3:Objeto eliminado:Eliminar marcador creado
+* s3:Restaurar objeto:Publicar
+
+| Permite a los administradores de inquilinos supervisar el acceso a los objetos | -- 
 
 
 | Cifrado del lado del servidor con claves gestionadas por StorageGRID (SSE)  a| 

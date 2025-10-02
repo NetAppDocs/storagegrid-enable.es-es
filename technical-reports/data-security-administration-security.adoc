@@ -44,13 +44,15 @@ Los administradores de grid pueden asignar permisos a roles y asignar roles a gr
 | Registro de auditorías distribuido  a| 
 StorageGRID ofrece una infraestructura de registro de auditorías incorporada y distribuida que se puede ampliar a cientos de nodos en hasta 16 sitios. Los nodos de software de StorageGRID generan mensajes de auditoría, que se transmiten a través de un sistema de retransmisión de auditoría redundante y, en última instancia, se capturan en uno o más repositorios de registros de auditoría. Eventos de captura de mensajes de auditoría con una granularidad a nivel de objeto, como operaciones de API S3 iniciadas por el cliente, eventos de ciclo de vida de los objetos por ILM, comprobaciones del estado de los objetos en segundo plano y cambios de configuración realizados desde las API o la interfaz de usuario de gestión.
 
-Los registros de auditoría se pueden exportar de los nodos de administrador mediante CIFS o NFS, lo cual permite los mensajes de auditoría por herramientas como Splunk y ELK. Existen cuatro tipos de mensajes de auditoría:
+Los registros de auditoría se pueden exportar mediante syslog, lo que permite que los mensajes de auditoría se puedan extraer mediante herramientas como Splunk y ELK.  Hay cuatro tipos de mensajes de auditoría:
 
 * Mensajes de auditoría del sistema
 * Mensajes de auditoría del almacenamiento de objetos
 * Mensajes de auditoría de protocolo HTTP
 * Mensajes de auditoría de gestión
 
+
+Los registros de auditoría se pueden almacenar en un depósito S3 para su retención a largo plazo y acceso a las aplicaciones.
 | Proporciona a los administradores de Grid un servicio de auditoría probado y escalable y les permite extraer datos de auditoría para diversos objetivos. Entre estos objetivos se incluyen la solución de problemas, la auditoría del rendimiento del SLA, las operaciones de API de acceso a los datos del cliente y los cambios en la configuración de gestión. | -- 
 
 

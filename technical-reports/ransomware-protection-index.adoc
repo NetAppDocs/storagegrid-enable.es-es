@@ -40,7 +40,7 @@ El principal mecanismo de protección contra ransomware en la API S3 es implemen
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
 
-* Centro de documentación de NetApp StorageGRID https://docs.netapp.com/us-en/storagegrid-118/[]
+* Centro de documentación de NetApp StorageGRIDhttps://docs.netapp.com/us-en/storagegrid/[]
 * Habilitación para NetApp StorageGRID https://docs.netapp.com/us-en/storagegrid-enable/[]
 * Documentación de producto de NetApp https://www.netapp.com/support-and-training/documentation/[]
 
