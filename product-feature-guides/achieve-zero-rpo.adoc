@@ -12,7 +12,7 @@ summary: 'En este informe técnico, se describe la implementación de estrategia
 
 
 [role="lead"]
-Este informe técnico proporciona una guía completa para implementar estrategias de replicación de StorageGRID para lograr un objetivo de punto de recuperación (RPO) de cero en caso de un fallo del centro. El documento detalla varias opciones de implementación para StorageGRID, incluida la replicación síncrona multisitio y la replicación asíncrona multi-grid. Explica cómo se pueden configurar las políticas de gestión del ciclo de vida de la información (ILM) de StorageGRID para garantizar la durabilidad y disponibilidad de los datos en varias ubicaciones. Además, el informe incluye consideraciones de rendimiento, escenarios de fallo y procesos de recuperación para mantener operaciones de cliente ininterrumpidas. El objetivo de este documento es proporcionar la información necesaria para garantizar el acceso y la consistencia de los datos, incluso en caso de fallo total del sitio, aprovechando las técnicas de replicación síncrona y asíncrona.
+Este informe técnico proporciona una guía completa para implementar estrategias de replicación de StorageGRID para lograr un Objetivo de Punto de Recuperación (RPO) de cero en caso de una falla del sitio. El documento detalla varias opciones de implementación para StorageGRID, incluyendo la replicación síncrona multisitio y la replicación asíncrona multigrid. Explica cómo se pueden configurar las políticas de gestión del ciclo de vida de la información (ILM) de StorageGRID para garantizar la durabilidad y disponibilidad de los datos en múltiples ubicaciones. Además, el informe abarca consideraciones de rendimiento, escenarios de fallos y procesos de recuperación para mantener las operaciones de los clientes sin interrupciones. El objetivo de este documento es proporcionar información para garantizar que los datos permanezcan accesibles y coherentes, incluso en caso de un fallo total del sitio, mediante el uso de técnicas de replicación tanto síncronas como asíncronas.
 
 
 
@@ -28,13 +28,13 @@ StorageGRID permite la durabilidad y disponibilidad configurables de sus datos e
 
 === StorageGRID Scale
 
-Una implementación mínima de StorageGRID consta de un nodo de administración y tres nodos de almacenamiento en un solo sitio.  Una sola red puede crecer hasta tener 220 nodos.  StorageGRID se puede implementar como un solo sitio o extenderse a 16 sitios.
+Una implementación mínima de StorageGRID consta de un nodo de administración y 3 nodos de almacenamiento en un único sitio. Una sola cuadrícula puede crecer hasta 220 nodos. StorageGRID se puede implementar como un solo sitio o extenderse a 16 sitios.
 
 El nodo de administración contiene la interfaz de gestión, un punto central para las métricas y el registro, y mantiene la configuración de los componentes de StorageGRID .  El nodo de administración también contiene un balanceador de carga integrado para el acceso a la API S3.
 
 StorageGRID se puede implementar solo como software, como dispositivos de máquinas virtuales VMware o como dispositivos diseñados específicamente para ese fin.
 
-Un nodo StorageGRID se puede implementar como:
+Un nodo de almacenamiento se puede implementar como:
 
 * Un nodo de solo metadatos que maximiza el recuento de objetos
 * Un nodo de almacenamiento de objetos únicamente que maximiza el espacio de los objetos
@@ -67,7 +67,7 @@ Con el almacenamiento de objetos, la unidad de almacenamiento es un objeto, en l
 
 Cada objeto de un sistema de almacenamiento basado en objetos tiene dos partes: Datos de objetos y metadatos de objetos.
 
-* Los datos de objetos representan los datos subyacentes reales, por ejemplo, una fotografía, una película o un registro médico.
+* Los datos de objeto representan los datos subyacentes reales, por ejemplo, una fotografía, una película o un historial médico.
 * Los metadatos de objetos son cualquier información que describa un objeto.
 
 
@@ -76,10 +76,10 @@ StorageGRID utiliza metadatos de objetos para realizar un seguimiento de las ubi
 Los metadatos de objetos incluyen información como la siguiente:
 
 * Metadatos del sistema, incluido un ID único para cada objeto, el nombre del objeto, el nombre del bucket S3, el nombre o ID de la cuenta del inquilino, el tamaño lógico del objeto, la fecha y hora en que se creó el objeto por primera vez y la fecha y hora en que se modificó el objeto por última vez.
-* La ubicación actual de almacenamiento de cada réplica del objeto o fragmento con código de borrado.
+* La ubicación de almacenamiento actual de la copia replicada o el fragmento codificado para borrado de cada objeto.
 * Todos los pares de valor de clave de metadatos de usuario personalizados asociados con el objeto.
 * En el caso de los objetos S3, todas las parejas clave-valor de etiqueta de objeto asociadas con el objeto
-* Para objetos segmentados y objetos multipartes, identificadores de segmentos y tamaños de datos.
+* Para objetos segmentados y objetos multipartes, identificadores de segmento y tamaños de datos.
 
 
 Los metadatos de objetos son personalizables y ampliables, por lo que es flexible para las aplicaciones. Para obtener información detallada sobre cómo y dónde StorageGRID almacena los metadatos de objetos, vaya a https://docs.netapp.com/us-en/storagegrid/admin/managing-object-metadata-storage.html["Gestione el almacenamiento de metadatos de objetos"].
@@ -94,7 +94,7 @@ StorageGRID proporciona la capacidad de borrar datos de código a nivel de nodo 
 
 Además, los dispositivos StorageGRID utilizan esquemas de codificación de borrado para almacenar datos de objetos en todos los nodos dentro de un sitio o distribuidos en 3 o más sitios en el sistema StorageGRID a través de las reglas ILM de StorageGRID que protegen contra fallas de nodos.
 
-La codificación de borrado proporciona un diseño de almacenamiento resistente a fallas de nodos y sitios con baja sobrecarga, mientras que la replicación puede hacer lo mismo, con más sobrecarga.  Todos los esquemas de codificación de borrado de StorageGRID se pueden implementar en un solo sitio siempre que se cumpla la cantidad mínima de nodos necesarios para almacenar los fragmentos de datos.  Esto significa que para un esquema EC de 4+2 debe haber un mínimo de 6 nodos disponibles para recibir los datos.
+La codificación de borrado proporciona un diseño de almacenamiento resistente a fallos de nodos y sitios con una sobrecarga menor que la replicación. Todos los esquemas de codificación de borrado de StorageGRID se pueden implementar en un solo sitio siempre que se cumpla el número mínimo de nodos necesarios para almacenar los fragmentos de datos. Esto significa que para un esquema EC de 4+2 se necesita un mínimo de 6 nodos disponibles para recibir los datos.
 
 image:zero-rpo/ec-schemes.png["Esquemas de código de borrado de StorageGRID disponibles para objetos"]
 
@@ -109,11 +109,20 @@ La consistencia predeterminada se define en un nivel de cuadrícula. Los usuario
 Las opciones de coherencia de bloques disponibles en StorageGRID son:
 
 * *Todo*: Proporciona el más alto nivel de consistencia. Todos los nodos del grid reciben los datos inmediatamente o la solicitud fallará.
-* *Strong-global*: Garantiza la consistencia de lectura tras escritura para todas las solicitudes de los clientes en todos los sitios.
-* *Quorum Strong-global*: garantiza la consistencia de lectura tras escritura para todas las solicitudes de clientes en todos los sitios.  Ofrece consistencia para múltiples nodos o incluso en caso de falla del sitio si se puede lograr el quórum de réplica de metadatos.
+* *Global fuerte*:
 +
-** La consistencia de QUORUM se define como un quórum de réplicas de metadatos del nodo de almacenamiento, donde cada sitio tiene 3 réplicas de metadatos.  Se puede calcular de la siguiente manera: 1+((N*3)/2) donde N es el número total de sitios.
-** Por ejemplo, se debe realizar un mínimo de 5 réplicas a partir de una cuadrícula de 3 sitios con un máximo de 3 réplicas dentro de un sitio.
+** *Legacy Strong Global*: Garantiza la consistencia de lectura después de escritura para todas las solicitudes de clientes en todos los sitios.
++
+*** Este es el comportamiento predeterminado para todos los sistemas actualizados de la versión 11.9 o anterior a la versión 12.0 sin cambiar manualmente al nuevo Quorum Strong Global.
+
+
+** *Quorum Strong-global*: garantiza la consistencia de lectura tras escritura para todas las solicitudes de clientes en todos los sitios.  Ofrece consistencia para múltiples nodos o incluso en caso de falla del sitio si se puede lograr el quórum de réplica de metadatos.
++
+*** Este es el comportamiento predeterminado para todos los sistemas recién instalados en la versión 12.0 o superior.
+*** La consistencia de QUORUM se define como un quórum de réplicas de metadatos del nodo de almacenamiento, donde cada sitio tiene 3 réplicas de metadatos.  Se puede calcular de la siguiente manera: 1+((N*3)/2) donde N es el número total de sitios.
+*** Por ejemplo, se debe realizar un mínimo de 5 réplicas a partir de una cuadrícula de 3 sitios con un máximo de 3 réplicas dentro de un sitio.
+
+
 
 
 * *Strong-site*: Garantiza la consistencia de lectura después de escritura para todas las solicitudes de los clientes dentro de un sitio.
@@ -129,11 +138,11 @@ Aunque los metadatos se replican automáticamente en y entre sitios, las decisio
 
 Cada regla de ILM se configurará con uno de estos tres comportamientos de procesamiento para proteger los objetos: Doble registro, equilibrada o estricta.
 
-La opción COMMIT doble realizará dos copias en dos nodos de almacenamiento diferentes del grid inmediatamente y devolverá la solicitud al cliente. La selección de nodos intentará dentro del sitio de la solicitud, pero puede usar nodos de otro sitio en algunas circunstancias. El objeto se agrega a la cola de ILM para evaluarlo y colocarlo de acuerdo con las reglas de ILM.
+La opción de confirmación dual realizará inmediatamente dos copias en dos nodos de almacenamiento diferentes cualesquiera de la cuadrícula y devolverá al cliente la solicitud como exitosa. La selección del nodo se intentará dentro del sitio de la solicitud, pero en algunas circunstancias puede utilizar nodos de otro sitio. El objeto se añade a la cola ILM para ser evaluado y colocado de acuerdo con las reglas ILM.
 
-La opción Balanced evalúa el objeto con respecto a la política de ILM inmediatamente y coloca el objeto sincronizado antes de devolver la solicitud correctamente al cliente. Si la regla ILM no se puede cumplir inmediatamente debido a una interrupción o a un almacenamiento inadecuado para cumplir los requisitos de colocación, se utilizará el registro doble en su lugar. Una vez resuelto el problema, ILM colocará automáticamente el objeto según la regla definida.
+La opción balanceada evalúa el objeto de acuerdo con la política ILM inmediatamente y coloca el objeto de forma síncrona antes de devolver la solicitud al cliente para que se haya realizado correctamente. Si la regla ILM no puede cumplirse de inmediato debido a una interrupción del servicio o a una capacidad de almacenamiento insuficiente para cumplir con los requisitos de ubicación, entonces se utilizará la confirmación dual. Una vez resuelto el problema, ILM colocará automáticamente el objeto según la regla definida.
 
-La opción strict evalúa el objeto con respecto a la política de ILM inmediatamente y coloca el objeto de forma síncrona antes de devolver la solicitud correctamente al cliente. Si la regla de ILM no se puede cumplir inmediatamente debido a una interrupción o un almacenamiento inadecuado para cumplir los requisitos de colocación, la solicitud fallará y el cliente deberá volver a intentarlo.
+La opción estricta evalúa el objeto de acuerdo con la política ILM inmediatamente y coloca el objeto de forma síncrona antes de devolver la solicitud al cliente para que se haya realizado correctamente. Si la regla ILM no se puede cumplir de inmediato debido a una interrupción del servicio o a un almacenamiento insuficiente para cumplir con los requisitos de ubicación, la solicitud fallará y el cliente deberá volver a intentarlo.
 
 
 
@@ -141,9 +150,9 @@ La opción strict evalúa el objeto con respecto a la política de ILM inmediata
 
 StorageGRID se puede poner en marcha con acceso de cliente a través de los nodos de puerta de enlace integrada, un equilibrador de carga de 3^rd^ partes externo, una operación por turnos de DNS o directamente en un nodo de almacenamiento. Pueden ponerse en marcha varios nodos de puerta de enlace en un sitio y configurarse en grupos de alta disponibilidad proporcionando conmutación por error automatizada y recuperación tras fallos en caso de interrupción del nodo de puerta de enlace. Puede combinar métodos de equilibrio de carga en una solución para proporcionar un único punto de acceso a todos los sitios de una solución.
 
-Los nodos de puerta de enlace equilibrarán la carga entre los nodos de almacenamiento en el sitio donde reside el nodo de puerta de enlace de forma predeterminada. StorageGRID se puede configurar de modo que los nodos de la puerta de enlace puedan equilibrar la carga usando nodos de varios sitios. Esta configuración agregaría la latencia entre esos sitios a la latencia de respuesta a las solicitudes del cliente. Esto solo debe configurarse si la latencia total es aceptable para los clientes.
+Los nodos de puerta de enlace equilibrarán la carga entre los nodos de almacenamiento en el sitio donde reside el nodo de puerta de enlace de forma predeterminada. StorageGRID se puede configurar para permitir que los nodos de puerta de enlace equilibren la carga utilizando nodos de múltiples sitios. Esta configuración añadiría la latencia entre esos sitios a la latencia de respuesta a las solicitudes del cliente. Esto solo debe configurarse si la latencia total es aceptable para los clientes.
 
-Es posible garantizar un RTO de cero con una combinación de equilibrio de carga local y global.  Para garantizar el acceso ininterrumpido de los clientes es necesario equilibrar la carga de las solicitudes de los clientes.  Una solución StorageGRID puede contener muchos nodos de puerta de enlace y grupos de alta disponibilidad en cada sitio.  Para proporcionar acceso ininterrumpido a los clientes en cualquier sitio, incluso en caso de falla del sitio, debe configurar una solución de equilibrio de carga externa en combinación con los nodos de puerta de enlace de StorageGRID .  Configure grupos de alta disponibilidad de nodos de puerta de enlace que administren la carga dentro de cada sitio y utilicen el balanceador de carga externo para equilibrar la carga entre los grupos de alta disponibilidad.  El balanceador de carga externo debe configurarse para realizar una verificación de estado para garantizar que las solicitudes se envíen solo a sitios operativos.  Para obtener más información sobre el equilibrio de carga con StorageGRID , consulte https://www.netapp.com/media/17068-tr4626.pdf["Informe técnico del equilibrador de carga de StorageGRID"] .
+Se puede lograr un RTO de cero mediante una combinación de equilibrio de carga local y global. Para garantizar un acceso ininterrumpido a los clientes, es necesario equilibrar la carga de las solicitudes de los clientes. Una solución StorageGRID puede contener muchos nodos de puerta de enlace y grupos de alta disponibilidad en cada sitio. Para proporcionar acceso ininterrumpido a los clientes en cualquier sitio, incluso en caso de fallo del sitio, debe configurar una solución de equilibrio de carga externa en combinación con los nodos de StorageGRID Gateway. Configure grupos de alta disponibilidad de nodos de puerta de enlace que gestionen la carga dentro de cada sitio y utilice el balanceador de carga externo para equilibrar la carga entre los grupos de alta disponibilidad. El balanceador de carga externo debe configurarse para realizar una comprobación de estado que garantice que las solicitudes se envíen únicamente a los sitios operativos. Para obtener más información sobre el equilibrio de carga con StorageGRID, consulte la https://www.netapp.com/media/17068-tr4626.pdf["Informe técnico del equilibrador de carga de StorageGRID"].
 
 
 
@@ -157,7 +166,7 @@ Para lograr un objetivo de punto de recuperación (RPO) cero en un sistema de al
 
 Para una implementación de múltiples sitios, Quorum Strong Global es el modelo de consistencia preferido para garantizar que los metadatos estén sincronizados en todos los sitios, lo que lo hace esencial para cumplir con el requisito de RPO cero.
 
-Los objetos del sistema de almacenamiento se almacenan según las reglas de gestión del ciclo de vida de la información (ILM), que determinan la forma y el lugar en que se almacenan los datos a lo largo de su ciclo de vida. Para la replicación síncrona se puede considerar entre la ejecución estricta o la ejecución equilibrada.
+Los objetos del sistema de almacenamiento se almacenan según las reglas de Gestión del Ciclo de Vida de la Información (ILM), que dictan cómo y dónde se almacenan los datos a lo largo de su ciclo de vida. Para la replicación síncrona, se puede considerar entre la ejecución estricta o la ejecución balanceada.
 
 * Es necesaria una estricta ejecución de estas reglas de ILM para un objetivo de punto de recuperación cero porque garantiza que los objetos se coloquen en las ubicaciones definidas sin ningún retraso ni retroceso, de modo que se mantenga la disponibilidad y la coherencia de los datos.
 * El comportamiento de procesamiento de ILM Balance de StorageGRID proporciona un equilibrio entre alta disponibilidad y resiliencia, lo que permite que los usuarios sigan procesando datos incluso en caso de un fallo del sitio.
@@ -183,13 +192,17 @@ Una vez resuelto el fallo, no es necesario realizar ningún esfuerzo manual de c
 
 == Una implementación de varios sitios de Grid único
 
-En los siguientes escenarios, las soluciones StorageGRID se configuran con un equilibrador de carga externo opcional que administra las solicitudes a los grupos de alta disponibilidad del equilibrador de carga integrado.  Esto logrará un RTO de cero además de un RPO de cero.  ILM está configurado con protección de ingesta equilibrada para colocación sincrónica.  Cada bucket está configurado con el modelo de consistencia global fuerte de quórum para cuadrículas de 3 o más sitios y consistencia global fuerte para menos de 3 sitios.
+En los siguientes escenarios, las soluciones StorageGRID están configuradas con un balanceador de carga externo opcional que gestiona las solicitudes a los grupos de alta disponibilidad del balanceador de carga integrado. Esto permitirá alcanzar un RTO de cero, además de un RPO de cero. ILM está configurado con protección de ingesta balanceada para la colocación síncrona. Cada bucket está configurado con la versión Quorum del modelo de consistencia global fuerte para cuadrículas de 3 o más sitios y la versión Legacy de consistencia global fuerte para 2 sitios.
 
-En una solución StorageGRID de dos sitios hay al menos dos réplicas o 3 fragmentos EC de cada objeto y 6 réplicas de todos los metadatos. En caso de que se produzca un fallo, las actualizaciones de la interrupción se sincronizarán automáticamente con el sitio/los nodos recuperados. Con solo 2 sitios, no es probable lograr un objetivo de punto de recuperación cero en escenarios de fallo más allá de la pérdida del sitio completo.
+*Escenario 1:*
+
+En una solución StorageGRID de dos sitios, existen al menos dos réplicas de cada objeto y 6 réplicas de todos los metadatos. Tras la recuperación tras el fallo, las actualizaciones posteriores a la interrupción se sincronizarán automáticamente con el sitio/nodos recuperados. Con solo 2 sitios, es poco probable que se logre un RPO cero en escenarios de falla más allá de la pérdida total de un sitio.
 
 image:zero-rpo/2-site.png["Sistema StorageGRID de dos sitios"]
 
-En una solución StorageGRID de tres sitios o más hay al menos 3 réplicas o 3 fragmentos EC de cada objeto y 9 réplicas de todos los metadatos. En caso de que se produzca un fallo, las actualizaciones de la interrupción se sincronizarán automáticamente con el sitio/los nodos recuperados. En tres o más sitios, es posible lograr un objetivo de punto de recuperación cero.
+*Escenario 2:*
+
+En una solución StorageGRID de tres o más sitios, hay al menos 3 réplicas o 3 fragmentos EC de cada objeto y 9 réplicas de todos los metadatos. Tras la recuperación tras el fallo, las actualizaciones posteriores a la interrupción se sincronizarán automáticamente con el sitio/nodos recuperados. Con tres o más sitios es posible lograr un RPO cero.
 
 image:zero-rpo/3-site.png["Sistema StorageGRID de tres sitios"]
 
@@ -197,7 +210,7 @@ Escenarios de fallo en varios sitios
 
 [cols="34%,33%,33%"]
 |===
-| Fallo | Resultado de 2 sitios | resultado de 3 o más sitios 
+| Fallo | Resultado en 2 sitios + Legado Fuerte Global | Resultado de 3 o más sitios + Quorum Strong Global 
 
 
 | Fallo de unidad de nodo único | Cada dispositivo utiliza varios grupos de discos y puede mantener al menos 1 unidades por grupo sin interrupciones ni pérdida de datos. | Cada dispositivo utiliza varios grupos de discos y puede mantener al menos 1 unidades por grupo sin interrupciones ni pérdida de datos. 
@@ -216,47 +229,43 @@ Las operaciones dirigidas al otro sitio permanecen sin interrupciones y sin pér
 | Fallo de un único nodo en múltiples sitios  a| 
 Sin interrupción ni pérdida de datos si:
 
-* Existe al menos una réplica única en la cuadrícula
+* Existe al menos una copia replicada en la cuadrícula
 * Existen suficientes fragmentos de EC en la cuadrícula
 
 
 Las operaciones interrumpidas y el riesgo de pérdida de datos si:
 
-* No existen réplicas
+* No existen copias duplicadas
 * Existen suficientes portabrocas EC
 
  a| 
 Sin interrupción ni pérdida de datos si:
 
-* Existe al menos una réplica única en la cuadrícula
+* Existe al menos una copia replicada en la red.
 * Existen suficientes fragmentos de EC en la cuadrícula
 
 
 Las operaciones interrumpidas y el riesgo de pérdida de datos si:
 
-* No existen réplicas
+* No existen copias duplicadas
 * Existen suficientes portabrocas EC para recuperar el objeto
 
 
 
 
-| Fallo de un sitio único | las operaciones del cliente se interrumpirán hasta que se resuelva el error o hasta que la consistencia del bloque se reduzca a un sitio fuerte o inferior para permitir que las operaciones se realicen correctamente pero no se pierdan datos. | Sin interrupción de las operaciones ni pérdida de datos. 
+| Fallo de un sitio único | Algunas operaciones del cliente se verán interrumpidas hasta que se resuelva el fallo. Las operaciones GET y HEAD continuarán sin interrupción. Reduzca la consistencia del bucket a lectura después de nueva escritura o a un nivel inferior para continuar las operaciones sin interrupciones en este estado de fallo. | Sin interrupción de las operaciones ni pérdida de datos. 
 
 
-| Fallos de un único sitio más nodo único | las operaciones del cliente se interrumpirán hasta que se resuelva el error o se reduzca la coherencia del bloque a lectura tras nueva escritura o inferior para permitir que las operaciones se completen correctamente y se produzca una posible pérdida de datos. | Sin interrupción de las operaciones ni pérdida de datos. 
+| Fallos de un único sitio más nodo único | Algunas operaciones del cliente se verán interrumpidas hasta que se resuelva el fallo. Las operaciones de HEAD continuarán sin interrupción. Las operaciones GET continuarán sin interrupción si existe una copia replicada o suficientes fragmentos EC. Reduzca la consistencia del bucket a lectura después de nueva escritura o a un nivel inferior para continuar las operaciones sin interrupciones en este estado de fallo. | Sin interrupción de las operaciones ni pérdida de datos. Posible pérdida de datos dependiendo del número de copias replicadas. La codificación de borrado local puede prevenir la pérdida de datos. 
 
 
-| Sitio único y nodo de cada sitio restante | las operaciones del cliente se interrumpirán hasta que se resuelva el error o se reduzca la coherencia del bloque a lectura tras nueva escritura o inferior para permitir que las operaciones se completen correctamente y se produzca una posible pérdida de datos. | Las operaciones se interrumpirán si no se puede cumplir el quórum de réplica de metadatos y se puede perder datos. 
+| Sitio único y nodo de cada sitio restante | Solo existen dos sitios. Ver: Sitio único más un nodo único. | Las operaciones se verán interrumpidas si no se puede alcanzar el quórum de réplicas de metadatos. Reduzca la consistencia del bucket a lectura después de nueva escritura o a un nivel inferior para continuar las operaciones sin interrupciones en este estado de fallo. Posible pérdida de datos por fallo permanente dependiendo del número de copias replicadas. La codificación de borrado local puede prevenir la pérdida de datos. 
 
 
-| Fallo de varios sitios | No se perderán los datos de los sitios de operaciones que permanecen si al menos 1 sitio no se puede recuperar en su totalidad. | Las operaciones se interrumpirán si no se puede cumplir el quórum de réplica de metadatos. Sin pérdida de datos mientras al menos 1 sitio permanezca. 
+| Fallo de varios sitios | No quedan centros operativos. Se perderán los datos si no se puede recuperar al menos un sitio en su totalidad. | Las operaciones se verán interrumpidas si no se puede alcanzar el quórum de réplicas de metadatos. Reduzca la consistencia del bucket a lectura después de nueva escritura o a un nivel inferior para continuar las operaciones sin interrupciones en este estado de fallo. Posible pérdida de datos por fallo permanente si no quedan suficientes fragmentos codificados para borrado. La codificación de borrado local o las copias de seguridad pueden prevenir la pérdida de datos. 
 
 
-| Aislamiento de red de un sitio | las operaciones del cliente se interrumpirán hasta que se resuelva el error o hasta que la consistencia del bloque se reduzca a un sitio fuerte o inferior para permitir que las operaciones se realicen correctamente, pero sin pérdida de datos  a| 
-Las operaciones se interrumpirán en el sitio aislado, pero no se perderán datos
-
-Sin interrupciones en las operaciones de los sitios restantes y sin pérdida de datos
-
+| Aislamiento de red de un sitio | Las operaciones del cliente se interrumpirán hasta que se resuelva el fallo. Reduzca la consistencia del bucket a lectura después de nueva escritura o a un nivel inferior para continuar las operaciones sin interrupciones en este estado de fallo. Sin pérdida de datos | Las operaciones se verán interrumpidas en el sitio aislado, pero no habrá pérdida de datos. Reduzca la consistencia del bucket a lectura después de nueva escritura o a un nivel inferior para continuar las operaciones sin interrupciones en este estado de fallo. No se han producido interrupciones en las operaciones en los sitios restantes ni pérdida de datos. 
 |===
 
 
