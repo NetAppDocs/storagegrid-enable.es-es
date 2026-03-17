@@ -171,7 +171,7 @@ Caso de uso: Esta política ayuda a gestionar el almacenamiento de objetos con v
 ----
 
 
-=== Mantener 5 versiones no actuales
+=== Conserva 5 versiones no actuales y elimínalas después de 90 días
 
 Caso de uso: útil cuando desea conservar una cantidad limitada de versiones anteriores para fines de recuperación o auditoría. Beneficio: conserve suficientes versiones no actuales para garantizar un historial y puntos de recuperación suficientes.
 
@@ -184,12 +184,16 @@ Caso de uso: útil cuando desea conservar una cantidad limitada de versiones ant
 		"Filter": {},
 		"Status": "Enabled"，
 		"NoncurrentVersionExpiration": {
-		  	"NewerNoncurrentVersions": 5
+		  	"NewerNoncurrentVersions": 5,
+        	"NoncurrentDays": 90
 	    }
     }
 	]
 }
 ----
+
+NOTE: Debes usar *NoncurrentDays* con *NewerNoncurrentVersions*.
+
 
 
 === Eliminar marcadores de eliminación cuando no existan otras versiones

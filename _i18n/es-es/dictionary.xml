@@ -3174,7 +3174,6 @@ StorageGRID escala el rendimiento usando nodos de mayor rendimiento para los nod
   <block id="a4a5cea738d6da6085c0db896d047001" category="section-title">Ejemplo de políticas de ciclo de vida para depósitos versionados</block>
   <block id="5808fc2734abb0c3a63ccb7a2efcb814" category="section-title">Eliminar versiones no actuales después de 10 días</block>
   <block id="87fe92caedf00fb0d3b95bb0a8947552" category="paragraph">Caso de uso: Esta política ayuda a gestionar el almacenamiento de objetos con versiones no actuales, que pueden acumularse con el tiempo y consumir un espacio considerable. Beneficio: Optimiza el uso del almacenamiento conservando solo la versión más reciente.</block>
-  <block id="01cd1b232ce05d49443051b40a2458d2" category="section-title">Mantener 5 versiones no actuales</block>
   <block id="f48f877559a5ab472b0c8399aa53ae43" category="paragraph">Caso de uso: útil cuando desea conservar una cantidad limitada de versiones anteriores para fines de recuperación o auditoría. Beneficio: conserve suficientes versiones no actuales para garantizar un historial y puntos de recuperación suficientes.</block>
   <block id="b36f0366fc8b2a644db0d58b9aec47e6" category="section-title">Eliminar marcadores de eliminación cuando no existan otras versiones</block>
   <block id="5a07e328951f2e2665da45b3c8611e70" category="paragraph">Caso de uso: Esta política ayuda a gestionar los marcadores de eliminación que quedan después de eliminar todas las versiones no actuales, los cuales pueden acumularse con el tiempo. Beneficio: Reduce el desorden innecesario.</block>
@@ -3451,4 +3450,6 @@ StorageGRID escala el rendimiento usando nodos de mayor rendimiento para los nod
   <block id="c3cbbc5200045db15e74e5cd91bc3f5c" category="list-text">Certificación de cifrado de kernel NetApp StorageGRID NIST FIPS 140-3 <block ref="07269b03af49e81fce537f0040aa007d" category="inline-link-rx"></block></block>
   <block id="170420c360dbd78303a11b0a7cbdbe0f" category="list-text">Certificación de entropía NetApp StorageGRID NIST SP 800-90B <block ref="459857fb7709b7e2d73edb78f17869ea" category="inline-link-rx"></block></block>
   <block id="c7a996558a05f3b352c4ed7d96e209f6" category="list-text">Certificación de criterios comunes del Centro Canadiense de Ciberseguridad de NetApp StorageGRID <block ref="af4723441da5d2d8888b51d6ccd71fe3" category="inline-link-rx"></block></block>
+  <block id="61826214d6f329493990f2d79416585b" category="section-title">Conserva 5 versiones no actuales y elimínalas después de 90 días</block>
+  <block id="d05c8031e45ddabc741886852f07058f" category="admonition">Debes usar *NoncurrentDays* con *NewerNoncurrentVersions*.</block>
 </blocks>
