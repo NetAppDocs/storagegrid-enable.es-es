@@ -21,6 +21,7 @@ A continuación se presenta como guía general para la configuración de equilib
 
 
 
+[[create-a-resource-group-of-storage-nodes]]
 == Cree un grupo de recursos de nodos de almacenamiento
 
 Agrupe los nodos de almacenamiento de StorageGRID en un pool de recursos o un grupo de servicios (la terminología puede diferir con equilibradores de carga específicos). Los nodos de almacenamiento de StorageGRID presentan la API S3 en los puertos siguientes:
@@ -36,6 +37,7 @@ NOTE: Cada sitio de StorageGRID requiere tres nodos de almacenamiento predetermi
 
 
 
+[[health-check]]
 == Comprobación del estado
 
 Los balanceadores de carga de terceros requieren un método para determinar el estado de cada nodo y su elegibilidad para recibir tráfico. NetApp recomienda el método HTTP `OPTIONS` para realizar la comprobación del estado. El equilibrador de carga emite solicitudes HTTP `OPTIONS` a cada nodo de almacenamiento individual y espera una `200` respuesta del estado.
@@ -48,6 +50,7 @@ El intervalo de sondeo recomendado es de una vez por segundo y marca al nodo com
 
 
 
+[[s3-health-check-example]]
 === S3 ejemplo de comprobación de estado
 
 En el siguiente ejemplo, enviamos `OPTIONS` y comprobamos `200 OK`. Utilizamos `OPTIONS` porque Amazon S3) no admite solicitudes no autorizadas.
@@ -76,6 +79,7 @@ En el siguiente ejemplo, enviamos `OPTIONS` y comprobamos `200 OK`. Utilizamos `
 ----
 
 
+[[file-or-content-based-health-checks]]
 === Comprobaciones de estado basadas en archivos o contenidos
 
 En general, NetApp no recomienda comprobaciones de estado basadas en archivos. Normalmente, un archivo pequeño —`healthcheck.htm`, por ejemplo, se crea en un depósito con una política de sólo lectura. El equilibrador de carga recupera y evalúa este archivo. Este enfoque tiene varias desventajas:
@@ -90,12 +94,14 @@ Si se requiere una comprobación del estado basada en contenido, utilice un inqu
 
 
 
+[[session-persistence]]
 === Persistencia de la sesión
 
 La persistencia de la sesión, o la persistencia, hace referencia al tiempo en que una sesión HTTP determinada puede persistir. De forma predeterminada, los nodos de almacenamiento descartan las sesiones tras 10 minutos. Una mayor persistencia puede dar lugar a un mejor rendimiento, ya que las aplicaciones no tienen que restablecer sus sesiones para cada acción; sin embargo, mantener estas sesiones abiertas consume recursos. Si determina que su carga de trabajo se beneficiará, puede reducir la persistencia de la sesión en un equilibrador de carga de terceros.
 
 
 
+[[virtual-hosted-style-addressing]]
 == Direccionamiento virtual tipo alojado
 
 El estilo hospedado virtual es ahora el método predeterminado para AWS S3, y aunque StorageGRID y muchas aplicaciones aún admiten el estilo de ruta, es mejor implementar el soporte virtual de estilo hospedado. Las solicitudes virtuales de estilo alojado tienen el bucket como parte del nombre del host.
@@ -108,6 +114,7 @@ Para admitir el estilo hospedado virtual, haga lo siguiente:
 
 
 
+[[ssl-termination]]
 == Terminación SSL
 
 Existen ventajas de seguridad para la terminación SSL en equilibradores de carga de terceros. Si el equilibrador de carga está comprometido, la rejilla se divide.
@@ -121,12 +128,14 @@ Hay tres configuraciones compatibles:
 
 
 
+[[pass-through-configuration]]
 == Pasar por la configuración
 
 Si prefiere configurar el equilibrador de carga para la transferencia, debe instalar el certificado en StorageGRID. Vaya al menú:Configuración[Certificados de servidor > Object Storage API Service Endpoints Certificado de servidor].
 
 
 
+[[source-client-ip-visibility]]
 == Visibilidad de la IP del cliente de origen
 
 StorageGRID 11,4 introdujo el concepto de un equilibrador de carga de terceros de confianza. Para reenviar la IP de la aplicación cliente a StorageGRID, debe configurar esta función. Para obtener más información, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Hybrid_Cloud_Infrastructure/StorageGRID/How_to_configure_StorageGRID_to_work_with_third-party_Layer_7_load_balancers["Cómo configurar StorageGRID para que funcione con equilibradores de carga de capa 7 de terceros."^]
@@ -140,6 +149,7 @@ Para activar el encabezado XFF que se utilizará para ver la IP de la aplicació
 
 
 
+[[load-balancing-strategies]]
 === Estrategias de equilibrio de carga
 
 La mayoría de las soluciones de equilibrio de carga ofrecen múltiples estrategias para el equilibrio de carga. Las siguientes son estrategias comunes:
@@ -152,6 +162,7 @@ La elección del algoritmo se vuelve menos importante, con un mayor número de n
 
 
 
+[[data-path]]
 === Ruta de datos
 
 Todos los datos fluyen a través de los balanceadores de carga del gestor de tráfico local. StorageGRID no admite el enrutamiento directo del servidor (DSR).

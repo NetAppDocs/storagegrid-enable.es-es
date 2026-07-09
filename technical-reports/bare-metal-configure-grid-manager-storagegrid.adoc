@@ -20,24 +20,26 @@ Complete la instalación configurando el sistema StorageGRID desde la interfaz d
 
 
 
+[[high-level-steps]]
 == Escalones de alto nivel
 
 La configuración de la cuadrícula y la finalización de la instalación implican las siguientes tareas:
 
 .Pasos
 . <<Navegue a Grid Manager>>
-. link:storagegrid-license.html["Especifique la información de licencia de StorageGRID"]
-. link:add-sites-storagegrid.html["Agregar sitios a StorageGRID"]
-. link:grid-network-subnets-storagegrid.html["Especifique las subredes de red de cuadrícula"]
-. link:approve-grid-nodes-storagegrid.html["Aprobar los nodos de cuadrícula pendientes"]
-. link:ntp-server-storagegrid.html["Especifique la información del servidor NTP"]
-. link:dns-server-storagegrid.html["Especifique la información del servidor del sistema de nombres de dominio"]
-. link:system-passwords-storagegrid.html["Especifique las contraseñas del sistema StorageGRID"]
-. link:review-config-complete-storagegrid-install.html["Revise la configuración y complete la instalación"]
+. link:bare-metal-storagegrid-license.html["Especifique la información de licencia de StorageGRID"]
+. link:bare-metal-add-sites-storagegrid.html["Agregar sitios a StorageGRID"]
+. link:bare-metal-grid-network-subnets-storagegrid.html["Especifique las subredes de red de cuadrícula"]
+. link:bare-metal-approve-grid-nodes-storagegrid.html["Aprobar los nodos de cuadrícula pendientes"]
+. link:bare-metal-ntp-server-storagegrid.html["Especifique la información del servidor NTP"]
+. link:bare-metal-dns-server-storagegrid.html["Especifique la información del servidor del sistema de nombres de dominio"]
+. link:bare-metal-system-passwords-storagegrid.html["Especifique las contraseñas del sistema StorageGRID"]
+. link:bare-metal-review-config-complete-storagegrid-install.html["Revise la configuración y complete la instalación"]
 
 
 
 
+[[navigate-to-grid-manager]]
 == Navegue a Grid Manager
 
 Utilice Grid Manager para definir toda la información necesaria para configurar el sistema StorageGRID.

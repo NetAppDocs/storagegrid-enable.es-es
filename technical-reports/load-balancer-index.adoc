@@ -24,6 +24,7 @@ El objetivo de este documento es informar a los clientes de StorageGRID sobre la
 
 
 
+[[load-balancer-basics]]
 == Conceptos básicos del equilibrador de carga
 
 Los balanceadores de carga son un componente esencial de un sistema de almacenamiento de objetos de clase empresarial como StorageGRID. StorageGRID consta de varios nodos de almacenamiento, cada uno de los cuales puede presentar el espacio de nombres Simple Storage Service (S3) completo para una instancia de StorageGRID determinada. Los balanceadores de carga crean un extremo de alta disponibilidad detrás del que podemos colocar nodos StorageGRID. StorageGRID es única entre los sistemas de almacenamiento de objetos compatibles con S3, ya que proporciona su propio balanceador de carga, pero también admite balanceadores de carga de uso general o de terceros, como F5, Citrix Netscaler, HA Proxy, NGINX, etc.
@@ -36,6 +37,7 @@ La figura muestra el equilibrador de carga proporcionado por StorageGRID, pero e
 
 
 
+[[local-and-global-load-balancers]]
 === Equilibradores de carga locales y globales
 
 Existen dos tipos de equilibradores de carga:
@@ -46,6 +48,7 @@ Existen dos tipos de equilibradores de carga:
 
 
 
+[[where-to-find-additional-information]]
 == Dónde encontrar información adicional
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
@@ -53,6 +56,6 @@ Si quiere más información sobre el contenido de este documento, consulte los s
 * Centro de documentación de NetApp StorageGRIDhttps://docs.netapp.com/us-en/storagegrid/[]
 * Habilitación para NetApp StorageGRID https://docs.netapp.com/us-en/storagegrid-enable/[]
 * Consideraciones de diseño del equilibrador de carga StorageGRID F5 https://www.netapp.com/blog/storagegrid-f5-load-balancer-design-considerations/[]
-* Loadbalancer.org—Load Equilibrio de NetApp StorageGRID https://www.loadbalancer.org/applications/load-balancing-netapp-storagegrid/[]
+* Loadbalancer.org—Equilibrio de carga NetApp StorageGRID https://www.loadbalancer.org/applications/netapp-storagegrid/[]
 * Kemp: NetApp StorageGRID de equilibrio de carga https://support.kemptechnologies.com/hc/en-us/articles/360045186451-NetApp-StorageGRID[]
 

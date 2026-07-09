@@ -24,6 +24,7 @@ El objetivo de este documento es complementar la documentación del producto y t
 
 
 
+[[data-sources]]
 == Orígenes de datos
 
 Para supervisar correctamente NetApp StorageGRID, es importante saber dónde recopilar datos sobre el estado y las operaciones de su sistema StorageGRID.
@@ -35,6 +36,7 @@ Para supervisar correctamente NetApp StorageGRID, es importante saber dónde rec
 
 
 
+[[where-to-find-additional-information]]
 == Dónde encontrar información adicional
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:

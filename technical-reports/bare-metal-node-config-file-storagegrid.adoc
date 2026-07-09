@@ -49,6 +49,7 @@ NOTE: El nombre del archivo define el nombre de nodo real para la instalación. 
 
 
 
+[[preparing-the-node-config-files]]
 == Preparando los archivos de configuración del nodo
 
 Los siguientes ejemplos utilizan el `/dev/disk/by-path` formato. Puede verificar las rutas correctas ejecutando los siguientes comandos:
@@ -94,6 +95,7 @@ lrwxrwxrwx 1 root root 9 Dec 21 16:42 pci-0000:03:00.0-scsi-0:0:9:0 -> ../../sdi
 ----
 
 
+[[example-for-primary-admin-node]]
 == Ejemplo de nodo de administración principal
 
 Nombre de archivo de ejemplo:
@@ -127,6 +129,7 @@ CLIENT_NETWORK_GATEWAY = 10.193.205.1
 ----
 
 
+[[example-for-a-storage-node]]
 == Ejemplo de un nodo de almacenamiento
 
 Nombre de archivo de ejemplo:
@@ -154,6 +157,7 @@ GRID_NETWORK_GATEWAY = 10.193.204.1
 ----
 
 
+[[example-for-gateway-node]]
 == Ejemplo de nodo de pasarela
 
 Nombre de archivo de ejemplo:

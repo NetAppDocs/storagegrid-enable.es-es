@@ -18,12 +18,14 @@ Rclone es una herramienta de línea de comandos gratuita y un cliente para opera
 
 
 
+[[install-and-configure-rclone]]
 == Instalar y configurar rclone
 
 Para instalar rclone en una estación de trabajo o servidor, descárguelo de https://rclone.org/downloads/["rclone.org"^].
 
 
 
+[[initial-configuration-steps]]
 === Pasos de configuración inicial
 
 . Cree el archivo de configuración rclone ejecutando el script de configuración o creando manualmente el archivo.
@@ -315,6 +317,7 @@ e/n/d/r/c/s/q> q
 
 
 
+[[basic-command-examples]]
 == Ejemplos de comandos básicos
 
 * * Crear un cubo:*

@@ -20,6 +20,7 @@ Muchas organizaciones quieren migrar su almacenamiento al cloud, escalar sus sis
 
 
 
+[[about-commvault-and-storagegrid]]
 == Acerca de Commvault y StorageGRID
 
 El software Commvault Complete Backup and Recovery es una solución de gestión de datos e información integrada de nivel empresarial creada desde cero en una única plataforma y con una base de código unificado. Todas sus funciones comparten tecnologías back-end, lo que ofrece las ventajas y ventajas incomparables de un enfoque totalmente integrado para proteger, gestionar y acceder a los datos. El software contiene módulos que protegen, archivan, analizan, replican y buscan los datos. Los módulos comparten un conjunto común de servicios de back-end y capacidades avanzadas que interactúan entre sí a la perfección. La solución aborda todos los aspectos de la gestión de datos de su empresa, a la vez que proporciona una escalabilidad infinita y un control sin precedentes de los datos y la información.
@@ -38,6 +39,7 @@ Mantener los datos de backup en el almacenamiento primario puede resultar caro. 
 
 
 
+[[key-features]]
 == Principales características
 
 Algunas de las funciones clave de la plataforma de software Commvault son:
@@ -58,6 +60,7 @@ Si desea información detallada sobre las cargas de trabajo compatibles, visite 
 
 
 
+[[backup-options]]
 == Opciones de backup
 
 Al implementar el software Commvault Complete Backup and Recovery con almacenamiento en cloud, dispone de dos opciones de backup:
@@ -103,13 +106,13 @@ No admitido
 |===
 
 
+[[where-to-find-additional-information]]
 == Dónde encontrar información adicional
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
 
-* Centro de documentación de StorageGRID 11,9 + https://docs.netapp.com/us-en/storagegrid-119/[]
+* Centro de documentación de StorageGRID 11.9 + https://docs.netapp.com/us-en/storagegrid/[]
 * Documentación de producto de NetApp +
 https://docs.netapp.com[]
-* Documentación de CommVault +
-https://documentation.commvault.com/2024/essential/index.html[]
+* Documentación de Commvault + https://documentation.commvault.com/2024e/software/index.html[]
 

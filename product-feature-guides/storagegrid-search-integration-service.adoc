@@ -16,6 +16,7 @@ Esta guía proporciona instrucciones detalladas para configurar el servicio de i
 
 
 
+[[introduction]]
 == Introducción
 
 StorageGRID admite tres tipos de servicios de plataforma.
@@ -33,6 +34,7 @@ Las audiencias deben estar familiarizadas con Grid Manager y Tenant Manager y te
 
 
 
+[[create-tenant-and-enable-platform-services]]
 == Cree un inquilino y habilite los servicios de plataforma
 
 . Cree un inquilino S3 mediante Grid Manager, introduzca un nombre para mostrar y seleccione el protocolo S3.
@@ -50,10 +52,12 @@ Esto le lleva a la página Administrador de inquilinos.
 
 
 
+[[search-integration-services-with-amazon-opensearch]]
 == Servicios de integración de búsqueda con Amazon OpenSearch
 
 
 
+[[amazon-opensearch-formerly-elasticsearch-service-setup]]
 === Configuración del servicio Amazon OpenSearch (antes Elasticsearch)
 
 Utilice este procedimiento para una configuración rápida y sencilla del servicio OpenSearch sólo con fines de prueba/demostración. Si utiliza Elasticsearch en las instalaciones para los servicios de integración de búsqueda, consulte la sección xref:search-integration-services-with-on-premises-elasticsearch[Servicios de integración de búsqueda con Elasticsearch en las instalaciones].
@@ -126,6 +130,7 @@ image:storagegrid-search-integration-service/sg-sis-verifying-the-index.png["Ver
 
 
 
+[[platform-services-endpoint-configuration]]
 == Configuración de extremos de servicios de plataforma
 
 Para configurar los extremos de servicios de la plataforma, siga estos pasos:
@@ -156,10 +161,12 @@ image:storagegrid-search-integration-service/sg-sis-platform-service-endpoints.p
 
 
 
+[[search-integration-services-with-on-premises-elasticsearch]]
 == Servicios de integración de búsqueda con Elasticsearch en las instalaciones
 
 
 
+[[on-premises-elasticsearch-setup]]
 === Configuración de Elasticsearch en las instalaciones
 
 Este procedimiento es para una configuración rápida de Elasticsearch en las instalaciones y Kibana usando docker solo para fines de pruebas. Si ya existe el servidor Elasticsearch y Kibana, vaya al paso 5.
@@ -211,6 +218,7 @@ image:storagegrid-search-integration-service/sg-sis-execute-put-command.png["Eje
 
 
 
+[[platform-services-endpoint-configuration]]
 == Configuración de extremos de servicios de plataforma
 
 Para configurar extremos para servicios de plataforma, siga estos pasos:
@@ -238,6 +246,7 @@ image:storagegrid-search-integration-service/sg-sis-successfully-verified-endpoi
 
 
 
+[[bucket-search-integration-service-configuration]]
 == Configuración del servicio de integración de búsqueda de bloques
 
 Una vez creado el extremo de servicio de la plataforma, el siguiente paso es configurar este servicio a nivel de bloque para enviar metadatos de objetos al extremo definido cada vez que se crea, se elimina o se actualizan sus metadatos o etiquetas.
@@ -318,6 +327,7 @@ image:storagegrid-search-integration-service/sg-sis-query-two-sample.png["Ejempl
 
 
 
+[[where-to-find-additional-information]]
 == Dónde encontrar información adicional
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:

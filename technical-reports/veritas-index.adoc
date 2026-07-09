@@ -18,6 +18,7 @@ Esta guía de configuración proporciona los pasos para configurar NetApp® Stor
 
 
 
+[[reference-architecture]]
 == Flexible y escalable
 
 StorageGRID proporciona un objetivo de backup de cloud compatible con S3 en las instalaciones para veritas Enterprise Vault. La figura siguiente muestra la arquitectura veritas Enterprise Vault y StorageGRID.
@@ -26,6 +27,7 @@ image:veritas/veritas-enterprise-vault-and-storagegrid-architecture.png["veritas
 
 
 
+[[where-to-find-additional-information]]
 == Dónde encontrar información adicional
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:

@@ -16,6 +16,7 @@ Habilita S3 de nivel empresarial al migrar sin problemas el almacenamiento basad
 
 
 
+[[populate-the-source-bucket]]
 == Rellene el bloque de origen
 
 Pongamos algunos objetos en el depósito de ONTAP de origen. Usaremos S3Browser para esta demostración, pero podrías usar cualquier herramienta con la que te sientas cómodo.
@@ -48,6 +49,7 @@ image:ontap-migrate/ontap-s3browser-versions.png["Ver versiones"]
 
 
 
+[[establish-the-replication-relationship]]
 === Establezca la relación de replicación
 
 Comencemos a enviar datos de ONTAP a StorageGRID.
@@ -93,6 +95,7 @@ image:ontap-migrate/ontap-snapmirror-status.png["Compruebe la relación de SnapM
 
 
 
+[[the-replication-details]]
 === Los detalles de la replicación
 
 Ahora tenemos un bucket de replicación con éxito de ONTAP en StorageGRID. Pero, ¿qué es lo que realmente se está replicando? Nuestra fuente y destino son cubos versionados. ¿Las versiones anteriores también replican en el destino? Si observamos nuestro bucket de StorageGRID con S3Browser, vemos que las versiones existentes no se han replicado y que nuestro objeto eliminado no existe, ni un marcador de borrado de ese objeto. Nuestro objeto duplicado solo tiene 1 versión en el bucket de StorageGRID.

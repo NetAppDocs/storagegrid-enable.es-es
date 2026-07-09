@@ -18,12 +18,14 @@ S3cmd es una herramienta de línea de comandos gratuita y un cliente para las op
 
 
 
+[[install-and-configure-s3cmd]]
 == Instale y configure S3cmd
 
 Para instalar S3cmd en una estación de trabajo o servidor, descárguelo desde https://s3tools.org/s3cmd["Línea de comandos del cliente S3"^]. S3cmd está preinstalado en cada nodo StorageGRID como herramienta que ayuda a resolver problemas.
 
 
 
+[[initial-configuration-steps]]
 == Pasos de configuración inicial
 
 . s3cmd --configure
@@ -55,6 +57,7 @@ NOTE: Si especifica host_base y host_bucket en el paso 4, no es necesario especi
 ====
 
 
+[[basic-command-examples]]
 == Ejemplos de comandos básicos
 
 * * Crear un cubo:*

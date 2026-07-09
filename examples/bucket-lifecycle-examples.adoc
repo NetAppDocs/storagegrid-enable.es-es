@@ -16,6 +16,7 @@ Puede crear una configuración del ciclo de vida de S3 para controlar cuándo se
 
 
 
+[[what-is-a-lifecycle-configuration]]
 == ¿Qué es una configuración de ciclo de vida?
 
 Una configuración de ciclo de vida es un conjunto de reglas que se aplican a los objetos en bloques de S3 específicos. Cada regla especifica qué objetos se ven afectados y cuándo caducarán dichos objetos (en una fecha específica o después de un número determinado de días).
@@ -41,6 +42,7 @@ StorageGRID admite el uso de las siguientes operaciones de bloques para gestiona
 
 
 
+[[structure-of-a-lifecycle-policy]]
 == Estructura de una política de ciclo de vida
 
 Como primer paso en la creación de una configuración de ciclo de vida, se crea un archivo JSON que incluye una o varias reglas. Por ejemplo, este archivo JSON incluye tres reglas, de la siguiente manera:
@@ -101,6 +103,7 @@ CAUTION: Las reglas que especifican un número de días son relativas al momento
 ----
 
 
+[[apply-lifecycle-configuration-to-bucket]]
 == Aplicar la configuración del ciclo de vida al bloque
 
 Después de crear el archivo de configuración de ciclo de vida, se aplica a un depósito emitiendo una solicitud PutBucketLifecycleConfiguration.
@@ -121,10 +124,12 @@ aws s3api --endpoint-url <StorageGRID endpoint> get-bucket-lifecycle-configurati
 ----
 
 
+[[example-lifecycle-policies-for-standard-non-versioned-buckets]]
 == Ejemplo de políticas de ciclo de vida para depósitos estándar (sin versiones)
 
 
 
+[[delete-objects-after-90-days]]
 === Eliminar objetos después de 90 días
 
 Caso de uso: Esta política es ideal para gestionar datos relevantes por tiempo limitado, como archivos temporales, registros o datos de procesamiento intermedio. Beneficio: Reduce los costos de almacenamiento y garantiza que el bucket esté ordenado.
@@ -146,10 +151,12 @@ Caso de uso: Esta política es ideal para gestionar datos relevantes por tiempo 
 ----
 
 
+[[example-lifecycle-policies-for-versioned-buckets]]
 == Ejemplo de políticas de ciclo de vida para depósitos versionados
 
 
 
+[[delete-noncurrent-versions-after-10-days]]
 === Eliminar versiones no actuales después de 10 días
 
 Caso de uso: Esta política ayuda a gestionar el almacenamiento de objetos con versiones no actuales, que pueden acumularse con el tiempo y consumir un espacio considerable. Beneficio: Optimiza el uso del almacenamiento conservando solo la versión más reciente.
@@ -171,6 +178,7 @@ Caso de uso: Esta política ayuda a gestionar el almacenamiento de objetos con v
 ----
 
 
+[[keep-5-noncurrent-versions-and-delete-after-90-days]]
 === Conserva 5 versiones no actuales y elimínalas después de 90 días
 
 Caso de uso: útil cuando desea conservar una cantidad limitada de versiones anteriores para fines de recuperación o auditoría. Beneficio: conserve suficientes versiones no actuales para garantizar un historial y puntos de recuperación suficientes.
@@ -196,6 +204,7 @@ NOTE: Debes usar *NoncurrentDays* con *NewerNoncurrentVersions*.
 
 
 
+[[remove-delete-markers-when-no-other-versions-exist]]
 === Eliminar marcadores de eliminación cuando no existan otras versiones
 
 Caso de uso: Esta política ayuda a gestionar los marcadores de eliminación que quedan después de eliminar todas las versiones no actuales, los cuales pueden acumularse con el tiempo. Beneficio: Reduce el desorden innecesario.
@@ -217,6 +226,7 @@ Caso de uso: Esta política ayuda a gestionar los marcadores de eliminación que
 ----
 
 
+[[delete-current-versions-after-30-days-delete-non-current-versions-after-60-days-and-remove-the-delete-markers-created-by-the-current-version-delete-once-no-other-versions-exist]]
 === Eliminar versiones actuales después de 30 días, eliminar versiones no actuales después de 60 días y eliminar los marcadores de eliminación creados por la eliminación de la versión actual una vez que no existan otras versiones.
 
 Caso de uso: Proporcionar un ciclo de vida completo para las versiones actuales y no actuales, incluyendo los marcadores de eliminación. Beneficio: Reducir los costos de almacenamiento y garantizar que el depósito esté ordenado, conservando suficientes puntos de recuperación e historial.
@@ -254,6 +264,7 @@ Caso de uso: Proporcionar un ciclo de vida completo para las versiones actuales 
 ----
 
 
+[[remove-delete-markers-that-have-no-other-versions-retain-4-non-current-versions-and-at-least-30-days-worth-of-history-for-objects-with-the-accounts-prefix-and-keep-2-versions-and-at-least-10-days-worth-of-history-for-all-other-object-versions]]
 === eliminar marcadores de eliminación que no tengan otras versiones, conservar 4 versiones no actuales y al menos 30 días de historial para objetos con el "prefijo account_" y mantener 2 versiones y al menos 10 días de historial para todas las demás versiones de objetos.
 
 Caso de uso: Proporcionar reglas únicas para objetos específicos, junto con otros objetos, para gestionar el ciclo de vida completo de las versiones actuales y futuras, incluyendo los marcadores de eliminación. Beneficio: Reducir los costos de almacenamiento y garantizar que el depósito esté ordenado, conservando suficientes puntos de recuperación e historial para satisfacer diversas necesidades del cliente.
@@ -293,6 +304,7 @@ Caso de uso: Proporcionar reglas únicas para objetos específicos, junto con ot
 ----
 
 
+[[conclusion]]
 == Conclusión
 
 * Revise y actualice periódicamente las políticas del ciclo de vida y alinéelas con los objetivos de ILM y gestión de datos.

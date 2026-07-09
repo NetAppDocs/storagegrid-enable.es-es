@@ -22,6 +22,7 @@ Esto significa que si sospecha que se ha producido un ataque de ransomware, pued
 
 
 
+[[creating-a-branch-bucket]]
 == Creación de un depósito de rama
 
 * Vaya a la página de detalles del depósito base y a la pestaña Ramas para crear un depósito de ramas.

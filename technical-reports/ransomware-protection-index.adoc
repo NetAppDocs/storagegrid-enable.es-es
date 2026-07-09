@@ -24,18 +24,21 @@ El ransomware es una de las mayores amenazas de seguridad de hoy en día. El equ
 
 
 
+[[storagegrid-best-practices]]
 == Mejores prácticas de StorageGRID
 
 Para StorageGRID, las prácticas recomendadas de seguridad deben incluir el uso de HTTPS con certificados firmados tanto para la gestión como para el acceso a los objetos. Cree cuentas de usuario dedicadas para aplicaciones e individuos, y no utilice las cuentas raíz de inquilino para el acceso a aplicaciones o el acceso a los datos de usuario. En otras palabras, siga el principio de privilegio mínimo. Utilice grupos de seguridad con directivas de gestión de acceso e identidad definidas (IAM) para controlar los derechos de usuario y acceder a cuentas específicas de las aplicaciones y los usuarios. Con estas medidas, aún debe asegurarse de que los datos estén protegidos. En el caso de Simple Storage Service (S3), cuando se modifican objetos para cifrarlos, se realiza mediante una sobrescritura del objeto original.
 
 
 
+[[methods-of-defense]]
 == Métodos de defensa
 
 El principal mecanismo de protección contra ransomware en la API S3 es implementar el bloqueo de objetos. No todas las aplicaciones son compatibles con el bloqueo de objetos, por lo que hay otras dos opciones para proteger los objetos que se describen en este informe: Replicación a otro depósito con control de versiones activado y control de versiones con políticas de IAM.
 
 
 
+[[where-to-find-additional-information]]
 == Dónde encontrar información adicional
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:

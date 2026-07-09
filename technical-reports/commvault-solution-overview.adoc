@@ -18,6 +18,7 @@ La solución probada combina soluciones CommVault y NetApp para crear una potent
 
 
 
+[[solution-setup]]
 == Configuración de la solución
 
 En la configuración de laboratorio, el entorno StorageGRID consistía en cuatro dispositivos NetApp StorageGRID SG5712, un nodo de administración principal virtual y un nodo de pasarela virtual. El dispositivo SG5712 es la opción de nivel básico, una configuración de referencia. Elegir opciones de dispositivos de mayor rendimiento como NetApp StorageGRID SG5760 o SG6060 puede proporcionar importantes ventajas de rendimiento. Consulte con su arquitecto de soluciones NetApp StorageGRID para obtener ayuda en el dimensionamiento.
@@ -48,10 +49,9 @@ Registro doble
 |===
 La regla Copia de ILM 2 es la regla predeterminada. La regla de codificación de borrado 2+1 se aplicó para esta prueba a cualquier objeto 200KB o mayor. La regla predeterminada se ha aplicado a objetos menores de 200KB. La aplicación de las reglas de este modo es una mejor práctica de StorageGRID.
 
-Para obtener detalles técnicos sobre este entorno de prueba, lea la sección Diseño de la solución y prácticas recomendadas en la https://www.netapp.com/us/media/tr-4831.pdf["Protección de datos de escalado horizontal de NetApp con Commvault"] informe técnico.
 
 
-
+[[storagegrid-hardware-specifications]]
 == Especificaciones de hardware de StorageGRID
 
 En la siguiente tabla se describe el hardware de NetApp StorageGRID utilizado en esta prueba. El dispositivo StorageGRID SG5712 con conexión a redes 10Gbps es la opción de gama básica y representa una configuración básica. De manera opcional, el SG5712 puede configurarse para redes 25Gbps.
@@ -77,6 +77,7 @@ Elegir opciones de dispositivos de mayor rendimiento como los dispositivos NetAp
 
 
 
+[[commvault-and-storagegrid-software-requirements]]
 == Requisitos de software de Commvault y StorageGRID
 
 En las tablas siguientes se enumeran los requisitos de software del software Commvault y NetApp StorageGRID instalado en el software VMware para las pruebas. Se instalaron cuatro gestores de transmisión de datos MediaAgent y un servidor CommServe. En la prueba, se implantaron conexiones de red de 10Gbps GbE para la infraestructura VMware. La siguiente tabla

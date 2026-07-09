@@ -18,6 +18,7 @@ Para configurar StorageGRID con Commvault Complete Backup and Recovery for NetAp
 
 
 
+[[step-1-configure-commvault-with-storagegrid]]
 == Paso 1: Configure Commvault con StorageGRID
 
 .Pasos
@@ -37,6 +38,7 @@ Siga los pasos de la documentación de StorageGRID en https://docs.netapp.com/sg
 
 
 
+[[step-2-create-a-backup-plan-with-storagegrid-as-the-primary-target]]
 == Paso 2: Cree un plan de respaldo con StorageGRID como destino primario
 
 .Pasos
@@ -52,6 +54,7 @@ image:commvault/create-server.png["Crear plan de copia de seguridad del servidor
 
 
 
+[[step-3-start-a-backup-job-to-protect-your-workloads]]
 == Paso 3: Inicia una tarea de backup para proteger las cargas de trabajo
 
 .Pasos

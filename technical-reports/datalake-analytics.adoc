@@ -13,6 +13,7 @@ summary: Este informe trata los análisis de Big Data en StorageGRID.
 
 
 
+[[netapp-storagegrid-use-cases]]
 == Casos de uso de NetApp StorageGRID
 
 La solución de almacenamiento de objetos NetApp StorageGRID ofrece escalabilidad, disponibilidad de datos, seguridad y alto rendimiento. Organizaciones de todos los tamaños y sectores utilizan StorageGRID S3 para una amplia gama de casos de uso. Vamos a explorar algunos escenarios típicos:
@@ -37,6 +38,7 @@ Entre los anteriores, el análisis de Big Data es uno de los casos de uso más i
 
 
 
+[[why-storagegrid-for-data-lakes]]
 == ¿Por qué elegir StorageGRID para lagos de datos?
 
 * Mayor colaboración: Multi-tenancy compartido masivo con acceso a API estándar del sector
@@ -52,9 +54,10 @@ image:datalake-analytics/image2.png["Ejemplo de datalake de StorageGRID,width=61
 
 
 
+[[benchmarking-data-warehouses-and-lakehouses-with-s3-object-storage-a-comparative-study]]
 == Comparación de almacenes de datos y casas de campo con almacenamiento de objetos S3: Un estudio comparativo
 
-Este artículo presenta una referencia exhaustiva de varios ecosistemas de almacenes de datos y almacenes de lagos utilizando NetApp StorageGRID. El objetivo es determinar qué sistema funciona mejor con el almacenamiento de objetos S3. Refiérase a esto https://www.dremio.com/wp-content/uploads/2023/02/apache-Iceberg-TDG_ER1.pdf?aliId=eyJpIjoieDRUYjFKN2ZMbXhTRnFRWCIsInQiOiJIUUw0djJsWnlJa21iNUsyQURRalNnPT0ifQ%253D%253D["Apache Iceberg: La guía definitiva"] para aprender más acerca de las arquitecturas de datawarehous/lakehouse y el formato de tabla (Parquet e Iceberg).
+Este artículo presenta una comparativa exhaustiva de diversos ecosistemas de almacenes de datos y lakehouse utilizando NetApp StorageGRID. El objetivo es determinar qué sistema ofrece un mejor rendimiento con el almacenamiento de objetos S3. Consulta este https://hello.dremio.com/wp-apache-iceberg-the-definitive-guide-reg.html["Apache Iceberg: La guía definitiva"] para obtener más información sobre las arquitecturas de almacenes de datos y lakehouse y el formato de tabla (Parquet e Iceberg).
 
 * Herramienta de referencia - TPC-DS - https://www.tpc.org/tpcds/[]
 * Ecosistemas de Big Data

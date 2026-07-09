@@ -18,12 +18,14 @@ Configurar Datadog para recopilar métricas y capturas snmp de StorageGRID.
 
 
 
+[[configure-datadog]]
 == Configurar Datadog
 
 Datadog es una solución de supervisión que ofrece métricas, visualizaciones y alertas. La siguiente configuración se implementó con el agente de linux versión 7.43.1 en un host de Ubuntu 22.04.1 implementado localmente en el sistema StorageGRID.
 
 
 
+[[datadog-profile-and-trap-files-generated-from-storagegrid-mib-file]]
 === Perfil de datos y archivos de captura generados a partir del archivo MIB de StorageGRID
 
 Datadog proporciona un método para convertir archivos MIB de producto en archivos de referencia de datadog necesarios para asignar los mensajes SNMP.
@@ -50,6 +52,7 @@ Este archivo yaml de perfil de StorageGRID para la asignación de métricas de D
 
 
 
+[[snmp-datadog-configuration-for-metrics]]
 === Configuración de Datadog de SNMP para Metrics
 
 La configuración de SNMP para métricas se puede administrar de dos maneras. Puede configurar para la detección automática proporcionando un rango de direcciones de red que contenga los sistemas StorageGRID o definiendo las IP de los dispositivos individuales. La ubicación de la configuración es diferente en función de la decisión tomada. La detección automática se define en el archivo yaml del agente datatog. Las definiciones de dispositivos explícitas se configuran en el archivo yaml de configuración de snmp. A continuación, se muestran ejemplos de cada uno para el mismo sistema StorageGRID.
@@ -103,6 +106,7 @@ instances:
 ----
 
 
+[[snmp-configuration-for-traps]]
 === Configuración de SNMP para las capturas
 
 La configuración de los solapamientos SNMP se define en el archivo de configuración de datadir ylma /etc/datadir-agent/datadog.ylma
@@ -119,6 +123,7 @@ network_devices:
 ----
 
 
+[[example-storagegrid-snmp-configuration]]
 === Ejemplo de configuración de SNMP de StorageGRID
 
 El agente SNMP del sistema StorageGRID se encuentra en la pestaña Configuración, columna Supervisión. Habilite SNMP e introduzca la información que desee. Si desea configurar capturas, seleccione "Destinos de capturas" y cree un destino para el host del agente de datos que contenga la configuración de capturas.

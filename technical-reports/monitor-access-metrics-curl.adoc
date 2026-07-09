@@ -42,7 +42,7 @@ NOTE: Si la contraseña de GMI contiene caracteres especiales, recuerde utilizar
 {"responseTime":"2020-06-03T00:12:17.031Z","status":"success","apiVersion":"3.2","data":"8a1e528d-18a7-4283-9a5e-b2e6d731e0b2"}
 ----
 +
-Ahora puede utilizar la cadena de token de autorización para acceder a las métricas a través de cURL. El proceso para acceder a las métricas es similar a los pasos de la sección link:advanced-monitor-storagegrid.html#export-metrics-through-the-api["Supervisión avanzada en StorageGRID"]. Sin embargo, a efectos de demostración, se muestra un ejemplo con GET /grid/metric-labels/{label}/values seleccionado en la categoría Metrics.
+Ahora puedes utilizar la cadena del token de autorización para acceder a las métricas a través de cURL. El proceso para acceder a las métricas es similar a los pasos en la sección link:monitoradvanced-monitor-storagegrid.html#export-metrics-through-the-api["Supervisión avanzada en StorageGRID"]. Sin embargo, para fines de demostración, te mostramos un ejemplo con GET /grid/metric-labels/{label}/values seleccionado en la categoría de Métricas.
 
 . A modo de ejemplo, el siguiente comando cURL con el token de autorización anterior enumerará los nombres del sitio en StorageGRID.
 +

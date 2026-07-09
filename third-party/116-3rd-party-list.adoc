@@ -16,6 +16,7 @@ Las siguientes soluciones de terceros han sido validadas para su uso con Storage
 
 
 
+[[third-party-solutions-validated-on-storagegrid]]
 == Soluciones de terceros validadas en StorageGRID
 
 Estas soluciones se han probado en colaboración con los partners correspondientes.
@@ -78,6 +79,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 
 
 
+[[third-party-solutions-validated-on-storagegrid-with-object-lock]]
 == Soluciones de terceros validadas en StorageGRID con bloqueo de objetos
 
 Estas soluciones se han probado en colaboración con los partners correspondientes.
@@ -92,6 +94,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 
 
 
+[[third-party-solutions-supported-on-storagegrid]]
 == Soluciones de terceros compatibles con StorageGRID
 
 Estas soluciones han sido probadas.

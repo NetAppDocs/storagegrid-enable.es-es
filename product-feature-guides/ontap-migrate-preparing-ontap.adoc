@@ -16,6 +16,7 @@ Habilita S3 de nivel empresarial al migrar sin problemas el almacenamiento basad
 
 
 
+[[preparing-ontap]]
 == Preparando ONTAP
 
 A modo de demostración, crearemos un servidor de almacén de objetos SVM, un usuario, un grupo, una política de grupo y bloques.

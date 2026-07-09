@@ -16,6 +16,7 @@ Consideraciones y rendimiento del clon de nodos.
 
 
 
+[[node-clone-considerations]]
 == Consideraciones sobre el clon de nodo
 
 El clon de nodo puede ser un método más rápido para reemplazar nodos de dispositivos existentes para realizar una actualización tecnológica, aumentar la capacidad o aumentar el rendimiento de su sistema StorageGRID. El clon de nodos también puede ser útil para convertir a cifrado de nodos con un KMS o cambiar un nodo de almacenamiento de DDP8 a DDP16.
@@ -41,12 +42,14 @@ El clon de nodo puede ser un método más rápido para reemplazar nodos de dispo
 
 
 
+[[node-clone-performance-estimates]]
 == Estimaciones de rendimiento de clones de nodos
 
 Las siguientes tablas contienen estimaciones calculadas para la duración del clon del nodo. Las condiciones varían de modo que las entradas en *NEGRITA* pueden correr el riesgo de superar el límite de 15 días para un nodo inactivo.
 
 
 
+[[ddp8]]
 === DDP8
 
 
@@ -327,6 +330,7 @@ Las siguientes tablas contienen estimaciones calculadas para la duración del cl
 |===
 
 
+[[ddp16]]
 === DDP16
 
 

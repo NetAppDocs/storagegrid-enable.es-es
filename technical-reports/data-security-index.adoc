@@ -37,6 +37,7 @@ NetApp StorageGRID ofrece funciones de seguridad avanzadas para casos de uso de 
 
 
 
+[[where-to-find-additional-information]]
 == Dónde encontrar información adicional
 
 Si quiere más información sobre el contenido de este documento, consulte los siguientes documentos o sitios web:
@@ -51,6 +52,7 @@ Si quiere más información sobre el contenido de este documento, consulte los s
 
 
 
+[[terms-and-acronyms]]
 == Términos y acrónimos
 
 En esta sección se proporcionan definiciones de la terminología utilizada en el documento.

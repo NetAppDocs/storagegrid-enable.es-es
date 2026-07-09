@@ -16,6 +16,7 @@ Habilita S3 de nivel empresarial al migrar sin problemas el almacenamiento basad
 
 
 
+[[preparing-storagegrid]]
 == Preparando StorageGRID
 
 Continuando con la configuración de esta demostración, crearemos un inquilino, un usuario, un grupo de seguridad, una política de grupo y un bucket.

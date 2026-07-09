@@ -16,6 +16,7 @@ Aquí hay ejemplos de políticas y permisos en StorageGRID S3.
 
 
 
+[[the-structure-of-a-policy]]
 == La estructura de una política
 
 En StorageGRID, las políticas de grupo son las mismas que las políticas de servicio S3 del usuario de AWS (IAM).
@@ -116,6 +117,7 @@ El formato de la política JSON se verá así:
 ----
 
 
+[[using-the-aws-policy-generator]]
 == Uso del generador de políticas de AWS
 
 El generador de políticas de AWS es una gran herramienta para ayudar a obtener el código json con el formato correcto y la información que está tratando de implementar.
@@ -245,10 +247,12 @@ Por ejemplo:
 ----
 
 
+[[group-policies-iam]]
 == Políticas de grupo (IAM)
 
 
 
+[[home-directory-style-bucket-access]]
 === Acceso a bloque de estilo de directorio de casa
 
 Esta política de grupo sólo permitirá a los usuarios acceder a los objetos del depósito denominado nombre de usuario de los usuarios.
@@ -280,6 +284,7 @@ Esta política de grupo sólo permitirá a los usuarios acceder a los objetos de
 ----
 
 
+[[deny-object-lock-bucket-creation]]
 === Denegar creación de bloque de bloqueo de objetos
 
 Esta política de grupo restringirá a los usuarios a crear un bloque con el bloqueo de objeto habilitado en el bloque.
@@ -311,6 +316,7 @@ Esta política no se aplica en la interfaz de usuario de StorageGRID, sino que s
 ----
 
 
+[[object-lock-retention-limit]]
 === Límite de retención de bloqueo de objetos
 
 Esta política de depósito restringirá la duración de la retención de bloqueo de objetos a 10 días o menos
@@ -340,6 +346,7 @@ Esta política de depósito restringirá la duración de la retención de bloque
 ----
 
 
+[[restrict-users-from-deleting-objects-by-versionid]]
 === Restringir a los usuarios la supresión de objetos por versionID
 
 Esta política de grupo restringirá a los usuarios la supresión de objetos versionados por versionID
@@ -365,6 +372,7 @@ Esta política de grupo restringirá a los usuarios la supresión de objetos ver
 ----
 
 
+[[restrict-a-group-to-single-subdirectory-prefix-with-read-only-access]]
 === Restrinja un grupo a un único subdirectorio (prefijo) con acceso de solo lectura
 
 Esta política permite a los miembros del grupo tener acceso de solo lectura a un subdirectorio (prefijo) dentro de un bloque. El nombre del depósito es «study» y el subdirectorio es «study01».
@@ -436,10 +444,12 @@ Esta política permite a los miembros del grupo tener acceso de solo lectura a u
 ----
 
 
+[[bucket-policies]]
 == Políticas de bloques
 
 
 
+[[restrict-bucket-to-single-user-with-read-only-access]]
 === Restringir bloque a un solo usuario con acceso de sólo lectura
 
 Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloque y denys explícitamente acceso a todos los demás usuarios. La agrupación de las declaraciones denegadas en la parte superior de la directiva es una buena práctica para una evaluación más rápida.
@@ -482,6 +492,7 @@ Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloq
 ----
 
 
+[[restrict-a-bucket-to-a-few-users-with-read-only-access]]
 === restringe un bloque a algunos usuarios con acceso de solo lectura.
 
 [source, json]
@@ -531,6 +542,7 @@ Esta directiva permite a un solo usuario tener acceso de sólo lectura a un bloq
 ----
 
 
+[[restrict-user-deletes-of-versioned-objects-in-a-bucket]]
 === Restringir las eliminaciones de objetos versionados por el usuario en un depósito
 
 Esta política de depósito restringirá a un usuario (identificado por el ID de usuario «56622399308951294926») de eliminar objetos versionados por versionID

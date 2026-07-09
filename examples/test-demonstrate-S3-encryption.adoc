@@ -20,12 +20,14 @@ En esta guía se mostrarán los métodos de cifrado de la API de S3.
 
 
 
+[[server-side-encryption-sse]]
 == Cifrado del servidor (SSE)
 
 SSE permite al cliente almacenar un objeto y cifrarlo con una clave única gestionada por StorageGRID. Cuando se solicita el objeto, la clave almacenada en StorageGRID descifra el objeto.
 
 
 
+[[sse-example]]
 === Ejemplo de SSE
 
 * PONGA un objeto con SSE
@@ -63,12 +65,14 @@ aws s3api get-object --bucket <bucket>  --key <file> <file> --endpoint-url https
 
 
 
+[[server-side-encryption-with-customer-provided-keys-sse-c]]
 == Cifrado del servidor con claves proporcionadas por el cliente (SSE-C)
 
 SSE permite al cliente almacenar un objeto y cifrarlo con una clave única proporcionada por el cliente con el objeto. Cuando se solicita el objeto, se debe proporcionar la misma clave para descifrar y devolver el objeto.
 
 
 
+[[sse-c-example]]
 === Ejemplo de SSE-C.
 
 * Con fines de prueba o demostración, puede crear una clave de cifrado
@@ -132,12 +136,14 @@ NOTE: Si no proporciona la clave de cifrado, recibirá un error que indica que s
 
 
 
+[[bucket-server-side-encryption-sse-s3]]
 == Cifrado del servidor de bloques (SSE-S3)
 
 SSE-S3 permite al cliente definir un comportamiento de cifrado predeterminado para todos los objetos almacenados en un bloque. Los objetos se cifran con una clave única gestionada por StorageGRID. Cuando se solicita el objeto, éste se descifra mediante una clave almacenada en StorageGRID.
 
 
 
+[[bucket-sse-s3-example]]
 === Ejemplo de bloque SSE-S3
 
 * Crear un bloque nuevo y establecer una política de cifrado predeterminada

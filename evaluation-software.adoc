@@ -16,6 +16,7 @@ Esta instrucción está destinada al personal de ventas, partners y clientes pot
 
 
 
+[[register-for-an-account]]
 == Regístrese para obtener una cuenta
 
 . Regístrese para obtener una cuenta en https://mysupport.netapp.com/site/user/registration["Sitio de soporte de NetApp"] utilizando su correo electrónico de empresa.
@@ -35,6 +36,7 @@ Esta instrucción está destinada al personal de ventas, partners y clientes pot
 
 
 
+[[download-storagegrid]]
 == Descargue StorageGRID
 
 . Una vez revisado y aprobado su caso de soporte, el soporte de NetApp le notificará a través de correo electrónico que se le ha otorgado acceso a su cuenta.

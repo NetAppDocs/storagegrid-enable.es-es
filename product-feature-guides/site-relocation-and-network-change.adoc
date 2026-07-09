@@ -19,6 +19,7 @@ link:https://docs.netapp.com/us-en/storagegrid-118/maintain/changing-nodes-netwo
 
 
 
+[[considerations-before-site-relocation]]
 == Consideraciones antes de la reubicación del sitio
 
 * El movimiento del sitio debe completarse y todos los nodos en línea en 15 días para evitar la reconstrucción de la base de datos Cassandra.
@@ -34,11 +35,11 @@ image:site-relocation/s3-completed-request.png["S3 Visión de conjunto Grafana g
 
 
 
+[[procedure-to-change-grid-ip-address-before-site-relocation]]
 === Procedimiento para cambiar la dirección IP de la cuadrícula antes de la reubicación del sitio
 
 .Pasos
-. Si se va a utilizar una nueva subred de red de Grid en la nueva ubicación,
-link:https://docs.netapp.com/us-en/storagegrid-118/expand/updating-subnets-for-grid-network.htmll["Agregue la subred a la lista de subred de red de cuadrícula"^]
+. Si en la nueva ubicación se va a utilizar una nueva subred de Grid, link:https://docs.netapp.com/us-en/storagegrid/expand/updating-subnets-for-grid-network.html["Agregue la subred a la lista de subred de red de cuadrícula"^]
 . Inicie sesión en el nodo de administración principal, use CHANGE-ip para hacer el cambio de Grid IP, debe * almacenar en zona intermedia * el cambio antes de cerrar el nodo para su reubicación.
 +
 .. Seleccione 2 y, a continuación, 1 para el cambio de IP de cuadrícula
@@ -75,6 +76,7 @@ image:site-relocation/ip-change-6.png["Continuar"]
 
 
 
+[[appliance-vlan-change]]
 === Cambio de VLAN del dispositivo
 
 En el siguiente procedimiento se asume que tiene acceso remoto a la red de clientes o administradores del dispositivo StorageGRID para realizar el cambio de forma remota.
