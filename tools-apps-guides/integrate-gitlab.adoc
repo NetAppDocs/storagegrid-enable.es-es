@@ -25,6 +25,9 @@ Para las instalaciones de Linux Package, este es un ejemplo de `connection` conf
 
 [source]
 ----
+# Workaround for unexpected EOF errors with strict OpenSSL 3 / external services
+gitlab_rails['env'] = { 'SSL_IGNORE_UNEXPECTED_EOF' => '1' }
+
 # Consolidated object storage configuration
 gitlab_rails['object_store']['enabled'] = true
 gitlab_rails['object_store']['proxy_download'] = true
