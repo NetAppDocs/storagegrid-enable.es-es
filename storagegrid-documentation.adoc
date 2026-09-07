@@ -8,7 +8,7 @@ summary: Puede encontrar la documentación completa de cada versión de StorageG
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

@@ -80,7 +80,7 @@ Estas soluciones se han probado en colaboración con los partners correspondient
 * Vertica 10.x
 * Vidispine
 * Tejido de almacenamiento de Virtalica
-* Weka v3.10 o posterior
+* WEKA v3.10 o posterior
 
 
 

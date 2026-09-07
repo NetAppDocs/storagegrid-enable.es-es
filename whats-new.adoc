@@ -8,7 +8,7 @@ summary: Aquí están los cambios recientes en este sitio.
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
