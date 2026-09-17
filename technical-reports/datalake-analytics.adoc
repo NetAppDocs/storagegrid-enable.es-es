@@ -11,6 +11,9 @@ summary: Este informe trata los análisis de Big Data en StorageGRID.
 :imagesdir: ../media/
 
 
+[role="lead"]
+El análisis de big data es uno de los casos de uso más habituales de los lagos de datos basados en almacenamiento de objetos. Al seleccionar una plataforma de análisis, entender cómo interactúan las tecnologías de data warehouse y lakehouse con el almacenamiento de objetos S3 puede ayudarte a optimizar el rendimiento, la escalabilidad y la eficiencia operativa. StorageGRID ofrece almacenamiento de objetos compatible con S3 para cargas de trabajo de análisis, incluyendo plataformas como Apache Spark, Dremio, Trino y Starburst.
+
 
 
 [[netapp-storagegrid-use-cases]]

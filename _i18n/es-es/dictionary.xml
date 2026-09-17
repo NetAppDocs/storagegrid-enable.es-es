@@ -3457,4 +3457,5 @@ StorageGRID escala el rendimiento usando nodos de mayor rendimiento para los nod
   <block id="8f58f72ce7022a4fdfe329ca00a2e451" category="list-text">Thales CipherTrust Manager 2.21</block>
   <block id="b0ff3f641f5c47519d662ddd7719ff87" category="sidebar">StorageGRID 12.1</block>
   <block id="147e111488eb55eac75032941f65577f" category="list-text">WEKA v3.10 o posterior</block>
+  <block id="7408450fc527ea7cf95ee02a041a379b" category="paragraph">El análisis de big data es uno de los casos de uso más habituales de los lagos de datos basados en almacenamiento de objetos. Al seleccionar una plataforma de análisis, entender cómo interactúan las tecnologías de data warehouse y lakehouse con el almacenamiento de objetos S3 puede ayudarte a optimizar el rendimiento, la escalabilidad y la eficiencia operativa. StorageGRID ofrece almacenamiento de objetos compatible con S3 para cargas de trabajo de análisis, incluyendo plataformas como Apache Spark, Dremio, Trino y Starburst.</block>
 </blocks>
