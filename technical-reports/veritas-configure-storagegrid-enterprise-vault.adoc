@@ -37,8 +37,8 @@ NOTE: Para el ALMACENAMIENTO WORM (Object Lock), se requiere Enterprise Vault ve
 * Se han creado grupos de almacenes de almacén y un almacén de almacén. Si quiere más información, consulte la Guía de administración de veritas Enterprise Vault.
 * Se creó un inquilino de StorageGRID, una clave de acceso, una clave secreta y un bloque.
 * Se creó un extremo de equilibrador de carga de StorageGRID (HTTP o HTTPS).
-* Si utiliza un certificado autofirmado, agregue el certificado de CA autofirmado de StorageGRID a los servidores de Enterprise Vault. Para obtener más información, consulte este https://www.veritas.com/support/en_US/article.100049744["Artículo de la base de conocimientos de veritas"^].
-* Actualice y aplique el archivo de configuración más reciente de Enterprise Vault para habilitar soluciones de almacenamiento compatibles como NetApp StorageGRID. Para obtener más información, consulte este https://www.veritas.com/content/support/en_US/article.100039174["Artículo de la base de conocimientos de veritas"^].
+* Si usas un certificado autofirmado, añade el certificado de CA autofirmado de StorageGRID a los servidores de Enterprise Vault. Para obtener más información, consulta esto https://supportenterprisevault.cloud.com/support-home/kbsearch/article?articleNumber=100049744["Artículo de la base de conocimientos de veritas"^].
+* Actualiza y aplica el archivo de configuración más reciente de Enterprise Vault para habilitar las soluciones de almacenamiento compatibles, como NetApp StorageGRID. Para obtener más información, consulta esto https://supportenterprisevault.cloud.com/support-home/kbsearch/article?articleNumber=100039174["Artículo de la base de conocimientos de veritas"^].
 
 
 

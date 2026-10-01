@@ -31,7 +31,7 @@ Este documento es una descripción general de las numerosas características de 
 
 Este documento pretende ser una hoja de datos de seguridad; no detalla cómo configurar el sistema para admitir las funciones de seguridad enumeradas en él que no están configuradas de manera predeterminada.  El https://docs.netapp.com/us-en/storagegrid/harden/index.html["Guía para el fortalecimiento de StorageGRID"^] está disponible en la página oficial https://docs.netapp.com/us-en/storagegrid/["Documentación de StorageGRID"^] página.
 
-Además de las capacidades descritas en este informe, StorageGRID sigue el https://www.netapp.com/us/legal/vulnerability-response.aspx["Política de notificación y respuesta de vulnerabilidad de seguridad de los productos de NetApp"^]. Las vulnerabilidades informadas se verifican y responden a ellas según el proceso de respuesta a incidentes de seguridad del producto.
+Además de las capacidades descritas en este informe, StorageGRID sigue  https://security.netapp.com/policy/["Política de notificación y respuesta de vulnerabilidad de seguridad de los productos de NetApp"^]. Las vulnerabilidades notificadas se verifican y se atienden de acuerdo con el proceso de respuesta a incidentes de seguridad del producto.
 
 NetApp StorageGRID ofrece funciones de seguridad avanzadas para casos de uso de almacenamiento de objetos empresariales muy exigentes.
 
